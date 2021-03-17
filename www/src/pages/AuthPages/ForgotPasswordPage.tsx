@@ -1,15 +1,17 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import queryString from 'query-string'
 
-import { Typography, TextField, Button } from '@material-ui/core'
-import AuthCard from './AuthCard'
+import { Typography, TextField } from '@material-ui/core'
+import { CtaButton } from '@antlerengineering/components'
 
 import { requestPasswordReset } from 'firebase/callables'
+import AuthCard from './AuthCard'
+import { useSnackContext } from 'samosas'
 
 export default function ForgotPasswordPage() {
   const parsedQuery = queryString.parse(window.location.search)
 
-  //const snack = useSnackContext()
+  const snack = useSnackContext()
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState(parsedQuery.email as string)
   return (
@@ -28,26 +30,24 @@ export default function ForgotPasswordPage() {
         }}
       />
 
-      <Button
-        fullWidth
-        variant="contained"
+      <CtaButton
         onClick={async () => {
           setLoading(true)
           const resp = await requestPasswordReset(email)
           setLoading(false)
 
-          console.log(resp)
-          // snack.open({
-          //   message: resp.data.message,
-          // })
+          snack.open({
+            message:
+              'Please check your email. We’ve sent a link to the email address if the account exists',
+          })
 
           if (resp.data.code && resp.data.code === 'GOOGLE_ACCOUNT') {
             window.location.href = `/googleAuth?email=${email}`
           }
         }}
       >
-        RESET password
-      </Button>
+        Reset Password
+      </CtaButton>
     </AuthCard>
   )
 }

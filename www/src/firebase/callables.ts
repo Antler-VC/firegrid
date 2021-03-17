@@ -6,6 +6,10 @@ export enum CLOUD_FUNCTIONS {
   discourseSSO = 'discourseSSO',
   requestPasswordReset = 'RequestPasswordReset',
   getAuthLinkJWT = 'callable-GetAuthLinkJWT',
+  getAlgoliaKeys = 'callable-GetAlgoliaKeys',
+  RequestSSO = 'callable-RequestSSO',
+  portfolioShortList = 'callable-PortfolioShortListGeneratePDF',
+  ImpersonatorAuth = 'callable-ImpersonatorAuth',
 }
 
 export const cloudFunction = (
@@ -16,12 +20,12 @@ export const cloudFunction = (
 ) => {
   const callable = functions.httpsCallable(name)
   callable(input)
-    .then(result => {
+    .then((result) => {
       if (success) {
         success(result)
       }
     })
-    .catch(error => {
+    .catch((error) => {
       if (fail) {
         fail(error)
       }
@@ -44,3 +48,11 @@ export const requestPasswordReset = (email: String) =>
 
 export const getAuthLinkJWT = (id: string, key: string) =>
   functions.httpsCallable(CLOUD_FUNCTIONS.getAuthLinkJWT)({ id, key })
+export const requestSSO = (targetPath: string) =>
+  functions.httpsCallable(CLOUD_FUNCTIONS.RequestSSO)({ targetPath })
+
+export const portfolioShortList = (portfolioIds: string[]) =>
+  functions.httpsCallable(CLOUD_FUNCTIONS.portfolioShortList)({ portfolioIds })
+
+export const ImpersonatorAuth = (email: string) =>
+  functions.httpsCallable(CLOUD_FUNCTIONS.ImpersonatorAuth)({ email })

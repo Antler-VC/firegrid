@@ -1,11 +1,16 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { Typography, TextField, Button, Divider, Grid } from '@material-ui/core'
+import { requestPasswordReset } from 'firebase/callables'
 import AuthCard from './AuthCard'
+import GoogleButton from './GoogleButton'
 
-import GoogleLogo from 'assets/google-icon.svg'
+import { useSnackContext } from 'samosas'
 import { handleGoogleAuth } from './utils'
-import { auth } from '../../firebase'
+import { auth, analytics } from '../../firebase'
+import { CtaButton } from '@antlerengineering/components'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 
 export default function SignInPage({
   googleAuth = false,
@@ -14,110 +19,146 @@ export default function SignInPage({
   googleAuth?: Boolean
   passwordAuth?: Boolean
 }) {
-  // const snack = useSnackContext()
+  const snack = useSnackContext()
   const [loading, setLoading] = useState(false)
+
+  const [page, setPage] = useState<'main' | 'email'>('main')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const ForgotPasswordButton = () => (
-    <Button
-      onClick={() => {
-        window.location.href = `/forgotPassword?email=${email}`
-      }}
-      size={'small'}
-    >
+
+  const ForgotPasswordButton = (
+    <Button component={Link} to={`/forgotPassword?email=${email}`} size="small">
       Forgot password?
     </Button>
   )
-  const height: number =
-    200 * (googleAuth ? 1 : 0) + 320 * (passwordAuth ? 1 : 0)
-  return (
-    <AuthCard height={height} loading={loading}>
-      {passwordAuth && (
-        <>
-          <Typography variant="overline">sign in with email</Typography>
 
-          <TextField
-            label={'Email Address'}
-            name={'email'}
-            type="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value)
-            }}
-          />
-          <TextField
-            label={'Password'}
-            name={'password'}
-            type="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value)
-            }}
-          />
-          <Grid item>
-            <ForgotPasswordButton />
-          </Grid>
+  if (page === 'email')
+    return (
+      <>
+        <div
+          style={{ width: '100%', maxWidth: 420, margin: '50px auto -34px' }}
+        >
           <Button
+            startIcon={<ArrowBackIosIcon />}
+            color="secondary"
+            onClick={() => setPage('main')}
+          >
+            Sign In Options
+          </Button>
+        </div>
+
+        <AuthCard height={400} loading={loading}>
+          <Grid container spacing={3} wrap="nowrap" direction="column">
+            <Grid item>
+              <TextField
+                fullWidth
+                autoFocus
+                label="Email Address"
+                name="email"
+                type="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value)
+                }}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                fullWidth
+                label="Password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                }}
+              />
+            </Grid>
+
+            <Grid item>{ForgotPasswordButton}</Grid>
+          </Grid>
+
+          <CtaButton
             fullWidth
-            variant="contained"
             onClick={async () => {
               try {
                 setLoading(true)
-                await auth.signInWithEmailAndPassword(email, password)
+                const authUser = await auth.signInWithEmailAndPassword(
+                  email,
+                  password
+                )
+                analytics.logEvent('login', {
+                  method: authUser.credential?.signInMethod,
+                })
                 window.location.replace('/')
+                setLoading(false)
               } catch (error) {
                 setLoading(false)
                 if (error.code === 'auth/wrong-password') {
-                  // snack.open({
-                  //   message: `Incorrect password, or you might be using a Google account`,
-                  //   action: <ForgotPasswordButton />,
-                  // })
+                  snack.open({
+                    message: `Incorrect password, or you might be using a Google account`,
+                    action: ForgotPasswordButton,
+                  })
                 } else {
-                  //  snack.open({ message: error.message })
+                  snack.open({ message: error.message })
                 }
               }
             }}
           >
-            SIGN IN WITH email
-          </Button>
-        </>
-      )}
-      {googleAuth && passwordAuth && <Divider />}
-      {googleAuth && (
-        <>
-          <Typography variant="overline">sign in with Google</Typography>
-          <Button
-            onClick={() => {
-              setLoading(true)
-              handleGoogleAuth(
-                () => {
-                  setLoading(false)
+            Sign in with Email
+          </CtaButton>
+        </AuthCard>
+      </>
+    )
 
-                  window.location.replace('/')
-                },
-                (error) => {
-                  setLoading(false)
+  return (
+    <AuthCard height={520} loading={loading}>
+      <div>
+        <Typography gutterBottom>
+          If you have received an invitation through a Google account, please
+          continue with <b>Sign in with Google</b>.
+        </Typography>
 
-                  //snack.open({ message: error.message })
-                }
-              )
-            }}
-            color="primary"
-            size="large"
-            variant="outlined"
-          >
-            <img
-              src={GoogleLogo}
-              alt=""
-              aria-hidden="true"
-              width={16}
-              height={16}
-              style={{ marginRight: 12 }}
-            />
-            {` `} SIGN IN WITH GOOGLE
-          </Button>
-        </>
-      )}
+        <Typography>
+          Otherwise, you may start using Antler Fusion by clicking{' '}
+          <b>Sign in with Email</b>.
+        </Typography>
+      </div>
+
+      <div>
+        <Typography variant="overline" paragraph>
+          Google Authentication
+        </Typography>
+        <GoogleButton
+          onClick={() => {
+            setLoading(true)
+            handleGoogleAuth(
+              () => {
+                setLoading(false)
+                window.location.replace('/')
+              },
+              (error) => {
+                setLoading(false)
+
+                snack.open({ message: error.message })
+              }
+            )
+          }}
+        />
+      </div>
+
+      <div>
+        <Typography variant="overline" paragraph>
+          Don’t have a Google account?
+        </Typography>
+        <CtaButton
+          onClick={() => setPage('email')}
+          variant="outlined"
+          fullWidth
+        >
+          Sign in with Email
+        </CtaButton>
+      </div>
     </AuthCard>
   )
 }

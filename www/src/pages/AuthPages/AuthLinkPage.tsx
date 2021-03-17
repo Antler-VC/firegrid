@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import queryString from 'query-string'
-
-import { Loading, EmptyState } from '@antlerengineering/components'
-
+import { makeStyles, createStyles, Typography, Card } from '@material-ui/core'
 import { getAuthLinkJWT } from 'firebase/callables'
+import { Loading, EmptyState } from '@antlerengineering/components'
 import { auth } from '../../firebase'
-
 enum ViewStates {
   fetching = 'FETCHING',
   authenticating = 'AUTHENTICATING',
@@ -13,15 +11,21 @@ enum ViewStates {
   invalid = 'INVALID',
 }
 
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    card: { maxWidth: 480, minWidth: 300, width: '100%' },
+  })
+)
+
 export default function AuthLinkPage() {
+  const classes = useStyles()
+
   const [state, setState] = useState(ViewStates.fetching)
 
   const handleAuth = async (id, key) => {
     const resp = await getAuthLinkJWT(id, key)
-    console.log(resp)
     if (resp.data.success) {
       setState(ViewStates.authenticating)
-      console.log(resp.data.jwt)
       await auth.signInWithCustomToken(resp.data.jwt)
 
       window.location.replace(resp.data.redirectPath)

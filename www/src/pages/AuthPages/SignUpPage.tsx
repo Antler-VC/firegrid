@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
-import { Typography, TextField, Button, Divider } from '@material-ui/core'
+import { Typography, TextField, Button, Divider, Grid } from '@material-ui/core'
+import { requestPasswordReset } from 'firebase/callables'
 import AuthCard from './AuthCard'
-
+//import { useSnackContext } from 'samosas'
 import GoogleLogo from 'assets/google-icon.svg'
 import { handleGoogleAuth } from './utils'
 import { auth } from '../../firebase'
@@ -108,14 +109,7 @@ export default function SignUpPage({
             size="large"
             variant="outlined"
           >
-            <img
-              src={GoogleLogo}
-              alt=""
-              aria-hidden="true"
-              width={16}
-              height={16}
-              style={{ marginRight: 12 }}
-            />
+            <img src={GoogleLogo} width={16} style={{ marginRight: 12 }} />
             {` `} SIGN IN WITH GOOGLE
           </Button>
         </>

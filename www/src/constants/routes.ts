@@ -8,7 +8,7 @@ import { CustomClaims } from 'contexts/AppContext'
 export { HomeIcon, ProfileIcon, EventsIcon, SettingsIcon }
 
 export enum routes {
-  tokenAuth = '/tokenAuth',
+  adminAuth = '/adminAuth',
   setLocation = '/setLocation',
   forgotPassword = '/forgotPassword',
   resetPassword = '/resetPassword',

@@ -4,11 +4,11 @@ export const useGlobalStyles = makeStyles((theme) =>
   createStyles({
     '@global': {
       // Overrides <CSSBaseline />
-      html: {
-        // Use subpixel antialiasing
-        WebkitFontSmoothing: 'subpixel-antialiased !important',
-        MozOsxFontSmoothing: 'auto !important',
-      },
+      // html: {
+      //   // Use subpixel antialiasing
+      //   WebkitFontSmoothing: 'subpixel-antialiased !important',
+      //   MozOsxFontSmoothing: 'auto !important',
+      // },
 
       a: {
         fontWeight: 'bold',
