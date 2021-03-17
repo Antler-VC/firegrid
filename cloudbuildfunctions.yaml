@@ -1,0 +1,11 @@
+steps:
+  - name: node:10.15.1
+    entrypoint: yarn
+    args: ["install"]
+    dir: "cloud_functions/functions"
+  - name: node:10.15.1
+    entrypoint: yarn
+    args:
+      - "deploy"
+      - "functions"
+    dir: "cloud_functions/functions"
