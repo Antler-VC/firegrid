@@ -120,7 +120,7 @@ export default function SignInPage({
         </Typography>
 
         <Typography>
-          Otherwise, you may start using Antler Fusion by clicking{' '}
+          Otherwise, you may start using Firegrid by clicking{' '}
           <b>Sign in with Email</b>.
         </Typography>
       </div>

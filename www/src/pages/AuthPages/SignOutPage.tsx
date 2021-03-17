@@ -11,7 +11,7 @@ import { routes } from 'constants/routes'
 
 export default function SignOutPage() {
   useEffect(() => {
-    document.title = 'Sign Out | Antler Fusion'
+    document.title = 'Sign Out | Firegrid'
     auth.signOut()
   }, [])
 
