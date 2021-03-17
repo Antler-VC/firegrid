@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { auth } from '../firebase'
+import { auth } from '../../firebase'
 
 import { Link } from 'react-router-dom'
 import { Button } from '@material-ui/core'
@@ -9,7 +9,7 @@ import CheckIcon from '@material-ui/icons/Check'
 
 import { routes } from 'constants/routes'
 
-export default function SignOutView() {
+export default function SignOutPage() {
   useEffect(() => {
     document.title = 'Sign Out | Hub Kit'
     auth.signOut()

@@ -6,7 +6,7 @@ import AuthCard from './AuthCard'
 
 import { requestPasswordReset } from 'firebase/callables'
 
-export default function ForgotPasswordView() {
+export default function ForgotPasswordPage() {
   const parsedQuery = queryString.parse(window.location.search)
 
   //const snack = useSnackContext()

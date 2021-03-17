@@ -9,9 +9,9 @@ import {
   Typography,
 } from '@material-ui/core'
 
-import { auth } from '../firebase'
-import useRouter from '../hooks/useRouter'
-import { getJWTWithUID } from '../firebase/callables'
+import { auth } from '../../firebase'
+import useRouter from '../../hooks/useRouter'
+import { getJWTWithUID } from '../../firebase/callables'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -35,7 +35,7 @@ const useStyles = makeStyles(() =>
 
 // googleProvider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 
-export default function AuthTokenView() {
+export default function AuthTokenPage() {
   const classes = useStyles()
   const router = useRouter()
   const parsed = queryString.parse(router.location.search)

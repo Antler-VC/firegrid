@@ -23,20 +23,20 @@ import {
 } from '@antlerengineering/components'
 import Navigation from './components/Navigation'
 
-import SignOutView from './views/SignOutView'
-import ForgotPasswordView from 'views/AuthViews/ForgotPasswordView'
-import ResetPasswordView from 'views/AuthViews/ResetPasswordView'
-import AuthLinkView from 'views/AuthViews/AuthLinkView'
-import GoogleAuthView from 'views/AuthViews/GoogleAuthView'
-import SignInView from 'views/AuthViews/SignInView'
-import SignUpView from 'views/AuthViews/SignUpView'
+import SignOutPage from './pages/AuthPages/SignOutPage'
+import ForgotPasswordPage from 'pages/AuthPages/ForgotPasswordPage'
+import ResetPasswordPage from 'pages/AuthPages/ResetPasswordPage'
+import AuthLinkPage from 'pages/AuthPages/AuthLinkPage'
+import GoogleAuthPage from 'pages/AuthPages/GoogleAuthPage'
+import SignInPage from 'pages/AuthPages/SignInPage'
+import SignUpPage from 'pages/AuthPages/SignUpPage'
 
-const AuthTokenView = lazy(
+const AuthTokenPage = lazy(
   () =>
     import(
       /* webpackPrefetch: true */
-      /* webpackChunkName: "TokenView" */
-      './views/TokenView'
+      /* webpackChunkName: "TokenPage" */
+      './pages/AuthPages/AuthTokenPage'
     )
 )
 
@@ -58,43 +58,43 @@ export default function App() {
                 <Route
                   exact
                   path={routes.tokenAuth}
-                  render={() => <AuthTokenView />}
+                  render={() => <AuthTokenPage />}
                 />
                 <Route
                   exact
                   path={routes.authLink}
-                  render={() => <AuthLinkView />}
+                  render={() => <AuthLinkPage />}
                 />
                 <Route
                   exact
                   path={routes.googleAuth}
-                  render={() => <GoogleAuthView />}
+                  render={() => <GoogleAuthPage />}
                 />
                 <Route
                   exact
                   path={routes.forgotPassword}
-                  render={() => <ForgotPasswordView />}
+                  render={() => <ForgotPasswordPage />}
                 />
                 <Route
                   exact
                   path={routes.resetPassword}
-                  render={() => <ResetPasswordView />}
+                  render={() => <ResetPasswordPage />}
                 />
                 <Route
                   exact
                   path={routes.signIn}
-                  render={() => <SignInView passwordAuth />}
+                  render={() => <SignInPage passwordAuth />}
                 />
                 <Route
                   exact
                   path={routes.signUp}
-                  render={() => <SignUpView passwordAuth />}
+                  render={() => <SignUpPage passwordAuth />}
                 />
 
                 <Route
                   exact
                   path={routes.signOut}
-                  render={() => <SignOutView />}
+                  render={() => <SignOutPage />}
                 />
 
                 <PrivateRoute

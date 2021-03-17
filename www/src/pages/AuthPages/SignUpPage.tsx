@@ -7,7 +7,7 @@ import GoogleLogo from 'assets/google-icon.svg'
 import { handleGoogleAuth } from './utils'
 import { auth } from '../../firebase'
 
-export default function SignUpView({
+export default function SignUpPage({
   googleAuth = false,
   passwordAuth = false,
 }: {

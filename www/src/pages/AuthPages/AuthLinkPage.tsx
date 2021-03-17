@@ -13,7 +13,7 @@ enum ViewStates {
   invalid = 'INVALID',
 }
 
-export default function AuthLinkView() {
+export default function AuthLinkPage() {
   const [state, setState] = useState(ViewStates.fetching)
 
   const handleAuth = async (id, key) => {

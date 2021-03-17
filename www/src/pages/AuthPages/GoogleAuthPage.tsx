@@ -7,7 +7,7 @@ import AuthCard from './AuthCard'
 import { handleGoogleAuth } from './utils'
 import GoogleLogo from 'assets/google-icon.svg'
 //import { useSnackContext } from 'contexts/snackContext'
-export default function GoogleAuthView() {
+export default function GoogleAuthPage() {
   //const snack = useSnackContext()
   const parsedQuery = queryString.parse(window.location.search)
 

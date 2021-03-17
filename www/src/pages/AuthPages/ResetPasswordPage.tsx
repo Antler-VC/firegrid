@@ -5,7 +5,7 @@ import { Typography, TextField, Button } from '@material-ui/core'
 import AuthCard from './AuthCard'
 import { auth } from '../../firebase'
 
-export default function ResetPasswordView() {
+export default function ResetPasswordPage() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
