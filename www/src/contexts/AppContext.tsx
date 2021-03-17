@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { auth } from '../firebase'
 import useDoc from '../hooks/useDoc'
-import useCollection from '../hooks/useCollection'
 
-import smartlookClient from 'smartlook-client'
 import { getNavItems, Route } from 'constants/routes'
+import { CLOUD_FUNCTIONS, cloudFunction } from '../firebase/callables'
 
 export type CustomClaims = {
   roles: string[]
@@ -17,7 +16,6 @@ export interface IAppContextInterface {
   updateProfileDoc: (data: any) => void
   userClaims: CustomClaims | undefined
   navItems: Route[]
-  dataStudio: Record<string, any>[]
 }
 
 export const AppContext = React.createContext<IAppContextInterface>({
@@ -27,7 +25,6 @@ export const AppContext = React.createContext<IAppContextInterface>({
   userClaims: undefined,
   updateProfileDoc: () => {},
   navItems: [],
-  dataStudio: [],
 })
 export default AppContext
 
@@ -39,10 +36,7 @@ export function AppProvider({ children }: React.PropsWithChildren<{}>) {
   >()
   const [userClaims, setUserClaims] = useState<CustomClaims>()
   const [profileDocState, profileDocDispatch, updateProfileDoc] = useDoc({})
-  const [
-    algoliaKeys,
-    // setAlgoliaKeys
-  ] = useState<Record<string, string>>({})
+  const [algoliaKeys, setAlgoliaKeys] = useState<Record<string, string>>({})
 
   const [navItems, setNavItems] = useState<Route[]>([])
   useEffect(() => {
@@ -50,7 +44,7 @@ export function AppProvider({ children }: React.PropsWithChildren<{}>) {
     if (JSON.stringify(result) !== JSON.stringify(navItems)) {
       setNavItems(result)
     }
-  }, [userClaims, algoliaKeys, JSON.stringify(navItems)])
+  }, [userClaims, algoliaKeys, navItems])
 
   useEffect(() => {
     auth.onAuthStateChanged(async (auth) => {
@@ -76,68 +70,42 @@ export function AppProvider({ children }: React.PropsWithChildren<{}>) {
     })
   }, [])
 
-  // const handleAlgoliaKeys = data => {
-  //   setAlgoliaKeys(
-  //     data.reduce((acc, curr) => {
-  //       return {
-  //         ...acc,
-  //         ...curr.indices.reduce(
-  //           (accIndices, currIndex) => ({
-  //             ...accIndices,
-  //             [currIndex]: curr.key,
-  //           }),
-  //           {}
-  //         ),
-  //       }
-  //     }, {})
-  //   )
-  // }
-
-  // useEffect(() => {
-  //   if (profileDocState.doc) {
-  //     if (profileDocState.doc && profileDocState.doc.algoliaKeys) {
-  //       handleAlgoliaKeys(profileDocState.doc.algoliaKeys.keys)
-  //     } else {
-  //       console.log(`calling ${CLOUD_FUNCTIONS.getAlgoliaKeys}`)
-  //       cloudFunction(
-  //         CLOUD_FUNCTIONS.getAlgoliaKeys,
-  //         {
-  //           userGroup: profileDocState.path.split('/')[0],
-  //         },
-  //         resp => {
-  //           handleAlgoliaKeys(resp.data.data)
-  //         },
-  //         error => console.log(error)
-  //       )
-  //     }
-  //     console.log({ userDoc: profileDocState.doc })
-  //   }
-  // }, [profileDocState.doc])
+  const handleAlgoliaKeys = (data) => {
+    setAlgoliaKeys(
+      data.reduce((acc, curr) => {
+        return {
+          ...acc,
+          ...curr.indices.reduce(
+            (accIndices, currIndex) => ({
+              ...accIndices,
+              [currIndex]: curr.key,
+            }),
+            {}
+          ),
+        }
+      }, {})
+    )
+  }
 
   useEffect(() => {
     if (profileDocState.doc) {
-      const { firstName, lastName, cohort, email } = profileDocState.doc
-      smartlookClient.identify(profileDocState.doc.id, {
-        name: `${firstName} ${lastName}`,
-        cohort,
-        email,
-      })
+      if (profileDocState.doc && profileDocState.doc.algoliaKeys) {
+        handleAlgoliaKeys(profileDocState.doc.algoliaKeys.keys)
+      } else {
+        console.log(`calling ${CLOUD_FUNCTIONS.getAlgoliaKeys}`)
+        cloudFunction(
+          CLOUD_FUNCTIONS.getAlgoliaKeys,
+          {
+            userGroup: profileDocState.path.split('/')[0],
+          },
+          (resp) => {
+            handleAlgoliaKeys(resp.data.data)
+          },
+          (error) => console.log(error)
+        )
+      }
     }
   }, [profileDocState.doc])
-
-  const [dataStudioState, dataStudioDispatch] = useCollection({})
-  if (
-    userClaims?.roles.includes('TEAM') ||
-    userClaims?.roles.includes('COACH')
-  ) {
-    if (!dataStudioState.path)
-      dataStudioDispatch({
-        path: 'analytics',
-        filters: [{ field: 'showOnFusion', operator: '==', value: true }],
-        disableErrorAlerts: true,
-      })
-  }
-  const dataStudio = dataStudioState.documents
 
   return (
     <AppContext.Provider
@@ -148,7 +116,6 @@ export function AppProvider({ children }: React.PropsWithChildren<{}>) {
         currentUser,
         profileDocState,
         updateProfileDoc,
-        dataStudio,
       }}
     >
       {children}

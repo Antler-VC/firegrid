@@ -1,11 +1,8 @@
-import HomeIcon from '@material-ui/icons/Home'
-import ProfileIcon from '@material-ui/icons/AccountBox'
-import EventsIcon from '@material-ui/icons/Event'
-import SettingsIcon from '@material-ui/icons/Settings'
+import FieldEditorIcon from 'assets/icons/FieldEditor'
 
 import { CustomClaims } from 'contexts/AppContext'
 
-export { HomeIcon, ProfileIcon, EventsIcon, SettingsIcon }
+export { FieldEditorIcon }
 
 export enum routes {
   adminAuth = '/adminAuth',
@@ -20,13 +17,8 @@ export enum routes {
 
   home = '/',
 
-  profile = '/profile',
+  fieldEditor = '/fieldEditor',
 
-  events = '/events',
-  eventsCalendar = '/events/calendar',
-  eventsBookings = '/events/bookings',
-
-  settings = '/settings',
   signOut = '/signOut',
 }
 
@@ -34,7 +26,7 @@ export type Route = {
   label: string
   showLocationInLabel?: boolean
   route: string
-  Icon: typeof HomeIcon
+  Icon: typeof FieldEditorIcon
   children?: {
     label: string
     route: string
@@ -48,51 +40,14 @@ export type RouteFunctionProps = {
 }
 export type RouteFunction = (props: RouteFunctionProps) => Route | null
 
-const home: RouteFunction = () => ({
-  label: 'Home',
-  route: routes.home,
-  Icon: HomeIcon,
-})
-
-const profile: RouteFunction = ({ userClaims }) =>
-  userClaims?.roles?.includes('TEAM')
-    ? {
-        label: 'Profile',
-        route: routes.profile,
-        Icon: ProfileIcon,
-      }
-    : {
-        label: 'Profile',
-        route: routes.profile,
-        Icon: ProfileIcon,
-        disabled: true,
-      }
-
-const events: RouteFunction = () => ({
-  label: 'Events',
-  route: routes.events,
-  Icon: EventsIcon,
-
-  children: [
-    {
-      label: 'Program Calendar',
-      route: routes.eventsCalendar,
-    },
-    {
-      label: 'My Bookings',
-      route: routes.eventsBookings,
-    },
-  ],
-})
-
-const settings: RouteFunction = () => ({
-  label: 'Settings',
-  route: routes.settings,
-  Icon: SettingsIcon,
+const fieldEditor: RouteFunction = () => ({
+  label: 'Field Editor',
+  route: routes.fieldEditor,
+  Icon: FieldEditorIcon,
 })
 
 export const getNavItems = (props: RouteFunctionProps): Route[] => {
-  const ordered = [home, profile, events, settings]
+  const ordered = [fieldEditor]
 
   // Call all route functions
   const result: Route[] = []

@@ -15,7 +15,7 @@ import {
   Avatar,
 } from '@material-ui/core'
 
-import Logo from 'assets/logo.svg'
+import Logo from '@antlerengineering/components/src/assets/antler-logo.svg'
 import NavSidebarItem from './NavSidebarItem'
 import { SIDEBAR_WIDTH } from '@antlerengineering/components'
 import { routes } from 'constants/routes'

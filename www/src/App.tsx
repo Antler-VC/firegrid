@@ -1,5 +1,5 @@
-import { lazy, Suspense, useEffect } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Suspense } from 'react'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 import {
   CssBaseline,
@@ -8,6 +8,7 @@ import {
 import Theme from './Theme'
 
 import { AppProvider } from 'contexts/AppContext'
+import { FiregridProvider } from 'contexts/FiregridContext'
 import CustomBrowserRouter from './utils/CustomBrowserRouter'
 import SegmentPageTracker from 'utils/SegmentPageTracker'
 import PrivateRoute from './utils/PrivateRoute'
@@ -77,19 +78,17 @@ export default function App() {
                   <PrivateRoute
                     exact
                     path={routes.home}
-                    render={() => <Navigation>Home</Navigation>}
+                    render={() => <Redirect to={routes.fieldEditor} />}
                   />
 
                   <PrivateRoute
                     exact
-                    path={routes.profile}
-                    render={() => <Navigation>Profile</Navigation>}
-                  />
-
-                  <PrivateRoute
-                    exact
-                    path={routes.eventsCalendar}
-                    render={() => <Navigation>Events Calendar</Navigation>}
+                    path={routes.fieldEditor}
+                    render={() => (
+                      <Navigation>
+                        <FiregridProvider>FieldEditor</FiregridProvider>
+                      </Navigation>
+                    )}
                   />
 
                   <PrivateRoute
