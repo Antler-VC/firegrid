@@ -31,6 +31,8 @@ import AuthLinkPage from 'pages/AuthPages/AuthLinkPage'
 import GoogleAuthPage from 'pages/AuthPages/GoogleAuthPage'
 import SignInPage from 'pages/AuthPages/SignInPage'
 
+import FieldEditorPage from 'pages/FieldEditorPage'
+
 export default function App() {
   return (
     <ThemeProvider theme={Theme}>
@@ -86,7 +88,9 @@ export default function App() {
                     path={routes.fieldEditor}
                     render={() => (
                       <Navigation>
-                        <FiregridProvider>FieldEditor</FiregridProvider>
+                        <FiregridProvider>
+                          <FieldEditorPage />
+                        </FiregridProvider>
                       </Navigation>
                     )}
                   />
