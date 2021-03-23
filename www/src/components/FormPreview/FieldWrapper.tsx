@@ -139,7 +139,8 @@ export default function FieldWrapper({
             <Friction
               message={{
                 title: 'Are you sure you want to delete this field?',
-                body: 'You cannot recover this field once it has been deleted.',
+                body: 'You cannot undo this action.',
+                confirm: 'Delete Field',
               }}
             >
               <IconButton

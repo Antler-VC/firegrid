@@ -10,6 +10,7 @@ import FormSelectors from 'components/FormSelectors'
 import FormPreview from 'components/FormPreview'
 import FormFields from 'components/FormPreview/FormFields'
 import FormValues from 'components/FormPreview/FormValues'
+import FieldDialog from 'components/FieldModal'
 
 import { FieldEditorIcon } from 'constants/routes'
 
@@ -41,19 +42,23 @@ export default function FieldEditorPage() {
     )
 
   return (
-    <FormPreview fields={selectedForm.fields}>
-      <Layout
-        paperHeader={<FormSelectors />}
-        children={
-          <DndProvider backend={HTML5Backend}>
-            <FormFields
-              fields={selectedForm.fields}
-              customComponents={customComponents}
-            />
-          </DndProvider>
-        }
-        previewContent={<FormValues />}
-      />
-    </FormPreview>
+    <>
+      <FormPreview fields={selectedForm.fields}>
+        <Layout
+          paperHeader={<FormSelectors />}
+          children={
+            <DndProvider backend={HTML5Backend}>
+              <FormFields
+                fields={selectedForm.fields}
+                customComponents={customComponents}
+              />
+            </DndProvider>
+          }
+          previewContent={<FormValues />}
+        />
+      </FormPreview>
+
+      <FieldDialog />
+    </>
   )
 }
