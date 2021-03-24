@@ -1,5 +1,5 @@
-import React from 'react'
-import { useFormContext, useWatch, UseFormMethods } from 'react-hook-form'
+import React, { Suspense } from 'react'
+import { UseFormMethods, useWatch } from 'react-hook-form'
 import _isFunction from 'lodash/isFunction'
 
 import { Grid } from '@material-ui/core'
@@ -10,12 +10,12 @@ import {
   Values,
   CustomComponents,
   CustomComponent,
-  FIELDS,
-  FIELD_COMPONENTS,
-  Heading,
-  Description,
-} from 'form-builder'
-import FieldWrapper from './FieldWrapper'
+} from './utils'
+import { FIELDS, FIELD_COMPONENTS } from './Fields'
+
+import Heading from './Heading'
+import Description from './Description'
+import FieldSkeleton from './FieldSkeleton'
 
 interface ICommonProps {
   register: UseFormMethods['register']
@@ -25,14 +25,10 @@ interface ICommonProps {
   useFormMethods: UseFormMethods
 }
 
-export interface IFormFieldsProps {
+export interface IFormFieldsProps extends ICommonProps {
   fields: Fields
-  customComponents?: CustomComponents
 }
 export default function FormFields({ fields, ...props }: IFormFieldsProps) {
-  const methods = useFormContext()
-  const { register, control, errors } = methods
-
   return (
     <Grid
       container
@@ -44,33 +40,13 @@ export default function FormFields({ fields, ...props }: IFormFieldsProps) {
       {fields.map((field, i) => {
         // Call the field function with values if necessary
         if (_isFunction(field))
-          return (
-            <DependentField
-              key={i}
-              fieldFunction={field}
-              register={register}
-              control={control}
-              errors={errors}
-              useFormMethods={methods}
-              {...props}
-            />
-          )
+          return <DependentField key={i} fieldFunction={field} {...props} />
 
         // Otherwise, just use the field object
         // If we intentionally hide this field due to form values, don’t render
         if (!field) return null
 
-        return (
-          <FieldComponent
-            key={field.name ?? i}
-            {...field}
-            register={register}
-            control={control}
-            errors={errors}
-            useFormMethods={methods}
-            {...props}
-          />
-        )
+        return <FieldComponent key={field.name ?? i} {...field} {...props} />
       })}
     </Grid>
   )
@@ -134,9 +110,9 @@ function FieldComponent({
   }
 
   return (
-    <FieldWrapper key={fieldProps.name!} name={fieldProps.name!} type={type}>
-      {renderedField}
-    </FieldWrapper>
+    <Grid item key={fieldProps.name!} xs={12}>
+      <Suspense fallback={<FieldSkeleton />}>{renderedField}</Suspense>
+    </Grid>
   )
 }
 
@@ -149,8 +125,7 @@ function DependentField({ fieldFunction, ...props }: IDependentField) {
   const field = fieldFunction(values)
 
   // If we intentionally hide this field due to form values, don’t render
-  // TODO:
-  if (!field) return <>FIELD HIDDEN</>
+  if (!field) return null
 
   return <FieldComponent {...field} {...props} />
 }

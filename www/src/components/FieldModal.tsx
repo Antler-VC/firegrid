@@ -2,7 +2,7 @@ import { useState } from 'react'
 import _find from 'lodash/find'
 import { useFiregridContext } from 'contexts/FiregridContext'
 
-import { FormDialog, FIELDS } from '@antlerengineering/form-builder'
+import { FormDialog, FIELDS } from 'form-builder'
 import MultiSelect from '@antlerengineering/multiselect'
 
 import { Field } from 'types/Field'

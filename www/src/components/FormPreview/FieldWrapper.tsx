@@ -11,7 +11,7 @@ import EditIcon from '@material-ui/icons/Edit'
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
 
 import { Friction } from '@antlerengineering/components'
-import { FieldSkeleton } from '@antlerengineering/form-builder'
+import { FieldSkeleton } from 'form-builder'
 import AddButton from './AddButton'
 
 const useStyles = makeStyles((theme) =>

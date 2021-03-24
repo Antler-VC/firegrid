@@ -1,4 +1,4 @@
-import { FieldType } from '@antlerengineering/form-builder'
+import { FieldType } from 'form-builder'
 
 export interface Field extends FieldType {
   section?: string

@@ -6,7 +6,7 @@ import {
   CustomComponents,
   getDefaultValues,
   getValidationSchema,
-} from '@antlerengineering/form-builder'
+} from 'form-builder'
 
 export interface IFormPreviewProps {
   fields: Fields
