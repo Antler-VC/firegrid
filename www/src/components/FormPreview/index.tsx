@@ -1,12 +1,8 @@
 import { useForm, FormProvider } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import {
-  Fields,
-  CustomComponents,
-  getDefaultValues,
-  getValidationSchema,
-} from 'form-builder'
+import { getDefaultValues, getValidationSchema } from 'form-builder'
+import { Fields, CustomComponents } from 'form-builder/types'
 
 export interface IFormPreviewProps {
   fields: Fields

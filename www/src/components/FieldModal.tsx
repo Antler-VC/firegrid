@@ -2,7 +2,7 @@ import { useState } from 'react'
 import _find from 'lodash/find'
 import { useFiregridContext } from 'contexts/FiregridContext'
 
-import { FormDialog, FIELDS } from 'form-builder'
+import { FormDialog, FieldType, FieldConfigs, getFieldProp } from 'form-builder'
 import MultiSelect from '@antlerengineering/multiselect'
 
 import { Field } from 'types/Field'
@@ -31,56 +31,23 @@ export default function FieldModal() {
   return (
     <FormDialog
       open={!!open}
-      onClose={handleClose}
-      // formHeader={
-      //   <MultiSelect
-      //     label="Field Type"
-      //     multiple={false}
-      //     value={newFieldType}
-      //     onChange={setNewFieldType as any}
-      //     options={
-      //       [
-      //         { value: 'Sub-Header', label: 'Sub-Header', type: 'Content' },
-      //         { value: 'Short Text', label: 'Short Text', type: 'Content' },
-      //         // { value: 'Paragraph', label: 'Paragraph', type: 'Content' },
-      //         { value: 'Image', label: 'Image', type: 'Content' },
-      //         { value: 'Short Text', label: 'Short Text', type: 'Input' },
-      //         { value: 'Paragraph', label: 'Paragraph', type: 'Input' },
-      //         { value: 'Rich Text', label: 'Rich Text', type: 'Input' },
-      //         { value: 'Date', label: 'Date', type: 'Input' },
-      //         { value: 'Time & Date', label: 'Time & Date', type: 'Input' },
-      //         { value: 'Checkbox', label: 'Checkbox', type: 'Input' },
-      //         { value: 'Radio', label: 'Radio', type: 'Input' },
-      //         { value: 'Single Select', label: 'Single Select', type: 'Input' },
-      //         { value: 'Multi Select', label: 'Multi Select', type: 'Input' },
-      //         { value: 'Slider', label: 'Slider', type: 'Input' },
-      //         { value: 'List', label: 'List', type: 'Input' },
-      //         { value: 'Color', label: 'Color', type: 'Input' },
-      //         { value: 'File Upload', label: 'File Upload', type: 'Database' },
-      //         {
-      //           value: 'Image Upload',
-      //           label: 'Image Upload',
-      //           type: 'Database',
-      //         },
-      //       ] as any
-      //     }
-      //     AutocompleteProps={{
-      //       groupBy: (option) => option.type,
-      //     }}
-      //     TextFieldProps={{
-      //       helperText:
-      //         'You will not be able to edit the field type after you click “Add”.',
-      //     }}
-      //   />
-      // }
+      // TODO: ENABLE
+      // onClose={handleClose}
+      onClose={() => {}}
       fields={[
         {
-          type: FIELDS.heading,
+          name: '_section_section',
+          type: FieldType.contentSubHeader,
           label: 'Section',
         },
         {
+          type: FieldType.date,
+          name: 'datetest',
+          label: 'Date',
+        },
+        {
           name: 'section',
-          type: FIELDS.multiSelect,
+          type: FieldType.multiSelect,
           label: 'Section (to be implemented)',
           options: [],
           multiple: false,
@@ -88,22 +55,23 @@ export default function FieldModal() {
         },
         {
           name: '_order',
-          type: FIELDS.multiSelect,
+          type: FieldType.multiSelect,
           label: 'Order',
           options: [...selectedForm.fields, null].map((_, i) => nth(i + 1)),
           multiple: false,
         },
         {
           name: 'required',
-          type: FIELDS.checkbox,
+          type: FieldType.checkbox,
           label: 'Make the field required (mandatory)',
         },
         {
           name: 'name',
-          type: 'text',
+          type: FieldType.shortText,
           label: 'Field Key',
-          helperText:
-            'The name of the field in the database, visible only to the Engineering team. You will not be able to edit the field key after you click “Add” to prevent data loss.',
+          assistiveText:
+            'The name of the field in the database, visible only to the Engineering team.\n\nYou will not be able to edit the field key after you click “Add” to prevent data loss.',
+          required: true,
         },
         {
           name: 'type',
@@ -114,34 +82,36 @@ export default function FieldModal() {
           type: 'displayCondition',
         },
         {
-          type: FIELDS.heading,
+          name: '_section_fieldSettings',
+          type: FieldType.contentSubHeader,
           label: 'Field Settings',
         },
         {
           name: 'conditional',
-          type: FIELDS.singleSelect,
+          type: FieldType.singleSelect,
           label: 'Conditional Field?',
           options: [
             { value: '', label: 'None' },
             { value: 'checkbox', label: 'Checkbox' },
-            { value: 'optionbox', label: 'Optionbox' },
+            // { value: 'optionbox', label: 'Optionbox', disabled: true },
           ],
         },
         {
           name: 'label',
-          type: FIELDS.text,
+          type: FieldType.shortText,
           label: 'Label',
         },
         {
           name: 'assistiveText',
-          type: FIELDS.text,
+          type: FieldType.paragraph,
           label: 'Assistive Text',
         },
         {
           name: 'disabled',
-          type: FIELDS.checkbox,
+          type: FieldType.checkbox,
           label: 'Make the field disabled (read-only)',
         },
+        ...(getFieldProp('settings', newFieldType) ?? []),
       ]}
       title={`${typeof open === 'boolean' ? 'Add' : 'Edit'} Field${
         selectedField ? `: ${selectedField.name}` : ''
@@ -159,50 +129,40 @@ export default function FieldModal() {
               multiple={false}
               value={newFieldType}
               onChange={setNewFieldType as any}
-              options={
-                [
-                  { value: 'Sub-Header', label: 'Sub-Header', type: 'Content' },
-                  { value: 'Short Text', label: 'Short Text', type: 'Content' },
-                  // { value: 'Paragraph', label: 'Paragraph', type: 'Content' },
-                  { value: 'Image', label: 'Image', type: 'Content' },
-                  { value: 'Short Text', label: 'Short Text', type: 'Input' },
-                  { value: 'Paragraph', label: 'Paragraph', type: 'Input' },
-                  { value: 'Rich Text', label: 'Rich Text', type: 'Input' },
-                  { value: 'Date', label: 'Date', type: 'Input' },
-                  { value: 'Time & Date', label: 'Time & Date', type: 'Input' },
-                  { value: 'Checkbox', label: 'Checkbox', type: 'Input' },
-                  { value: 'Radio', label: 'Radio', type: 'Input' },
-                  {
-                    value: 'Single Select',
-                    label: 'Single Select',
-                    type: 'Input',
-                  },
-                  {
-                    value: 'Multi Select',
-                    label: 'Multi Select',
-                    type: 'Input',
-                  },
-                  { value: 'Slider', label: 'Slider', type: 'Input' },
-                  { value: 'List', label: 'List', type: 'Input' },
-                  { value: 'Color', label: 'Color', type: 'Input' },
-                  {
-                    value: 'File Upload',
-                    label: 'File Upload',
-                    type: 'Database',
-                  },
-                  {
-                    value: 'Image Upload',
-                    label: 'Image Upload',
-                    type: 'Database',
-                  },
-                ] as any
-              }
-              AutocompleteProps={{
-                groupBy: (option) => option.type,
-              }}
+              options={FieldConfigs.map((config) => ({
+                value: config.type,
+                label: config.name,
+                group: config.group,
+                icon: config.icon,
+              }))}
+              AutocompleteProps={{ groupBy: (option) => option.group }}
+              itemRenderer={(option: any) => (
+                <>
+                  <span
+                    style={{
+                      marginRight: 16,
+                      display: 'flex',
+                      color: '#999',
+                    }}
+                  >
+                    {option.icon}
+                  </span>
+                  {option.label}
+                </>
+              )}
               TextFieldProps={{
                 helperText:
-                  'You will not be able to edit the field type after you click “Add”.',
+                  'You will not be able to edit the field type after you click “Add” to prevent data loss.',
+                SelectProps: {
+                  renderValue: () =>
+                    newFieldType ? (
+                      <>
+                        {getFieldProp('group', newFieldType)}
+                        &nbsp;–&nbsp;
+                        {getFieldProp('name', newFieldType)}
+                      </>
+                    ) : null,
+                },
               }}
             />
           ),

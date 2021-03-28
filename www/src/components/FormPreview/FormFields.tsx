@@ -6,15 +6,11 @@ import { Grid } from '@material-ui/core'
 
 import {
   Fields,
-  FieldType,
+  Field,
   Values,
   CustomComponents,
   CustomComponent,
-  FIELDS,
-  FIELD_COMPONENTS,
-  Heading,
-  Description,
-} from 'form-builder'
+} from 'form-builder/types'
 import FieldWrapper from './FieldWrapper'
 
 interface ICommonProps {
@@ -47,6 +43,7 @@ export default function FormFields({ fields, ...props }: IFormFieldsProps) {
           return (
             <DependentField
               key={i}
+              index={i}
               fieldFunction={field}
               register={register}
               control={control}
@@ -63,6 +60,7 @@ export default function FormFields({ fields, ...props }: IFormFieldsProps) {
         return (
           <FieldComponent
             key={field.name ?? i}
+            index={i}
             {...field}
             register={register}
             control={control}
@@ -76,7 +74,9 @@ export default function FormFields({ fields, ...props }: IFormFieldsProps) {
   )
 }
 
-interface IFieldComponentProps extends FieldType, ICommonProps {}
+interface IFieldComponentProps extends Field, ICommonProps {
+  index: number
+}
 function FieldComponent({
   register,
   control,
@@ -88,13 +88,13 @@ function FieldComponent({
   let renderedField: React.ReactNode = null
 
   switch (type) {
-    case FIELDS.heading:
-      renderedField = <Heading {...fieldProps} />
-      break
+    // case FieldType.heading:
+    //   renderedField = <Heading {...fieldProps} />
+    //   break
 
-    case FIELDS.description:
-      renderedField = <Description {...fieldProps} />
-      break
+    // case FieldType.description:
+    //   renderedField = <Description {...fieldProps} />
+    //   break
 
     case undefined:
       console.error('undefined field type')
@@ -111,13 +111,15 @@ function FieldComponent({
       ) {
         fieldComponent = customComponents[type].component
       }
+      // TODO:
       // If not found in customComponents, try to get it from the built-in components
-      else if (type in FIELD_COMPONENTS) {
-        fieldComponent = FIELD_COMPONENTS[type as FIELDS]
-      }
+      // else if (type in FIELD_COMPONENTS) {
+      //   fieldComponent = FIELD_COMPONENTS[type as FieldType]
+      // }
       // If not found in either, don’t display anything
       else {
-        console.error(`No matching field component for \`${type}\``)
+        // TODO: ENABLE
+        // console.error(`No matching field component for \`${type}\``)
         return null
       }
 
@@ -127,7 +129,6 @@ function FieldComponent({
         ...fieldProps,
         name: fieldProps.name!,
         label: fieldProps.label!,
-        register,
         control,
         errorMessage: errors[fieldProps.name!]?.message,
       })
@@ -141,7 +142,8 @@ function FieldComponent({
 }
 
 interface IDependentField extends ICommonProps {
-  fieldFunction: (values: Values) => FieldType | null
+  fieldFunction: (values: Values) => Field | null
+  index: number
 }
 function DependentField({ fieldFunction, ...props }: IDependentField) {
   const values = useWatch({ control: props.control })

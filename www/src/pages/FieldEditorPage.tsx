@@ -43,13 +43,15 @@ export default function FieldEditorPage() {
 
   return (
     <>
-      <FormPreview fields={selectedForm.fields}>
+      {/* TODO: REMOVE ANY */}
+      <FormPreview fields={selectedForm.fields as any}>
         <Layout
           paperHeader={<FormSelectors />}
           children={
             <DndProvider backend={HTML5Backend}>
               <FormFields
-                fields={selectedForm.fields}
+                // TODO: REMOVE ANY
+                fields={selectedForm.fields as any}
                 customComponents={customComponents}
               />
             </DndProvider>
