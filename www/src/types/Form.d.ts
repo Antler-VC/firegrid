@@ -1,4 +1,4 @@
-import { Field } from './Field';
+import { Field } from 'form-builder';
 
 export interface Form {
   id: string;
