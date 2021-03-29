@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
-import queryString from 'query-string'
+import React, { useState } from 'react';
+import queryString from 'query-string';
 
-import { Typography, Button } from '@material-ui/core'
+import { Typography, Button } from '@material-ui/core';
 
-import AuthCard from './AuthCard'
-import GoogleButton from './GoogleButton'
+import AuthCard from './AuthCard';
+import GoogleButton from './GoogleButton';
 
-import { handleGoogleAuth } from './utils'
-import { useSnackContext } from 'samosas'
+import { handleGoogleAuth } from './utils';
+import { useSnackContext } from 'samosas';
 export default function GoogleAuthPage() {
-  const [loading, setLoading] = useState(false)
-  const snack = useSnackContext()
-  const parsedQuery = queryString.parse(window.location.search)
+  const [loading, setLoading] = useState(false);
+  const snack = useSnackContext();
+  const parsedQuery = queryString.parse(window.location.search);
 
   return (
     <AuthCard height={400} loading={loading}>
@@ -23,20 +23,20 @@ export default function GoogleAuthPage() {
 
       <GoogleButton
         onClick={() => {
-          setLoading(true)
+          setLoading(true);
           handleGoogleAuth(
             () => {
-              setLoading(false)
-              window.location.replace('/')
+              setLoading(false);
+              window.location.replace('/');
             },
             (error: Error) => {
-              setLoading(false)
-              snack.open({ message: error.message })
+              setLoading(false);
+              snack.open({ message: error.message });
             },
             parsedQuery.email as string
-          )
+          );
         }}
       />
     </AuthCard>
-  )
+  );
 }

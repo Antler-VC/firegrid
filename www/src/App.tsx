@@ -1,37 +1,37 @@
-import { Suspense } from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Suspense } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import {
   CssBaseline,
   MuiThemeProvider as ThemeProvider,
-} from '@material-ui/core'
-import Theme from './Theme'
+} from '@material-ui/core';
+import Theme from './Theme';
 
-import { AppProvider } from 'contexts/AppContext'
-import { FiregridProvider } from 'contexts/FiregridContext'
-import CustomBrowserRouter from './utils/CustomBrowserRouter'
-import SegmentPageTracker from 'utils/SegmentPageTracker'
-import PrivateRoute from './utils/PrivateRoute'
-import { SnackProvider } from 'samosas'
+import { AppProvider } from 'contexts/AppContext';
+import { FiregridProvider } from 'contexts/FiregridContext';
+import CustomBrowserRouter from './utils/CustomBrowserRouter';
+import SegmentPageTracker from 'utils/SegmentPageTracker';
+import PrivateRoute from './utils/PrivateRoute';
+import { SnackProvider } from 'samosas';
 
-import GlobalStyles from './utils/GlobalStyles'
-import { routes } from './constants/routes'
+import GlobalStyles from './utils/GlobalStyles';
+import { routes } from './constants/routes';
 
 import {
   ErrorBoundary,
   Loading,
   EmptyState,
-} from '@antlerengineering/components'
-import Navigation from './components/Navigation'
+} from '@antlerengineering/components';
+import Navigation from './components/Navigation';
 
-import SignOutPage from './pages/AuthPages/SignOutPage'
-import ForgotPasswordPage from 'pages/AuthPages/ForgotPasswordPage'
-import AdminAuthPage from 'pages/AuthPages/AdminAuthPage'
-import AuthLinkPage from 'pages/AuthPages/AuthLinkPage'
-import GoogleAuthPage from 'pages/AuthPages/GoogleAuthPage'
-import SignInPage from 'pages/AuthPages/SignInPage'
+import SignOutPage from './pages/AuthPages/SignOutPage';
+import ForgotPasswordPage from 'pages/AuthPages/ForgotPasswordPage';
+import AdminAuthPage from 'pages/AuthPages/AdminAuthPage';
+import AuthLinkPage from 'pages/AuthPages/AuthLinkPage';
+import GoogleAuthPage from 'pages/AuthPages/GoogleAuthPage';
+import SignInPage from 'pages/AuthPages/SignInPage';
 
-import FieldEditorPage from 'pages/FieldEditorPage'
+import FieldEditorPage from 'pages/FieldEditorPage';
 
 export default function App() {
   return (
@@ -109,5 +109,5 @@ export default function App() {
         </AppProvider>
       </ErrorBoundary>
     </ThemeProvider>
-  )
+  );
 }

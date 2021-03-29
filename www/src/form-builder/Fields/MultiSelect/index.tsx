@@ -1,19 +1,19 @@
-import React, { lazy } from 'react'
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import React, { lazy } from 'react';
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
-import SvgIcon from '@material-ui/core/SvgIcon'
-import { mdiOrderBoolAscendingVariant } from '@mdi/js'
+import SvgIcon from '@material-ui/core/SvgIcon';
+import { mdiOrderBoolAscendingVariant } from '@mdi/js';
 
-import Settings from './MultiSelectSettings'
+import Settings from './MultiSelectSettings';
 const Component = lazy(
   () =>
     import(
       './MultiSelectComponent'
     ) /* webpackChunkName: FormBuilder-MultiSelect */
-)
+);
 
-export const config: IFieldConfig = {
+export const MultiSelectConfig: IFieldConfig = {
   type: FieldType.multiSelect,
   name: 'Multi Select',
   group: 'input',
@@ -25,5 +25,5 @@ export const config: IFieldConfig = {
   defaultValue: [],
   component: Component as any,
   settings: Settings,
-}
-export default config
+};
+export default MultiSelectConfig;

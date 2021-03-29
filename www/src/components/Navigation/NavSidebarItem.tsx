@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import clsx from 'clsx'
-import { Link } from 'react-router-dom'
-import _find from 'lodash/find'
+import React, { useState, useEffect } from 'react';
+import clsx from 'clsx';
+import { Link } from 'react-router-dom';
+import _find from 'lodash/find';
 
 import {
   makeStyles,
@@ -11,10 +11,10 @@ import {
   ListItemIcon,
   ListItemText,
   Collapse,
-} from '@material-ui/core'
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+} from '@material-ui/core';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
-import useRouter from '../../hooks/useRouter'
+import useRouter from '../../hooks/useRouter';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -51,31 +51,31 @@ const useStyles = makeStyles((theme) =>
       color: 'inherit',
     },
   })
-)
+);
 
 export interface INavSidebarItemProps {
-  item: any
+  item: any;
 }
 
 export default function NavSidebarItem({ item }: INavSidebarItemProps) {
-  const classes = useStyles()
-  const router = useRouter()
+  const classes = useStyles();
+  const router = useRouter();
 
   const [openChildren, setOpenChildren] = useState(
     '/' + router.location.pathname.toLowerCase().split('/')[1] ===
       item.route.toLowerCase()
-  )
+  );
 
   useEffect(() => {
-    if (!Array.isArray(item.children) || item.children.length === 0) return
+    if (!Array.isArray(item.children) || item.children.length === 0) return;
     const childItem = _find(
       item.children,
       (item) =>
         item.route.toLowerCase() === router.location.pathname.toLowerCase()
-    )
+    );
     if (!!childItem)
-      document.title = `${childItem.label} | ${item.label} | Hub Kit`
-  }, [router.location.pathname, item])
+      document.title = `${childItem.label} | ${item.label} | Hub Kit`;
+  }, [router.location.pathname, item]);
 
   if (!Array.isArray(item.children) || item.children.length === 0)
     return (
@@ -106,7 +106,7 @@ export default function NavSidebarItem({ item }: INavSidebarItemProps) {
           {item.children && <ArrowDropDownIcon />}
         </ListItem>
       </li>
-    )
+    );
 
   return (
     <li>
@@ -165,5 +165,5 @@ export default function NavSidebarItem({ item }: INavSidebarItemProps) {
         </List>
       </Collapse>
     </li>
-  )
+  );
 }

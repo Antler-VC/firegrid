@@ -1,16 +1,16 @@
-import React, { lazy } from 'react'
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import React, { lazy } from 'react';
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
-import SvgIcon from '@material-ui/core/SvgIcon'
-import { mdiRadioboxMarked } from '@mdi/js'
+import SvgIcon from '@material-ui/core/SvgIcon';
+import { mdiRadioboxMarked } from '@mdi/js';
 
-import Settings from './RadioSettings'
+import Settings from './RadioSettings';
 const Component = lazy(
   () => import('./RadioComponent') /* webpackChunkName: FormBuilder-Radio */
-)
+);
 
-export const config: IFieldConfig = {
+export const RadioConfig: IFieldConfig = {
   type: FieldType.radio,
   name: 'Radio',
   group: 'input',
@@ -22,5 +22,5 @@ export const config: IFieldConfig = {
   defaultValue: '',
   component: Component as any,
   settings: Settings,
-}
-export default config
+};
+export default RadioConfig;

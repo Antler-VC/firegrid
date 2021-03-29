@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-import { Typography, TextField } from '@material-ui/core'
-import { CtaButton } from '@antlerengineering/components'
+import { Typography, TextField } from '@material-ui/core';
+import { CtaButton } from '@antlerengineering/components';
 
-import AuthCard from './AuthCard'
-import { auth } from '../../firebase'
-import { useSnackContext } from 'samosas'
+import AuthCard from './AuthCard';
+import { auth } from '../../firebase';
+import { useSnackContext } from 'samosas';
 
 export default function ResetPasswordPage() {
-  const snack = useSnackContext()
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [loading, setLoading] = useState(false)
+  const snack = useSnackContext();
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   return (
     <AuthCard height={420} loading={loading}>
       <Typography variant="overline">RESET PASSWORD</Typography>
@@ -24,7 +24,7 @@ export default function ResetPasswordPage() {
         type="password"
         value={password}
         onChange={(e) => {
-          setPassword(e.target.value)
+          setPassword(e.target.value);
         }}
       />
       <TextField
@@ -33,7 +33,7 @@ export default function ResetPasswordPage() {
         name={'confirmPassword'}
         value={confirmPassword}
         onChange={(e) => {
-          setConfirmPassword(e.target.value)
+          setConfirmPassword(e.target.value);
         }}
       />
 
@@ -42,16 +42,16 @@ export default function ResetPasswordPage() {
           if (auth.currentUser) {
             try {
               if (password === confirmPassword) {
-                setLoading(true)
-                await auth.currentUser.updatePassword(password)
-                setLoading(false)
-                window.location.replace('/')
+                setLoading(true);
+                await auth.currentUser.updatePassword(password);
+                setLoading(false);
+                window.location.replace('/');
               } else {
-                snack.open({ message: 'Passwords don’t match' })
+                snack.open({ message: 'Passwords don’t match' });
               }
             } catch (error) {
-              setLoading(false)
-              snack.open({ message: error.message })
+              setLoading(false);
+              snack.open({ message: error.message });
             }
           }
         }}
@@ -59,5 +59,5 @@ export default function ResetPasswordPage() {
         Reset Password
       </CtaButton>
     </AuthCard>
-  )
+  );
 }

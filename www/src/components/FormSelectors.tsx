@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import _uniq from 'lodash/uniq'
-import { useFiregridContext } from 'contexts/FiregridContext'
+import { useState } from 'react';
+import _uniq from 'lodash/uniq';
+import { useFiregridContext } from 'contexts/FiregridContext';
 
-import { Grid } from '@material-ui/core'
-import MultiSelect from '@antlerengineering/multiselect'
+import { Grid } from '@material-ui/core';
+import MultiSelect from '@antlerengineering/multiselect';
 
 export default function FormSelectors() {
-  const { forms, selectedForm, setSelectedFormId } = useFiregridContext()
+  const { forms, selectedForm, setSelectedFormId } = useFiregridContext();
 
-  const [selectedApp, setSelectedApp] = useState(selectedForm?.app ?? '')
+  const [selectedApp, setSelectedApp] = useState(selectedForm?.app ?? '');
 
   return (
     <Grid
@@ -43,5 +43,5 @@ export default function FormSelectors() {
         />
       </Grid>
     </Grid>
-  )
+  );
 }

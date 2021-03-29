@@ -1,58 +1,58 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
-import { Typography, Button, Divider, TextField } from '@material-ui/core'
+import { Typography, Button, Divider, TextField } from '@material-ui/core';
 
-import AuthCard from './AuthCard'
-import { handleGoogleAuth, signOut } from './utils'
-import GoogleLogo from 'assets/google-icon.svg'
-import { useSnackContext } from 'samosas'
-import useCollection from 'hooks/useCollection'
-import MultiSelect from '@antlerengineering/multiselect'
-import { getJWTWithUID, ImpersonatorAuth } from 'firebase/callables'
-import { auth } from '../../firebase'
+import AuthCard from './AuthCard';
+import { handleGoogleAuth, signOut } from './utils';
+import GoogleLogo from 'assets/google-icon.svg';
+import { useSnackContext } from 'samosas';
+import useCollection from 'hooks/useCollection';
+import MultiSelect from '@antlerengineering/multiselect';
+import { getJWTWithUID, ImpersonatorAuth } from 'firebase/callables';
+import { auth } from '../../firebase';
 
 export default function AdminAuthPage() {
   useEffect(() => {
     //sign out user on initial load
-    signOut()
-  }, [])
-  const [loading, setLoading] = useState(false)
-  const snack = useSnackContext()
-  const [adminUser, setAdminUser] = useState()
+    signOut();
+  }, []);
+  const [loading, setLoading] = useState(false);
+  const snack = useSnackContext();
+  const [adminUser, setAdminUser] = useState();
 
-  const [employeesCollection, employeesDispatch] = useCollection({})
-  const [coachesCollection, coachesDispatch] = useCollection({})
+  const [employeesCollection, employeesDispatch] = useCollection({});
+  const [coachesCollection, coachesDispatch] = useCollection({});
   useEffect(() => {
     if (adminUser) {
-      employeesDispatch({ path: 'employees' })
-      coachesDispatch({ path: 'coaches' })
+      employeesDispatch({ path: 'employees' });
+      coachesDispatch({ path: 'coaches' });
     }
-  }, [adminUser])
+  }, [adminUser]);
 
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState('');
   const handleEmailAuth = async (email: string) => {
-    setLoading(true)
-    const resp = await ImpersonatorAuth(email)
-    setLoading(false)
+    setLoading(true);
+    const resp = await ImpersonatorAuth(email);
+    setLoading(false);
     if (resp.data.success) {
-      snack.open({ message: resp.data.message })
+      snack.open({ message: resp.data.message });
 
-      await auth.signInWithCustomToken(resp.data.jwt)
-      window.location.href = '/'
+      await auth.signInWithCustomToken(resp.data.jwt);
+      window.location.href = '/';
     }
-  }
+  };
 
   const handleAuth = async (uid: string) => {
-    setLoading(true)
-    const resp = await getJWTWithUID(uid)
-    setLoading(false)
+    setLoading(true);
+    const resp = await getJWTWithUID(uid);
+    setLoading(false);
     if (resp.data.success) {
-      snack.open({ message: resp.data.message })
+      snack.open({ message: resp.data.message });
 
-      await auth.signInWithCustomToken(resp.data.jwt)
-      window.location.href = '/profile'
+      await auth.signInWithCustomToken(resp.data.jwt);
+      window.location.href = '/profile';
     }
-  }
+  };
 
   return (
     <AuthCard height={400} loading={loading}>
@@ -67,16 +67,16 @@ export default function AdminAuthPage() {
               handleGoogleAuth(
                 (authUser, roles) => {
                   if (roles.includes('ADMIN') || roles.includes('OPS')) {
-                    setAdminUser(authUser.user)
+                    setAdminUser(authUser.user);
                   } else {
-                    snack.open({ message: 'this account is not an admin' })
-                    signOut()
+                    snack.open({ message: 'this account is not an admin' });
+                    signOut();
                   }
                 },
                 (error: Error) => {
-                  snack.open({ message: error.message })
+                  snack.open({ message: error.message });
                 }
-              )
+              );
             }}
             color="primary"
             size="large"
@@ -99,7 +99,7 @@ export default function AdminAuthPage() {
               multiple={false}
               value={''}
               onChange={(v) => {
-                handleAuth(v as string)
+                handleAuth(v as string);
                 //setAlgoliaKey(v as string)
               }}
               options={employeesCollection.documents
@@ -117,7 +117,7 @@ export default function AdminAuthPage() {
               multiple={false}
               value={''}
               onChange={(v) => {
-                handleAuth(v as string)
+                handleAuth(v as string);
                 //setAlgoliaKey(v as string)
               }}
               options={coachesCollection.documents
@@ -147,5 +147,5 @@ export default function AdminAuthPage() {
         </>
       )}
     </AuthCard>
-  )
+  );
 }

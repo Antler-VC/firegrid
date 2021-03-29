@@ -1,5 +1,5 @@
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
 export const ListSettings: IFieldConfig['settings'] = [
   {
@@ -14,6 +14,6 @@ export const ListSettings: IFieldConfig['settings'] = [
     label: 'Item Label',
     defaultValue: '',
   },
-]
+];
 
-export default ListSettings
+export default ListSettings;

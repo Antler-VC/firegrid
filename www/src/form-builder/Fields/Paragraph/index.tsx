@@ -1,17 +1,17 @@
-import React, { lazy } from 'react'
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import React, { lazy } from 'react';
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
-import SvgIcon from '@material-ui/core/SvgIcon'
-import { mdiFormTextarea } from '@mdi/js'
+import SvgIcon from '@material-ui/core/SvgIcon';
+import { mdiFormTextarea } from '@mdi/js';
 
-import Settings from './ParagraphSettings'
+import Settings from './ParagraphSettings';
 const Component = lazy(
   () =>
     import('./ParagraphComponent') /* webpackChunkName: FormBuilder-Paragraph */
-)
+);
 
-export const config: IFieldConfig = {
+export const ParagraphConfig: IFieldConfig = {
   type: FieldType.paragraph,
   name: 'Paragraph',
   group: 'input',
@@ -23,5 +23,5 @@ export const config: IFieldConfig = {
   defaultValue: '',
   component: Component,
   settings: Settings,
-}
-export default config
+};
+export default ParagraphConfig;

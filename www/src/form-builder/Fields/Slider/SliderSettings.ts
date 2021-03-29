@@ -1,5 +1,5 @@
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
 export const SliderSettings: IFieldConfig['settings'] = [
   {
@@ -59,6 +59,6 @@ export const SliderSettings: IFieldConfig['settings'] = [
     gridCols: 6,
     format: 'number',
   },
-]
+];
 
-export default SliderSettings
+export default SliderSettings;

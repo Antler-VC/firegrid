@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import clsx from 'clsx'
+import { Link } from 'react-router-dom';
+import clsx from 'clsx';
 
 import {
   makeStyles,
@@ -13,13 +13,13 @@ import {
   ListItemAvatar,
   ListItemText,
   Avatar,
-} from '@material-ui/core'
+} from '@material-ui/core';
 
-import Logo from '@antlerengineering/components/src/assets/antler-logo.svg'
-import NavSidebarItem from './NavSidebarItem'
-import { SIDEBAR_WIDTH } from '@antlerengineering/components'
-import { routes } from 'constants/routes'
-import { useAppContext } from 'contexts/AppContext'
+import Logo from '@antlerengineering/components/src/assets/antler-logo.svg';
+import NavSidebarItem from './NavSidebarItem';
+import { SIDEBAR_WIDTH } from '@antlerengineering/components';
+import { routes } from 'constants/routes';
+import { useAppContext } from 'contexts/AppContext';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -57,12 +57,12 @@ const useStyles = makeStyles((theme) =>
       margin: theme.spacing(-2, 0, 0, -1),
     },
   })
-)
+);
 
 export interface INavSidebarProps {
-  sidebarCollapsed: boolean
-  open: boolean
-  onCloseDrawer: () => void
+  sidebarCollapsed: boolean;
+  open: boolean;
+  onCloseDrawer: () => void;
 }
 
 export default function NavSidebar({
@@ -70,9 +70,9 @@ export default function NavSidebar({
   open,
   onCloseDrawer,
 }: INavSidebarProps) {
-  const classes = useStyles()
+  const classes = useStyles();
 
-  const { currentUser, navItems } = useAppContext()
+  const { currentUser, navItems } = useAppContext();
 
   return (
     <Drawer
@@ -156,5 +156,5 @@ export default function NavSidebar({
         </Grid>
       </Grid>
     </Drawer>
-  )
+  );
 }

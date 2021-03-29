@@ -3,9 +3,9 @@ import {
   createStyles,
   Button,
   ButtonProps,
-} from '@material-ui/core'
-import AddCircleIcon from '@material-ui/icons/AddCircle'
-import AddBoxIcon from '@material-ui/icons/AddBox'
+} from '@material-ui/core';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -46,17 +46,17 @@ const useStyles = makeStyles((theme) =>
       },
     },
   })
-)
+);
 
 export interface IAddButtonProps extends Partial<ButtonProps> {
-  addType?: 'field' | 'section'
+  addType?: 'field' | 'section';
 }
 
 export default function AddButton({
   addType = 'field',
   ...props
 }: IAddButtonProps) {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <Button
@@ -67,5 +67,5 @@ export default function AddButton({
     >
       <span className={classes.label}>Add {addType}</span>
     </Button>
-  )
+  );
 }

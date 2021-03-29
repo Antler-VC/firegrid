@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import { Controller } from 'react-hook-form'
-import { IFieldComponentProps } from '../../types'
+import React, { useState } from 'react';
+import { Controller } from 'react-hook-form';
+import { IFieldComponentProps } from '../../types';
 
-import 'tinymce/tinymce.min.js'
-import 'tinymce/icons/default'
-import 'tinymce/themes/silver'
-import 'tinymce/skins/ui/oxide/skin.min.css'
-import 'tinymce/skins/ui/oxide/content.min.css'
-import 'tinymce/plugins/autoresize'
-import 'tinymce/plugins/lists'
-import 'tinymce/plugins/link'
-import 'tinymce/plugins/paste'
-import 'tinymce/plugins/help'
-import 'tinymce/plugins/code'
-import { Editor, IAllProps } from '@tinymce/tinymce-react'
-import { stripHtml } from 'string-strip-html'
+import 'tinymce/tinymce.min.js';
+import 'tinymce/icons/default';
+import 'tinymce/themes/silver';
+import 'tinymce/skins/ui/oxide/skin.min.css';
+import 'tinymce/skins/ui/oxide/content.min.css';
+import 'tinymce/plugins/autoresize';
+import 'tinymce/plugins/lists';
+import 'tinymce/plugins/link';
+import 'tinymce/plugins/paste';
+import 'tinymce/plugins/help';
+import 'tinymce/plugins/code';
+import { Editor, IAllProps } from '@tinymce/tinymce-react';
+import { stripHtml } from 'string-strip-html';
 
 import {
   makeStyles,
@@ -22,12 +22,12 @@ import {
   FormControl,
   Grid,
   FormHelperText,
-} from '@material-ui/core'
-import clsx from 'clsx'
+} from '@material-ui/core';
+import clsx from 'clsx';
 
-import FieldLabel from '../../FieldLabel'
-import FieldErrorMessage from '../../FieldErrorMessage'
-import FieldAssistiveText from '../../FieldAssistiveText'
+import FieldLabel from '../../FieldLabel';
+import FieldErrorMessage from '../../FieldErrorMessage';
+import FieldAssistiveText from '../../FieldAssistiveText';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -110,13 +110,13 @@ const useStyles = makeStyles((theme) =>
       },
     },
   })
-)
+);
 
 export interface IRichTextProps
   extends IFieldComponentProps,
     Partial<IAllProps> {
-  placeholder?: string
-  maxCharacters?: number
+  placeholder?: string;
+  maxCharacters?: number;
 }
 
 export default function RichText({
@@ -132,15 +132,15 @@ export default function RichText({
   maxCharacters,
   ...props
 }: IRichTextProps) {
-  const classes = useStyles()
-  const [focus, setFocus] = useState(false)
+  const classes = useStyles();
+  const [focus, setFocus] = useState(false);
 
   return (
     <Controller
       control={control}
       name={name}
       render={({ onChange, onBlur, value }) => {
-        const length = stripHtml(value).result.length
+        const length = stripHtml(value).result.length;
 
         return (
           <FormControl
@@ -180,8 +180,8 @@ export default function RichText({
               onEditorChange={onChange}
               onFocus={() => setFocus(true)}
               onBlur={() => {
-                setFocus(false)
-                onBlur()
+                setFocus(false);
+                onBlur();
               }}
             />
             <Grid container spacing={1} wrap="nowrap" alignItems="baseline">
@@ -204,8 +204,8 @@ export default function RichText({
               )}
             </Grid>
           </FormControl>
-        )
+        );
       }}
     />
-  )
+  );
 }

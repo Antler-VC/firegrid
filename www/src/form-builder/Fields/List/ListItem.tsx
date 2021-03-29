@@ -1,5 +1,5 @@
-import React, { memo } from 'react'
-import { useDrag, useDrop } from 'react-dnd'
+import React, { memo } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 
 import {
   makeStyles,
@@ -7,10 +7,10 @@ import {
   Grid,
   TextField,
   IconButton,
-} from '@material-ui/core'
-import { fade } from '@material-ui/core/styles'
-import DragHandleIcon from '@material-ui/icons/DragHandle'
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
+} from '@material-ui/core';
+import { fade } from '@material-ui/core/styles';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -38,19 +38,19 @@ const useStyles = makeStyles((theme) =>
       },
     },
   })
-)
+);
 
 export interface IListItemProps {
-  name: string
-  index: number
-  item: string
+  name: string;
+  index: number;
+  item: string;
 
-  edit: (item: string) => void
-  swap: (fromIndex: number, toIndex: number) => void
-  remove: () => void
+  edit: (item: string) => void;
+  swap: (fromIndex: number, toIndex: number) => void;
+  remove: () => void;
 
-  itemLabel?: string
-  placeholder?: string
+  itemLabel?: string;
+  placeholder?: string;
 }
 
 export const MemoizedListItem = memo(
@@ -66,7 +66,7 @@ export const MemoizedListItem = memo(
     itemLabel,
     placeholder,
   }: IListItemProps) {
-    const classes = useStyles()
+    const classes = useStyles();
 
     const [, drag, dragPreview] = useDrag(() => ({
       type: name,
@@ -74,7 +74,7 @@ export const MemoizedListItem = memo(
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
       }),
-    }))
+    }));
 
     const [{ isOver }, drop] = useDrop(
       () => ({
@@ -85,7 +85,7 @@ export const MemoizedListItem = memo(
         }),
       }),
       [index]
-    )
+    );
 
     return (
       <div
@@ -123,10 +123,10 @@ export const MemoizedListItem = memo(
           </Grid>
         </Grid>
       </div>
-    )
+    );
   },
   ({ item: prevItem, index: prevIndex }, { item, index }) =>
     prevItem === item && prevIndex === index
-)
+);
 
-export default MemoizedListItem
+export default MemoizedListItem;

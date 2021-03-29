@@ -1,18 +1,18 @@
-import React from 'react'
-import { IFieldComponentProps } from '../../types'
-import { Controller } from 'react-hook-form'
+import React from 'react';
+import { IFieldComponentProps } from '../../types';
+import { Controller } from 'react-hook-form';
 
 import {
   TextField,
   FilledTextFieldProps,
   Grid,
   FormHelperText,
-} from '@material-ui/core'
+} from '@material-ui/core';
 
 export interface IParagraphComponentProps
   extends IFieldComponentProps,
     Omit<FilledTextFieldProps, 'variant' | 'name' | 'label'> {
-  maxCharacters?: number
+  maxCharacters?: number;
 }
 
 export default function ParagraphComponent({
@@ -89,5 +89,5 @@ export default function ParagraphComponent({
         />
       )}
     ></Controller>
-  )
+  );
 }

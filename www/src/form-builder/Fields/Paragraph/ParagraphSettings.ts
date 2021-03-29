@@ -1,5 +1,5 @@
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
 export const ParagraphSettings: IFieldConfig['settings'] = [
   {
@@ -15,6 +15,6 @@ export const ParagraphSettings: IFieldConfig['settings'] = [
     defaultValue: undefined,
     format: 'number',
   },
-]
+];
 
-export default ParagraphSettings
+export default ParagraphSettings;

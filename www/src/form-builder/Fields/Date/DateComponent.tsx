@@ -1,15 +1,15 @@
-import React from 'react'
-import { Controller } from 'react-hook-form'
-import { IFieldComponentProps } from '../../types'
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import { IFieldComponentProps } from '../../types';
 
-import { MuiPickersUtilsProvider } from '@material-ui/pickers'
-import DateFnsUtils from '@date-io/date-fns'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
-import { FormHelperText } from '@material-ui/core'
+import { FormHelperText } from '@material-ui/core';
 import {
   KeyboardDatePicker,
   KeyboardDatePickerProps,
-} from '@material-ui/pickers'
+} from '@material-ui/pickers';
 
 export interface IDateComponentProps
   extends IFieldComponentProps,
@@ -30,9 +30,9 @@ export default function DateComponent({
         name={name}
         control={control}
         render={({ onChange, onBlur, value }) => {
-          let transformedValue = null
-          if (value && 'toDate' in value) transformedValue = value.toDate()
-          else if (value !== undefined) transformedValue = value
+          let transformedValue = null;
+          if (value && 'toDate' in value) transformedValue = value.toDate();
+          else if (value !== undefined) transformedValue = value;
 
           return (
             <KeyboardDatePicker
@@ -64,9 +64,9 @@ export default function DateComponent({
               data-type="date"
               data-label={props.label ?? ''}
             />
-          )
+          );
         }}
       />
     </MuiPickersUtilsProvider>
-  )
+  );
 }

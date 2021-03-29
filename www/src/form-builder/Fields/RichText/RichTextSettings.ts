@@ -1,5 +1,5 @@
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
 export const RichTextSettings: IFieldConfig['settings'] = [
   {
@@ -9,6 +9,6 @@ export const RichTextSettings: IFieldConfig['settings'] = [
     defaultValue: undefined,
     format: 'number',
   },
-]
+];
 
-export default RichTextSettings
+export default RichTextSettings;

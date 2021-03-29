@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import { CtaButton } from '@antlerengineering/components'
-import { ButtonProps } from '@material-ui/core'
-import GoogleLogo from 'assets/google-icon.svg'
+import { CtaButton } from '@antlerengineering/components';
+import { ButtonProps } from '@material-ui/core';
+import GoogleLogo from 'assets/google-icon.svg';
 
 export default function GoogleButton(props: Partial<ButtonProps<any>>) {
   return (
@@ -29,5 +29,5 @@ export default function GoogleButton(props: Partial<ButtonProps<any>>) {
     >
       Sign in with Google
     </CtaButton>
-  )
+  );
 }

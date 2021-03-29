@@ -1,5 +1,5 @@
 export declare global {
   interface Window {
-    analytics: any
+    analytics: any;
   }
 }

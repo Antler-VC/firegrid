@@ -1,5 +1,5 @@
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
 export const ContentSectionSettings: IFieldConfig['settings'] = [
   {
@@ -8,6 +8,6 @@ export const ContentSectionSettings: IFieldConfig['settings'] = [
     type: FieldType.shortText,
     defaultValue: 'Section',
   },
-]
+];
 
-export default ContentSectionSettings
+export default ContentSectionSettings;

@@ -1,5 +1,5 @@
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
 export const RadioSettings: IFieldConfig['settings'] = [
   {
@@ -9,6 +9,6 @@ export const RadioSettings: IFieldConfig['settings'] = [
     defaultValue: [],
     required: true,
   },
-]
+];
 
-export default RadioSettings
+export default RadioSettings;

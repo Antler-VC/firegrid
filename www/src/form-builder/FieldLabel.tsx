@@ -1,12 +1,12 @@
-import React from 'react'
-import clsx from 'clsx'
+import React from 'react';
+import clsx from 'clsx';
 
 import {
   makeStyles,
   createStyles,
   FormLabel,
   FormLabelProps,
-} from '@material-ui/core'
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -20,18 +20,18 @@ const useStyles = makeStyles((theme) =>
       whiteSpace: 'pre-line',
     },
   })
-)
+);
 
 export interface IFieldLabelProps
   extends Omit<FormLabelProps, 'error' | 'disabled'> {
-  error: boolean
-  disabled: boolean
+  error: boolean;
+  disabled: boolean;
 }
 
 export default function FieldLabel(props: IFieldLabelProps) {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <FormLabel {...props} className={clsx(classes.root, props.className)} />
-  )
+  );
 }

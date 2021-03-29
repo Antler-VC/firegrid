@@ -1,7 +1,7 @@
-import React from 'react'
-import clsx from 'clsx'
+import React from 'react';
+import clsx from 'clsx';
 
-import { makeStyles, Button, ButtonProps } from '@material-ui/core'
+import { makeStyles, Button, ButtonProps } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -9,17 +9,17 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 'auto'),
     minWidth: 120,
   },
-}))
+}));
 
 export interface ISubmitButtonProps extends ButtonProps {
-  label?: React.ReactNode
+  label?: React.ReactNode;
 }
 
 export default function SubmitButton({
   label,
   ...buttonProps
 }: ISubmitButtonProps) {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <Button
@@ -34,5 +34,5 @@ export default function SubmitButton({
     >
       {label || 'Submit'}
     </Button>
-  )
+  );
 }

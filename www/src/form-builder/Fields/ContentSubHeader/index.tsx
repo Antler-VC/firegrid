@@ -1,19 +1,19 @@
-import React, { lazy } from 'react'
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import React, { lazy } from 'react';
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
-import SvgIcon from '@material-ui/core/SvgIcon'
-import { mdiFormatHeader2 } from '@mdi/js'
+import SvgIcon from '@material-ui/core/SvgIcon';
+import { mdiFormatHeader2 } from '@mdi/js';
 
-import Settings from './ContentSubHeaderSettings'
+import Settings from './ContentSubHeaderSettings';
 const Component = lazy(
   () =>
     import(
       './ContentSubHeaderComponent'
     ) /* webpackChunkName: FormBuilder-ContentSubHeader */
-)
+);
 
-export const config: IFieldConfig = {
+export const ContentSubHeaderConfig: IFieldConfig = {
   type: FieldType.contentSubHeader,
   name: 'Sub Header',
   group: 'content',
@@ -25,5 +25,5 @@ export const config: IFieldConfig = {
   defaultValue: undefined,
   component: Component,
   settings: Settings,
-}
-export default config
+};
+export default ContentSubHeaderConfig;

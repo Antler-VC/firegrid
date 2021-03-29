@@ -1,6 +1,6 @@
-import React from 'react'
-import { Controller } from 'react-hook-form'
-import { IFieldComponentProps } from '../../types'
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import { IFieldComponentProps } from '../../types';
 
 import {
   makeStyles,
@@ -10,11 +10,11 @@ import {
   SliderProps,
   Grid,
   Typography,
-} from '@material-ui/core'
+} from '@material-ui/core';
 
-import FieldLabel from '../../FieldLabel'
-import FieldErrorMessage from '../../FieldErrorMessage'
-import FieldAssistiveText from '../../FieldAssistiveText'
+import FieldLabel from '../../FieldLabel';
+import FieldErrorMessage from '../../FieldErrorMessage';
+import FieldAssistiveText from '../../FieldAssistiveText';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -22,19 +22,19 @@ const useStyles = makeStyles((theme) =>
     sliderGrid: { marginTop: theme.spacing(3) },
     slider: { display: 'block' },
   })
-)
+);
 
 export interface ISliderComponentProps
   extends IFieldComponentProps,
     Omit<SliderProps, 'name'> {
-  units?: string
-  unitsPlural?: string
-  minLabel?: React.ReactNode
-  maxLabel?: React.ReactNode
+  units?: string;
+  unitsPlural?: string;
+  minLabel?: React.ReactNode;
+  maxLabel?: React.ReactNode;
 }
 
 const valueWithUnits = (value: number, units?: string, unitsPlural?: string) =>
-  `${value} ${(value !== 1 ? unitsPlural || '' : units) || ''}`.trim()
+  `${value} ${(value !== 1 ? unitsPlural || '' : units) || ''}`.trim();
 
 export default function SliderComponent({
   control,
@@ -53,7 +53,7 @@ export default function SliderComponent({
   max = 100,
   ...props
 }: ISliderComponentProps) {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <Controller
@@ -61,13 +61,13 @@ export default function SliderComponent({
       name={name}
       render={({ onChange, onBlur, value }) => {
         const handleChange = (_: any, value: number | number[]) => {
-          onChange(value)
-          onBlur()
-        }
+          onChange(value);
+          onBlur();
+        };
 
         const getAriaValueText = (value: number) =>
-          valueWithUnits(value, units, unitsPlural)
-        const getValueLabelFormat = getAriaValueText
+          valueWithUnits(value, units, unitsPlural);
+        const getValueLabelFormat = getAriaValueText;
 
         return (
           <FormControl
@@ -128,8 +128,8 @@ export default function SliderComponent({
               {assistiveText}
             </FieldAssistiveText>
           </FormControl>
-        )
+        );
       }}
     />
-  )
+  );
 }

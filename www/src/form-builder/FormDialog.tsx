@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import {
   makeStyles,
@@ -18,14 +18,14 @@ import {
   Grid,
   Button,
   ButtonProps,
-} from '@material-ui/core'
-import { fade } from '@material-ui/core/styles'
-import CloseIcon from '@material-ui/icons/Close'
+} from '@material-ui/core';
+import { fade } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
 
-import FormFields from './FormFields'
-import { getDefaultValues, getValidationSchema } from './utils'
-import { Values, Fields, CustomComponents } from './types'
-import { SlideTransitionMui } from './SlideTransition'
+import FormFields from './FormFields';
+import { getDefaultValues, getValidationSchema } from './utils';
+import { Values, Fields, CustomComponents } from './types';
+import { SlideTransitionMui } from './SlideTransition';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -104,24 +104,24 @@ const useStyles = makeStyles((theme) =>
       '& button': { minWidth: 100 },
     },
   })
-)
+);
 
 export interface IFormDialogProps {
-  fields: Fields
-  values?: Values
-  onSubmit: (values: Values) => void
-  customComponents?: CustomComponents
+  fields: Fields;
+  values?: Values;
+  onSubmit: (values: Values) => void;
+  customComponents?: CustomComponents;
 
-  open: boolean
-  onClose: () => void
-  title: React.ReactNode
-  formHeader?: React.ReactNode
-  formFooter?: React.ReactNode
+  open: boolean;
+  onClose: () => void;
+  title: React.ReactNode;
+  formHeader?: React.ReactNode;
+  formFooter?: React.ReactNode;
 
-  customActions?: React.ReactNode
-  SubmitButtonProps?: Partial<ButtonProps>
-  CancelButtonProps?: Partial<ButtonProps>
-  DialogProps?: Partial<MuiDialogProps>
+  customActions?: React.ReactNode;
+  SubmitButtonProps?: Partial<ButtonProps>;
+  CancelButtonProps?: Partial<ButtonProps>;
+  DialogProps?: Partial<MuiDialogProps>;
 }
 
 export default function FormDialog({
@@ -141,38 +141,38 @@ export default function FormDialog({
   CancelButtonProps,
   DialogProps,
 }: IFormDialogProps) {
-  const classes = useStyles()
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   const defaultValues = {
     ...getDefaultValues(fields, customComponents),
     ...(values ?? {}),
-  }
+  };
 
   const methods = useForm({
     mode: 'onBlur',
     defaultValues,
     resolver: yupResolver(getValidationSchema(fields)),
-  })
-  const { handleSubmit, control, errors, formState, reset } = methods
+  });
+  const { handleSubmit, control, errors, formState, reset } = methods;
 
-  const [closeConfirmation, setCloseConfirmation] = useState(false)
+  const [closeConfirmation, setCloseConfirmation] = useState(false);
   const handleClose = () => {
-    setCloseConfirmation(false)
-    onClose()
-    reset()
-  }
+    setCloseConfirmation(false);
+    onClose();
+    reset();
+  };
   const confirmClose = () => {
-    if (formState.isDirty) setCloseConfirmation(true)
-    else handleClose()
-  }
+    if (formState.isDirty) setCloseConfirmation(true);
+    else handleClose();
+  };
 
   return (
     <form
       onSubmit={handleSubmit((values) => {
-        onSubmit(values)
-        handleClose()
+        onSubmit(values);
+        handleClose();
       })}
     >
       <Dialog
@@ -283,5 +283,5 @@ export default function FormDialog({
         </DialogActions>
       </Dialog>
     </form>
-  )
+  );
 }

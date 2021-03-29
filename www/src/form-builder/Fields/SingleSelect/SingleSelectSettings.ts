@@ -1,5 +1,5 @@
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
 export const SingleSelectSettings: IFieldConfig['settings'] = [
   {
@@ -34,6 +34,6 @@ export const SingleSelectSettings: IFieldConfig['settings'] = [
     label: 'User can clear selection',
     defaultValue: undefined,
   },
-]
+];
 
-export default SingleSelectSettings
+export default SingleSelectSettings;

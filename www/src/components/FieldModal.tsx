@@ -1,32 +1,37 @@
-import { useState } from 'react'
-import _find from 'lodash/find'
-import { useFiregridContext } from 'contexts/FiregridContext'
+import { useState } from 'react';
+import _find from 'lodash/find';
+import { useFiregridContext } from 'contexts/FiregridContext';
 
-import { FormDialog, FieldType, FieldConfigs, getFieldProp } from 'form-builder'
-import MultiSelect from '@antlerengineering/multiselect'
+import {
+  FormDialog,
+  FieldType,
+  FieldConfigs,
+  getFieldProp,
+} from 'form-builder';
+import MultiSelect from '@antlerengineering/multiselect';
 
-import { Field } from 'types/Field'
-import { nth } from 'utils'
+import { Field } from 'types/Field';
+import { nth } from 'utils';
 
 export default function FieldModal() {
-  const { selectedForm } = useFiregridContext()
+  const { selectedForm } = useFiregridContext();
 
-  const [open, setOpen] = useState<string | boolean>(true)
-  const mode = typeof open === 'string' ? 'edit' : 'add'
+  const [open, setOpen] = useState<string | boolean>(true);
+  const mode = typeof open === 'string' ? 'edit' : 'add';
 
   const selectedField =
     mode === 'edit'
       ? (_find(selectedForm!.fields, { name: open }) as Field) ?? null
-      : null
+      : null;
 
-  const [newFieldType, setNewFieldType] = useState('')
+  const [newFieldType, setNewFieldType] = useState('');
 
   const handleClose = () => {
-    setOpen(false)
-    setNewFieldType('')
-  }
+    setOpen(false);
+    setNewFieldType('');
+  };
 
-  if (!selectedForm || !Array.isArray(selectedForm.fields)) return null
+  if (!selectedForm || !Array.isArray(selectedForm.fields)) return null;
 
   return (
     <FormDialog
@@ -170,5 +175,5 @@ export default function FieldModal() {
         },
       }}
     />
-  )
+  );
 }

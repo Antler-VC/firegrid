@@ -1,6 +1,6 @@
-import React, { useState, useEffect, Suspense } from 'react'
-import Div100vh from 'react-div-100vh'
-import clsx from 'clsx'
+import React, { useState, useEffect, Suspense } from 'react';
+import Div100vh from 'react-div-100vh';
+import clsx from 'clsx';
 
 import {
   makeStyles,
@@ -9,13 +9,13 @@ import {
   useMediaQuery,
   Grid,
   Container,
-} from '@material-ui/core'
+} from '@material-ui/core';
 
-import { Loading, ErrorBoundary } from '@antlerengineering/components'
-import TopBar from './TopBar'
-import NavSidebar from './NavSidebar'
+import { Loading, ErrorBoundary } from '@antlerengineering/components';
+import TopBar from './TopBar';
+import NavSidebar from './NavSidebar';
 
-import useRouter from '../../hooks/useRouter'
+import useRouter from '../../hooks/useRouter';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -36,20 +36,20 @@ const useStyles = makeStyles((theme) =>
       paddingBottom: 'calc(var(--section-margin) + 56px)',
     },
   })
-)
+);
 
 export default function Navigation({ children }: React.PropsWithChildren<{}>) {
-  const classes = useStyles()
-  const theme = useTheme()
-  const sidebarCollapsed = useMediaQuery(theme.breakpoints.down('lg'))
+  const classes = useStyles();
+  const theme = useTheme();
+  const sidebarCollapsed = useMediaQuery(theme.breakpoints.down('lg'));
 
-  const router = useRouter()
+  const router = useRouter();
 
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const handleDrawerToggle = () => setSidebarOpen(!sidebarOpen)
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const handleDrawerToggle = () => setSidebarOpen(!sidebarOpen);
   useEffect(() => {
-    setSidebarOpen(false)
-  }, [router.location.pathname])
+    setSidebarOpen(false);
+  }, [router.location.pathname]);
 
   return (
     <Div100vh
@@ -85,5 +85,5 @@ export default function Navigation({ children }: React.PropsWithChildren<{}>) {
         </Grid>
       </Grid>
     </Div100vh>
-  )
+  );
 }

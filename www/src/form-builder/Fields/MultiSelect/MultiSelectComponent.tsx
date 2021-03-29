@@ -1,17 +1,17 @@
-import React from 'react'
-import { Controller } from 'react-hook-form'
-import { IFieldComponentProps } from '../../types'
-import MultiSelect, { MultiSelectProps } from '@antlerengineering/multiselect'
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import { IFieldComponentProps } from '../../types';
+import MultiSelect, { MultiSelectProps } from '@antlerengineering/multiselect';
 
-import { FormHelperText } from '@material-ui/core'
+import { FormHelperText } from '@material-ui/core';
 
-export interface ISingleSelectComponentProps
+export interface IMultiSelectComponentProps
   extends IFieldComponentProps,
     Omit<MultiSelectProps<string>, 'value' | 'onChange' | 'options' | 'label'> {
-  options: (string | { value: string; label: React.ReactNode })[]
+  options: (string | { value: string; label: React.ReactNode })[];
 }
 
-export default function SingleSelectComponent({
+export default function MultiSelectComponent({
   control,
   name,
   useFormMethods,
@@ -21,7 +21,7 @@ export default function SingleSelectComponent({
 
   options = [],
   ...props
-}: ISingleSelectComponentProps) {
+}: IMultiSelectComponentProps) {
   return (
     <Controller
       control={control}
@@ -56,5 +56,5 @@ export default function SingleSelectComponent({
         />
       )}
     />
-  )
+  );
 }

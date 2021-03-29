@@ -1,5 +1,5 @@
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
 export const ShortTextSettings: IFieldConfig['settings'] = [
   {
@@ -29,6 +29,6 @@ export const ShortTextSettings: IFieldConfig['settings'] = [
       { value: 'linkedin', label: 'LinkedIn URL' },
     ],
   },
-]
+];
 
-export default ShortTextSettings
+export default ShortTextSettings;

@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-import { FormHelperText, FormHelperTextProps } from '@material-ui/core'
+import { FormHelperText, FormHelperTextProps } from '@material-ui/core';
 
 export default function FieldErrorMessage(props: FormHelperTextProps) {
-  if (!props.children) return null
+  if (!props.children) return null;
 
   return (
     <FormHelperText
@@ -11,5 +11,5 @@ export default function FieldErrorMessage(props: FormHelperTextProps) {
       {...props}
       style={{ whiteSpace: 'pre-line', ...props.style }}
     />
-  )
+  );
 }

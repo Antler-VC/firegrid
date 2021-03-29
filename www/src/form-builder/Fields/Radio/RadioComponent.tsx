@@ -1,6 +1,6 @@
-import React from 'react'
-import { Controller } from 'react-hook-form'
-import { IFieldComponentProps } from '../../types'
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import { IFieldComponentProps } from '../../types';
 
 import {
   makeStyles,
@@ -11,11 +11,11 @@ import {
   RadioGroupProps,
   Radio,
   Divider,
-} from '@material-ui/core'
+} from '@material-ui/core';
 
-import FieldLabel from '../../FieldLabel'
-import FieldErrorMessage from '../../FieldErrorMessage'
-import FieldAssistiveText from '../../FieldAssistiveText'
+import FieldLabel from '../../FieldLabel';
+import FieldErrorMessage from '../../FieldErrorMessage';
+import FieldAssistiveText from '../../FieldAssistiveText';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -29,12 +29,12 @@ const useStyles = makeStyles((theme) =>
     divider: { marginLeft: theme.spacing(3 + 2) },
     assistiveText: { margin: theme.spacing(1, 0, 0, 3 + 2) },
   })
-)
+);
 
 export interface IRadioComponentProps
   extends IFieldComponentProps,
     Omit<RadioGroupProps, 'name' | 'onChange' | 'value'> {
-  options: (string | { value: string; label: React.ReactNode })[]
+  options: (string | { value: string; label: React.ReactNode })[];
 }
 
 export default function RadioComponent({
@@ -49,7 +49,7 @@ export default function RadioComponent({
   options,
   ...props
 }: IRadioComponentProps) {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <Controller
@@ -80,10 +80,10 @@ export default function RadioComponent({
               let option: { label: React.ReactNode; value: string } = {
                 label: '',
                 value: '',
-              }
-              if (typeof item === 'object') option = item
+              };
+              if (typeof item === 'object') option = item;
               if (typeof item === 'string')
-                option = { label: item, value: item }
+                option = { label: item, value: item };
 
               return (
                 <React.Fragment key={option.value}>
@@ -108,7 +108,7 @@ export default function RadioComponent({
                   />
                   <Divider className={classes.divider} />
                 </React.Fragment>
-              )
+              );
             })}
           </RadioGroup>
 
@@ -121,5 +121,5 @@ export default function RadioComponent({
         </FormControl>
       )}
     />
-  )
+  );
 }

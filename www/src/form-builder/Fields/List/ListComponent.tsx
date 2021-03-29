@@ -1,23 +1,23 @@
-import React from 'react'
-import { Controller } from 'react-hook-form'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import arrayMove from 'array-move'
-import { IFieldComponentProps } from '../../types'
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import arrayMove from 'array-move';
+import { IFieldComponentProps } from '../../types';
 
 import {
   makeStyles,
   createStyles,
   FormControl,
   Button,
-} from '@material-ui/core'
-import AddCircleIcon from '@material-ui/icons/AddCircle'
+} from '@material-ui/core';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
-import ListItem from './ListItem'
+import ListItem from './ListItem';
 
-import FieldLabel from '../../FieldLabel'
-import FieldErrorMessage from '../../FieldErrorMessage'
-import FieldAssistiveText from '../../FieldAssistiveText'
+import FieldLabel from '../../FieldLabel';
+import FieldErrorMessage from '../../FieldErrorMessage';
+import FieldAssistiveText from '../../FieldAssistiveText';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -29,11 +29,11 @@ const useStyles = makeStyles((theme) =>
       '&:first-child': { fontSize: '1.5rem' },
     },
   })
-)
+);
 
 export interface IListComponentProps extends IFieldComponentProps {
-  itemLabel?: string
-  placeholder?: string
+  itemLabel?: string;
+  placeholder?: string;
 }
 
 export default function ListComponent({
@@ -50,36 +50,36 @@ export default function ListComponent({
   itemLabel = 'Item',
   placeholder,
 }: IListComponentProps) {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <Controller
       name={name}
       control={control}
       render={({ onChange, ...renderProps }) => {
-        const value: string[] = renderProps.value ?? []
-        const add = () => onChange([...value, ''])
+        const value: string[] = renderProps.value ?? [];
+        const add = () => onChange([...value, '']);
 
         const edit = (index: number) => (item: string) => {
-          const newValue = [...useFormMethods.getValues(name)]
-          newValue[index] = item
-          onChange(newValue)
-        }
+          const newValue = [...useFormMethods.getValues(name)];
+          newValue[index] = item;
+          onChange(newValue);
+        };
 
         const swap = (fromIndex: number, toIndex: number) => {
           const newValue = arrayMove(
             useFormMethods.getValues(name),
             fromIndex,
             toIndex
-          )
-          onChange(newValue)
-        }
+          );
+          onChange(newValue);
+        };
 
         const remove = (index: number) => () => {
-          const newValue = [...useFormMethods.getValues(name)]
-          newValue.splice(index, 1)
-          onChange(newValue)
-        }
+          const newValue = [...useFormMethods.getValues(name)];
+          newValue.splice(index, 1);
+          onChange(newValue);
+        };
 
         return (
           <FormControl
@@ -126,8 +126,8 @@ export default function ListComponent({
               {assistiveText}
             </FieldAssistiveText>
           </FormControl>
-        )
+        );
       }}
     />
-  )
+  );
 }

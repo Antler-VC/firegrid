@@ -1,7 +1,7 @@
-import { createContext } from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { createContext } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-export const RouterContext = createContext({})
+export const RouterContext = createContext({});
 
 export default function CustomBrowserRouter({
   children,
@@ -16,5 +16,5 @@ export default function CustomBrowserRouter({
         )}
       </Route>
     </BrowserRouter>
-  )
+  );
 }

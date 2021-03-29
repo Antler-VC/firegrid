@@ -1,16 +1,16 @@
-import React, { lazy } from 'react'
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import React, { lazy } from 'react';
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
-import SvgIcon from '@material-ui/core/SvgIcon'
-import { mdiFormatListNumbered } from '@mdi/js'
+import SvgIcon from '@material-ui/core/SvgIcon';
+import { mdiFormatListNumbered } from '@mdi/js';
 
-import Settings from './ListSettings'
+import Settings from './ListSettings';
 const Component = lazy(
   () => import('./ListComponent') /* webpackChunkName: FormBuilder-List */
-)
+);
 
-export const config: IFieldConfig = {
+export const ListConfig: IFieldConfig = {
   type: FieldType.list,
   name: 'List',
   group: 'input',
@@ -22,5 +22,5 @@ export const config: IFieldConfig = {
   defaultValue: [],
   component: Component,
   settings: Settings,
-}
-export default config
+};
+export default ListConfig;

@@ -1,8 +1,8 @@
-import React from 'react'
-import { useFormContext, useWatch, UseFormMethods } from 'react-hook-form'
-import _isFunction from 'lodash/isFunction'
+import React from 'react';
+import { useFormContext, useWatch, UseFormMethods } from 'react-hook-form';
+import _isFunction from 'lodash/isFunction';
 
-import { Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core';
 
 import {
   Fields,
@@ -10,24 +10,24 @@ import {
   Values,
   CustomComponents,
   CustomComponent,
-} from 'form-builder/types'
-import FieldWrapper from './FieldWrapper'
+} from 'form-builder/types';
+import FieldWrapper from './FieldWrapper';
 
 interface ICommonProps {
-  register: UseFormMethods['register']
-  control: UseFormMethods['control']
-  errors: UseFormMethods['errors']
-  customComponents?: CustomComponents
-  useFormMethods: UseFormMethods
+  register: UseFormMethods['register'];
+  control: UseFormMethods['control'];
+  errors: UseFormMethods['errors'];
+  customComponents?: CustomComponents;
+  useFormMethods: UseFormMethods;
 }
 
 export interface IFormFieldsProps {
-  fields: Fields
-  customComponents?: CustomComponents
+  fields: Fields;
+  customComponents?: CustomComponents;
 }
 export default function FormFields({ fields, ...props }: IFormFieldsProps) {
-  const methods = useFormContext()
-  const { register, control, errors } = methods
+  const methods = useFormContext();
+  const { register, control, errors } = methods;
 
   return (
     <Grid
@@ -51,11 +51,11 @@ export default function FormFields({ fields, ...props }: IFormFieldsProps) {
               useFormMethods={methods}
               {...props}
             />
-          )
+          );
 
         // Otherwise, just use the field object
         // If we intentionally hide this field due to form values, don’t render
-        if (!field) return null
+        if (!field) return null;
 
         return (
           <FieldComponent
@@ -68,14 +68,14 @@ export default function FormFields({ fields, ...props }: IFormFieldsProps) {
             useFormMethods={methods}
             {...props}
           />
-        )
+        );
       })}
     </Grid>
-  )
+  );
 }
 
 interface IFieldComponentProps extends Field, ICommonProps {
-  index: number
+  index: number;
 }
 function FieldComponent({
   register,
@@ -85,7 +85,7 @@ function FieldComponent({
   customComponents,
   ...fieldProps
 }: IFieldComponentProps) {
-  let renderedField: React.ReactNode = null
+  let renderedField: React.ReactNode = null;
 
   switch (type) {
     // case FieldType.heading:
@@ -97,11 +97,11 @@ function FieldComponent({
     //   break
 
     case undefined:
-      console.error('undefined field type')
-      return null
+      console.error('undefined field type');
+      return null;
 
     default:
-      let fieldComponent: CustomComponent
+      let fieldComponent: CustomComponent;
 
       // Try to get fieldComponent from customComponents list
       if (
@@ -109,7 +109,7 @@ function FieldComponent({
         Object.keys(customComponents).length > 0 &&
         type in customComponents
       ) {
-        fieldComponent = customComponents[type].component
+        fieldComponent = customComponents[type].component;
       }
       // TODO:
       // If not found in customComponents, try to get it from the built-in components
@@ -120,10 +120,10 @@ function FieldComponent({
       else {
         // TODO: ENABLE
         // console.error(`No matching field component for \`${type}\``)
-        return null
+        return null;
       }
 
-      if (!fieldProps.name) return null
+      if (!fieldProps.name) return null;
 
       renderedField = React.createElement(fieldComponent, {
         ...fieldProps,
@@ -131,28 +131,28 @@ function FieldComponent({
         label: fieldProps.label!,
         control,
         errorMessage: errors[fieldProps.name!]?.message,
-      })
+      });
   }
 
   return (
     <FieldWrapper key={fieldProps.name!} name={fieldProps.name!} type={type}>
       {renderedField}
     </FieldWrapper>
-  )
+  );
 }
 
 interface IDependentField extends ICommonProps {
-  fieldFunction: (values: Values) => Field | null
-  index: number
+  fieldFunction: (values: Values) => Field | null;
+  index: number;
 }
 function DependentField({ fieldFunction, ...props }: IDependentField) {
-  const values = useWatch({ control: props.control })
+  const values = useWatch({ control: props.control });
 
-  const field = fieldFunction(values)
+  const field = fieldFunction(values);
 
   // If we intentionally hide this field due to form values, don’t render
   // TODO:
-  if (!field) return <>FIELD HIDDEN</>
+  if (!field) return <>FIELD HIDDEN</>;
 
-  return <FieldComponent {...field} {...props} />
+  return <FieldComponent {...field} {...props} />;
 }

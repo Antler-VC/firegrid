@@ -1,5 +1,5 @@
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
 export const ColorSettings: IFieldConfig['settings'] = [
   {
@@ -8,6 +8,6 @@ export const ColorSettings: IFieldConfig['settings'] = [
     label: 'Enable alpha channel (user can add semi-transparent colors)',
     defaultValue: false,
   },
-]
+];
 
-export default ColorSettings
+export default ColorSettings;

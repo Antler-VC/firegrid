@@ -1,18 +1,18 @@
-import React, { Suspense } from 'react'
-import clsx from 'clsx'
-import _findIndex from 'lodash/findIndex'
-import { useDrag, useDrop } from 'react-dnd'
-import { useFiregridContext } from 'contexts/FiregridContext'
+import React, { Suspense } from 'react';
+import clsx from 'clsx';
+import _findIndex from 'lodash/findIndex';
+import { useDrag, useDrop } from 'react-dnd';
+import { useFiregridContext } from 'contexts/FiregridContext';
 
-import { makeStyles, createStyles, Grid, IconButton } from '@material-ui/core'
-import { fade } from '@material-ui/core/styles'
-import DragHandleIcon from '@material-ui/icons/DragHandle'
-import EditIcon from '@material-ui/icons/Edit'
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
+import { makeStyles, createStyles, Grid, IconButton } from '@material-ui/core';
+import { fade } from '@material-ui/core/styles';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
+import EditIcon from '@material-ui/icons/Edit';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 
-import { Friction } from '@antlerengineering/components'
-import { FieldSkeleton } from 'form-builder'
-import AddButton from './AddButton'
+import { Friction } from '@antlerengineering/components';
+import { FieldSkeleton } from 'form-builder';
+import AddButton from './AddButton';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -56,12 +56,12 @@ const useStyles = makeStyles((theme) =>
       },
     },
   })
-)
+);
 
 export interface IFieldWrapperProps {
-  type: string
-  name: string
-  children: React.ReactNode
+  type: string;
+  name: string;
+  children: React.ReactNode;
 }
 
 export default function FieldWrapper({
@@ -69,9 +69,9 @@ export default function FieldWrapper({
   name,
   children,
 }: IFieldWrapperProps) {
-  const classes = useStyles()
+  const classes = useStyles();
 
-  const { reOrderField } = useFiregridContext()
+  const { reOrderField } = useFiregridContext();
 
   const [{ isDragging }, drag, dragPreview] = useDrag(() => ({
     type: 'FIELD',
@@ -79,7 +79,7 @@ export default function FieldWrapper({
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
-  }))
+  }));
 
   const [{ isOver, canDrop }, drop] = useDrop(
     () => ({
@@ -91,7 +91,7 @@ export default function FieldWrapper({
       }),
     }),
     [name]
-  )
+  );
 
   return (
     <>
@@ -156,5 +156,5 @@ export default function FieldWrapper({
         </Grid>
       </Grid>
     </>
-  )
+  );
 }

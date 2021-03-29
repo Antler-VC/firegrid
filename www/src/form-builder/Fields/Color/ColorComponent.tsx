@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react'
-import clsx from 'clsx'
-import { Controller } from 'react-hook-form'
-import { IFieldComponentProps } from '../../types'
-import { ChromePicker } from 'react-color'
+import React, { useRef, useState } from 'react';
+import clsx from 'clsx';
+import { Controller } from 'react-hook-form';
+import { IFieldComponentProps } from '../../types';
+import { ChromePicker } from 'react-color';
 
 import {
   makeStyles,
@@ -13,12 +13,12 @@ import {
   InputLabel,
   Typography,
   Popover,
-} from '@material-ui/core'
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
+} from '@material-ui/core';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
-import FieldErrorMessage from '../../FieldErrorMessage'
-import FieldAssistiveText from '../../FieldAssistiveText'
+import FieldErrorMessage from '../../FieldErrorMessage';
+import FieldAssistiveText from '../../FieldAssistiveText';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -61,10 +61,10 @@ const useStyles = makeStyles((theme) =>
       '& > div': { borderRadius: '0 !important' },
     },
   })
-)
+);
 
 export interface IColorComponentProps extends IFieldComponentProps {
-  enableAlpha?: boolean
+  enableAlpha?: boolean;
 }
 
 export default function ColorComponent({
@@ -79,11 +79,11 @@ export default function ColorComponent({
 
   enableAlpha,
 }: IColorComponentProps) {
-  const classes = useStyles()
+  const classes = useStyles();
 
-  const anchorEl = useRef<HTMLButtonElement>(null)
-  const [open, setOpen] = useState(false)
-  const toggleOpen = () => setOpen((s) => !s)
+  const anchorEl = useRef<HTMLButtonElement>(null);
+  const [open, setOpen] = useState(false);
+  const toggleOpen = () => setOpen((s) => !s);
 
   return (
     <Controller
@@ -183,5 +183,5 @@ export default function ColorComponent({
         </FormControl>
       )}
     />
-  )
+  );
 }

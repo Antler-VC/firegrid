@@ -1,13 +1,13 @@
-import React from 'react'
-import clsx from 'clsx'
-import { IFieldComponentProps } from '../../types'
+import React from 'react';
+import clsx from 'clsx';
+import { IFieldComponentProps } from '../../types';
 
 import {
   makeStyles,
   createStyles,
   Typography,
   TypographyProps,
-} from '@material-ui/core'
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) =>
 
     firstField: { marginTop: 0 },
   })
-)
+);
 
 export interface IContentSubHeaderComponentProps
   extends IFieldComponentProps,
@@ -40,7 +40,7 @@ export default function ContentSubHeaderComponent({
   useFormMethods,
   ...props
 }: IContentSubHeaderComponentProps) {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <Typography
@@ -55,5 +55,5 @@ export default function ContentSubHeaderComponent({
     >
       {children ?? label}
     </Typography>
-  )
+  );
 }

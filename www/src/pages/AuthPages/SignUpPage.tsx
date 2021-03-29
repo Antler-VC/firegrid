@@ -1,28 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-import { Typography, TextField, Button, Divider, Grid } from '@material-ui/core'
-import { requestPasswordReset } from 'firebase/callables'
-import AuthCard from './AuthCard'
+import {
+  Typography,
+  TextField,
+  Button,
+  Divider,
+  Grid,
+} from '@material-ui/core';
+import { requestPasswordReset } from 'firebase/callables';
+import AuthCard from './AuthCard';
 //import { useSnackContext } from 'samosas'
-import GoogleLogo from 'assets/google-icon.svg'
-import { handleGoogleAuth } from './utils'
-import { auth } from '../../firebase'
+import GoogleLogo from 'assets/google-icon.svg';
+import { handleGoogleAuth } from './utils';
+import { auth } from '../../firebase';
 
 export default function SignUpPage({
   googleAuth = false,
   passwordAuth = false,
 }: {
-  googleAuth?: Boolean
-  passwordAuth?: Boolean
+  googleAuth?: Boolean;
+  passwordAuth?: Boolean;
 }) {
   // const snack = useSnackContext()
-  const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const height: number =
-    200 * (googleAuth ? 1 : 0) + 320 * (passwordAuth ? 1 : 0)
+    200 * (googleAuth ? 1 : 0) + 320 * (passwordAuth ? 1 : 0);
   return (
     <AuthCard height={height} loading={loading}>
       {passwordAuth && (
@@ -35,7 +41,7 @@ export default function SignUpPage({
             type="email"
             value={email}
             onChange={(e) => {
-              setEmail(e.target.value)
+              setEmail(e.target.value);
             }}
           />
           <TextField
@@ -44,7 +50,7 @@ export default function SignUpPage({
             type="password"
             value={password}
             onChange={(e) => {
-              setPassword(e.target.value)
+              setPassword(e.target.value);
             }}
           />
           <TextField
@@ -53,7 +59,7 @@ export default function SignUpPage({
             type="password"
             value={confirmPassword}
             onChange={(e) => {
-              setConfirmPassword(e.target.value)
+              setConfirmPassword(e.target.value);
             }}
           />
 
@@ -63,13 +69,13 @@ export default function SignUpPage({
             onClick={async () => {
               try {
                 if (password !== confirmPassword)
-                  throw Error(`Passwords did not match`)
-                if (password.length < 6) throw Error(`Password is too short`)
-                setLoading(true)
-                await auth.createUserWithEmailAndPassword(email, password)
-                window.location.replace('/')
+                  throw Error(`Passwords did not match`);
+                if (password.length < 6) throw Error(`Password is too short`);
+                setLoading(true);
+                await auth.createUserWithEmailAndPassword(email, password);
+                window.location.replace('/');
               } catch (error) {
-                setLoading(false)
+                setLoading(false);
                 if (error.code === 'auth/wrong-password') {
                   // snack.open({
                   //   message: `Incorrect password, or you might be using a Google account`,
@@ -91,19 +97,19 @@ export default function SignUpPage({
           <Typography variant="overline">sign in with Google</Typography>
           <Button
             onClick={() => {
-              setLoading(true)
+              setLoading(true);
               handleGoogleAuth(
                 () => {
-                  setLoading(false)
+                  setLoading(false);
 
-                  window.location.replace('/')
+                  window.location.replace('/');
                 },
                 (error) => {
-                  setLoading(false)
+                  setLoading(false);
 
                   //snack.open({ message: error.message })
                 }
-              )
+              );
             }}
             color="primary"
             size="large"
@@ -115,5 +121,5 @@ export default function SignUpPage({
         </>
       )}
     </AuthCard>
-  )
+  );
 }

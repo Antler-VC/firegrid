@@ -1,6 +1,6 @@
-import React from 'react'
-import { Controller } from 'react-hook-form'
-import { IFieldComponentProps } from '../../types'
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import { IFieldComponentProps } from '../../types';
 
 import {
   makeStyles,
@@ -8,10 +8,10 @@ import {
   FormControlLabel,
   Checkbox,
   CheckboxProps,
-} from '@material-ui/core'
+} from '@material-ui/core';
 
-import FieldErrorMessage from '../../FieldErrorMessage'
-import FieldAssistiveText from '../../FieldAssistiveText'
+import FieldErrorMessage from '../../FieldErrorMessage';
+import FieldAssistiveText from '../../FieldAssistiveText';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) =>
       '$root:hover &': { backgroundColor: theme.palette.action.hover },
     },
   })
-)
+);
 
 export interface ICheckboxComponentProps
   extends IFieldComponentProps,
@@ -46,7 +46,7 @@ export default function CheckboxComponent({
 
   ...props
 }: ICheckboxComponentProps) {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <Controller
@@ -85,5 +85,5 @@ export default function CheckboxComponent({
         </>
       )}
     />
-  )
+  );
 }

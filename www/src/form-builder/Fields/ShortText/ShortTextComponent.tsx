@@ -1,19 +1,19 @@
-import React from 'react'
-import { IFieldComponentProps } from '../../types'
-import { Controller } from 'react-hook-form'
+import React from 'react';
+import { IFieldComponentProps } from '../../types';
+import { Controller } from 'react-hook-form';
 
 import {
   TextField,
   TextFieldProps,
   Grid,
   FormHelperText,
-} from '@material-ui/core'
+} from '@material-ui/core';
 
 export interface IShortTextComponentProps
   extends IFieldComponentProps,
     Omit<TextFieldProps, 'variant' | 'name' | 'label'> {
-  format?: 'email' | 'phone' | 'number' | 'url'
-  maxCharacters?: number
+  format?: 'email' | 'phone' | 'number' | 'url';
+  maxCharacters?: number;
 }
 
 export default function ShortTextComponent({
@@ -31,31 +31,31 @@ export default function ShortTextComponent({
   maxCharacters,
   ...props
 }: IShortTextComponentProps) {
-  let variantProps: any = {}
+  let variantProps: any = {};
   switch (format) {
     case 'email':
-      variantProps = { type: 'email', inputProps: { autoComplete: 'email' } }
-      break
+      variantProps = { type: 'email', inputProps: { autoComplete: 'email' } };
+      break;
 
     case 'phone':
-      variantProps = { type: 'tel', inputProps: { autoComplete: 'tel' } }
-      break
+      variantProps = { type: 'tel', inputProps: { autoComplete: 'tel' } };
+      break;
 
     case 'number':
-      variantProps = { type: 'number' }
-      break
+      variantProps = { type: 'number' };
+      break;
 
     case 'url':
-      variantProps = { type: 'url', inputProps: { autoComplete: 'url' } }
-      break
+      variantProps = { type: 'url', inputProps: { autoComplete: 'url' } };
+      break;
 
     default:
-      break
+      break;
   }
 
   const hiddenLabelOverrideProps = hiddenLabel
     ? { label: '', 'aria-label': props.label as string, hiddenLabel: true }
-    : {}
+    : {};
 
   return (
     <Controller
@@ -65,7 +65,7 @@ export default function ShortTextComponent({
         const handleChange: TextFieldProps['onChange'] = (e) =>
           format === 'number'
             ? onChange(Number(e.target.value))
-            : onChange(e.target.value)
+            : onChange(e.target.value);
 
         return (
           <TextField
@@ -121,8 +121,8 @@ export default function ShortTextComponent({
               'data-label': props.label ?? '',
             }}
           />
-        )
+        );
       }}
     ></Controller>
-  )
+  );
 }

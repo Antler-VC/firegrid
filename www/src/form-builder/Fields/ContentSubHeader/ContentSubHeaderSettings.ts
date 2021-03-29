@@ -1,5 +1,5 @@
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
 export const ContentSubHeaderSettings: IFieldConfig['settings'] = [
   {
@@ -8,6 +8,6 @@ export const ContentSubHeaderSettings: IFieldConfig['settings'] = [
     type: FieldType.shortText,
     defaultValue: 'Sub-Header',
   },
-]
+];
 
-export default ContentSubHeaderSettings
+export default ContentSubHeaderSettings;

@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react'
-import { auth } from '../../firebase'
+import React, { useEffect } from 'react';
+import { auth } from '../../firebase';
 
-import { Link } from 'react-router-dom'
-import { Button } from '@material-ui/core'
+import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
-import { EmptyState } from '@antlerengineering/components'
-import CheckIcon from '@material-ui/icons/Check'
+import { EmptyState } from '@antlerengineering/components';
+import CheckIcon from '@material-ui/icons/Check';
 
-import { routes } from 'constants/routes'
+import { routes } from 'constants/routes';
 
 export default function SignOutPage() {
   useEffect(() => {
-    document.title = 'Sign Out | Firegrid'
-    auth.signOut()
-  }, [])
+    document.title = 'Sign Out | Firegrid';
+    auth.signOut();
+  }, []);
 
   return (
     <EmptyState
@@ -32,5 +32,5 @@ export default function SignOutPage() {
       }
       Icon={CheckIcon}
     />
-  )
+  );
 }

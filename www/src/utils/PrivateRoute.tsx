@@ -1,15 +1,15 @@
-import { Route, RouteProps, Redirect } from 'react-router-dom'
+import { Route, RouteProps, Redirect } from 'react-router-dom';
 
-import { useAppContext } from 'contexts/AppContext'
-import { Loading } from '@antlerengineering/components'
+import { useAppContext } from 'contexts/AppContext';
+import { Loading } from '@antlerengineering/components';
 interface IPrivateRouteProps extends RouteProps {
-  render: NonNullable<RouteProps['render']>
+  render: NonNullable<RouteProps['render']>;
 }
 
 export default function PrivateRoute({ render, ...rest }: IPrivateRouteProps) {
-  const { currentUser } = useAppContext()
+  const { currentUser } = useAppContext();
 
-  if (!!currentUser) return <Route {...rest} render={render} />
+  if (!!currentUser) return <Route {...rest} render={render} />;
 
   if (currentUser === null)
     return (
@@ -18,12 +18,12 @@ export default function PrivateRoute({ render, ...rest }: IPrivateRouteProps) {
           '/auth?redirect=' + encodeURIComponent(rest.location?.pathname ?? '')
         }
       />
-    )
+    );
 
   return (
     <Route
       {...rest}
       render={() => <Loading message="Authenticating" fullScreen />}
     />
-  )
+  );
 }

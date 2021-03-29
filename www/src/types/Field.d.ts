@@ -1,16 +1,16 @@
-import { FieldType } from 'form-builder'
+import { FieldType } from 'form-builder';
 
 export interface Field extends FieldType {
-  section?: string
-  name?: string
+  section?: string;
+  name?: string;
 
-  conditional?: 'check' | 'option'
-  displayCondition?: string
+  conditional?: 'check' | 'option';
+  displayCondition?: string;
 
-  assistiveText?: string
+  assistiveText?: string;
 
-  required?: boolean
-  disabled?: boolean
+  required?: boolean;
+  disabled?: boolean;
 
-  validation: string[]
+  validation: string[];
 }

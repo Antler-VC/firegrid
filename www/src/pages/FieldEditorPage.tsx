@@ -1,23 +1,23 @@
-import { useFiregridContext } from 'contexts/FiregridContext'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { useFiregridContext } from 'contexts/FiregridContext';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import {
   FormWithPreview as Layout,
   EmptyState,
-} from '@antlerengineering/components'
-import FormSelectors from 'components/FormSelectors'
-import FormPreview from 'components/FormPreview'
-import FormFields from 'components/FormPreview/FormFields'
-import FormValues from 'components/FormPreview/FormValues'
-import FieldDialog from 'components/FieldModal'
+} from '@antlerengineering/components';
+import FormSelectors from 'components/FormSelectors';
+import FormPreview from 'components/FormPreview';
+import FormFields from 'components/FormPreview/FormFields';
+import FormValues from 'components/FormPreview/FormValues';
+import FieldDialog from 'components/FieldModal';
 
-import { FieldEditorIcon } from 'constants/routes'
+import { FieldEditorIcon } from 'constants/routes';
 
-const customComponents = {}
+const customComponents = {};
 
 export default function FieldEditorPage() {
-  const { selectedForm } = useFiregridContext()
+  const { selectedForm } = useFiregridContext();
 
   if (selectedForm === null)
     return (
@@ -28,7 +28,7 @@ export default function FieldEditorPage() {
           description="Select a form above to begin"
         />
       </Layout>
-    )
+    );
 
   if (!selectedForm.fields)
     return (
@@ -39,7 +39,7 @@ export default function FieldEditorPage() {
           description={`ID: ${selectedForm?.id}`}
         />
       </Layout>
-    )
+    );
 
   return (
     <>
@@ -62,5 +62,5 @@ export default function FieldEditorPage() {
 
       <FieldDialog />
     </>
-  )
+  );
 }

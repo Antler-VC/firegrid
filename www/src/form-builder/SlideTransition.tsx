@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-import { useTheme } from '@material-ui/core'
-import { Transition } from 'react-transition-group'
-import { TransitionProps } from 'react-transition-group/Transition'
-import { TransitionProps as MuiTransitionProps } from '@material-ui/core/transitions'
+import { useTheme } from '@material-ui/core';
+import { Transition } from 'react-transition-group';
+import { TransitionProps } from 'react-transition-group/Transition';
+import { TransitionProps as MuiTransitionProps } from '@material-ui/core/transitions';
 
 export const SlideTransition: React.ForwardRefExoticComponent<
   Pick<TransitionProps, React.ReactText> & React.RefAttributes<any>
 > = React.forwardRef(
   ({ children, ...props }: TransitionProps, ref: React.Ref<any>) => {
-    const theme = useTheme()
+    const theme = useTheme();
 
-    if (!children) return null
+    if (!children) return null;
 
     const defaultStyle = {
       opacity: 0,
@@ -21,7 +21,7 @@ export const SlideTransition: React.ForwardRefExoticComponent<
         duration: '300ms',
         easing: 'cubic-bezier(0.075, 0.82, 0.165, 1)',
       }),
-    }
+    };
 
     const transitionStyles = {
       entering: {
@@ -49,7 +49,7 @@ export const SlideTransition: React.ForwardRefExoticComponent<
       },
 
       unmounted: {},
-    }
+    };
 
     return (
       <Transition
@@ -64,15 +64,15 @@ export const SlideTransition: React.ForwardRefExoticComponent<
           })
         }
       </Transition>
-    )
+    );
   }
-)
+);
 
-export default SlideTransition
+export default SlideTransition;
 
 export const SlideTransitionMui = React.forwardRef(function Transition(
   props: MuiTransitionProps & { children?: React.ReactElement<any, any> },
   ref: React.Ref<unknown>
 ) {
-  return <SlideTransition ref={ref} {...props} />
-})
+  return <SlideTransition ref={ref} {...props} />;
+});

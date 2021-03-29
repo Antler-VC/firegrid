@@ -1,16 +1,16 @@
-import React, { lazy } from 'react'
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import React, { lazy } from 'react';
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
-import SvgIcon from '@material-ui/core/SvgIcon'
-import { mdiPalette } from '@mdi/js'
+import SvgIcon from '@material-ui/core/SvgIcon';
+import { mdiPalette } from '@mdi/js';
 
-import Settings from './ColorSettings'
+import Settings from './ColorSettings';
 const Component = lazy(
   () => import('./ColorComponent') /* webpackChunkName: FormBuilder-Color */
-)
+);
 
-export const config: IFieldConfig = {
+export const ColorConfig: IFieldConfig = {
   type: FieldType.color,
   name: 'Color',
   group: 'input',
@@ -22,5 +22,5 @@ export const config: IFieldConfig = {
   defaultValue: null,
   component: Component,
   settings: Settings,
-}
-export default config
+};
+export default ColorConfig;

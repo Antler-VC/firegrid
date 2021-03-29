@@ -6,4 +6,4 @@ export default {
   storageBucket: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}.appspot.com`,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-}
+};

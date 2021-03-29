@@ -1,8 +1,8 @@
-import { useContext, useEffect } from 'react'
-import clsx from 'clsx'
-import { Link } from 'react-router-dom'
-import _find from 'lodash/find'
-import _findIndex from 'lodash/findIndex'
+import { useContext, useEffect } from 'react';
+import clsx from 'clsx';
+import { Link } from 'react-router-dom';
+import _find from 'lodash/find';
+import _findIndex from 'lodash/findIndex';
 
 import {
   makeStyles,
@@ -16,11 +16,11 @@ import {
   Typography,
   Tabs,
   Tab,
-} from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
+} from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 
-import useRouter from '../../hooks/useRouter'
-import { AppContext } from 'contexts/AppContext'
+import useRouter from '../../hooks/useRouter';
+import { AppContext } from 'contexts/AppContext';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -66,34 +66,34 @@ const useStyles = makeStyles((theme) =>
       [theme.breakpoints.up('md')]: { minHeight: 64 },
     },
   })
-)
+);
 
 function a11yProps(index: any) {
   return {
     id: `sub-navigation-tab-${index}`,
     'aria-controls': `sub-navigation-tabpanel-${index}`,
-  }
+  };
 }
 
 export interface ITopBarProps {
-  sidebarCollapsed: boolean
-  onDrawerToggle: () => void
+  sidebarCollapsed: boolean;
+  onDrawerToggle: () => void;
 }
 
 export default function TopBar({
   sidebarCollapsed,
   onDrawerToggle,
 }: ITopBarProps) {
-  const classes = useStyles()
-  const router = useRouter()
-  const { navItems } = useContext(AppContext)
+  const classes = useStyles();
+  const router = useRouter();
+  const { navItems } = useContext(AppContext);
 
   const scrollTrigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
-  })
+  });
 
-  const topLevelPath = '/' + router.location.pathname?.split('/')[1]
+  const topLevelPath = '/' + router.location.pathname?.split('/')[1];
   const topLevelItem =
     _find(
       navItems,
@@ -103,13 +103,13 @@ export default function TopBar({
       navItems,
       (item) =>
         item.route.toLowerCase() === router.location.pathname.toLowerCase()
-    )
+    );
 
   useEffect(() => {
-    if (!topLevelItem?.label || !topLevelItem) document.title = 'Hub Kit'
+    if (!topLevelItem?.label || !topLevelItem) document.title = 'Hub Kit';
     else if (!document.title.includes(topLevelItem!.label))
-      document.title = `${topLevelItem!.label} | Hub Kit`
-  }, [topLevelItem])
+      document.title = `${topLevelItem!.label} | Hub Kit`;
+  }, [topLevelItem]);
 
   return (
     <AppBar
@@ -187,5 +187,5 @@ export default function TopBar({
         </Container>
       </Toolbar>
     </AppBar>
-  )
+  );
 }

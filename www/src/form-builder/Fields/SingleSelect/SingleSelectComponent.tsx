@@ -1,14 +1,14 @@
-import React from 'react'
-import { Controller } from 'react-hook-form'
-import { IFieldComponentProps } from '../../types'
-import MultiSelect, { MultiSelectProps } from '@antlerengineering/multiselect'
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import { IFieldComponentProps } from '../../types';
+import MultiSelect, { MultiSelectProps } from '@antlerengineering/multiselect';
 
 import {
   TextField,
   FilledTextFieldProps,
   MenuItem,
   FormHelperText,
-} from '@material-ui/core'
+} from '@material-ui/core';
 
 export interface ISingleSelectComponentProps
   extends IFieldComponentProps,
@@ -16,7 +16,7 @@ export interface ISingleSelectComponentProps
     Partial<
       Omit<MultiSelectProps<string>, 'value' | 'onChange' | 'options' | 'label'>
     > {
-  options: (string | { value: string; label: React.ReactNode })[]
+  options: (string | { value: string; label: React.ReactNode })[];
 }
 
 export default function SingleSelectComponent({
@@ -35,7 +35,7 @@ export default function SingleSelectComponent({
       control={control}
       name={name}
       render={({ onChange, onBlur, value }) => {
-        const sanitisedValue = (Array.isArray(value) ? value[0] : value) ?? ''
+        const sanitisedValue = (Array.isArray(value) ? value[0] : value) ?? '';
 
         // Render MultiSelect if one of the following props is defined
         if (
@@ -74,7 +74,7 @@ export default function SingleSelectComponent({
                 'data-label': props.label ?? '',
               }}
             />
-          )
+          );
 
         // Render basic Material-UI select
         return (
@@ -112,16 +112,16 @@ export default function SingleSelectComponent({
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
-                )
+                );
               return (
                 <MenuItem key={option} value={option}>
                   {option}
                 </MenuItem>
-              )
+              );
             })}
           </TextField>
-        )
+        );
       }}
     />
-  )
+  );
 }

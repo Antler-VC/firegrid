@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   makeStyles,
@@ -6,9 +6,9 @@ import {
   Card,
   Grid,
   LinearProgress,
-} from '@material-ui/core'
+} from '@material-ui/core';
 
-import AntlerLogo from '@antlerengineering/components/src/assets/antler-logo.svg'
+import AntlerLogo from '@antlerengineering/components/src/assets/antler-logo.svg';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -52,10 +52,10 @@ const useStyles = makeStyles((theme) =>
       color: theme.palette.primary.main,
     },
   })
-)
+);
 
 export default function AuthCard({ children, height = 300, loading = false }) {
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <>
       <Card className={classes.card} style={{ height }} elevation={2}>
@@ -94,5 +94,5 @@ export default function AuthCard({ children, height = 300, loading = false }) {
         </Button>
       </Grid> */}
     </>
-  )
+  );
 }

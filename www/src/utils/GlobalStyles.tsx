@@ -1,4 +1,4 @@
-import { makeStyles, createStyles } from '@material-ui/core'
+import { makeStyles, createStyles } from '@material-ui/core';
 
 export const useGlobalStyles = makeStyles((theme) =>
   createStyles({
@@ -16,9 +16,9 @@ export const useGlobalStyles = makeStyles((theme) =>
       },
     },
   })
-)
+);
 
 export default function GlobalStyles() {
-  useGlobalStyles()
-  return null
+  useGlobalStyles();
+  return null;
 }

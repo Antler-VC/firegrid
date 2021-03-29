@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
 
-import { FormHelperText, FormHelperTextProps } from '@material-ui/core'
+import { FormHelperText, FormHelperTextProps } from '@material-ui/core';
 
 export interface IFieldAssistiveTextProps
   extends Omit<FormHelperTextProps, 'error' | 'disabled'> {
-  disabled: boolean
+  disabled: boolean;
 }
 
 export default function FieldAssistiveText(props: IFieldAssistiveTextProps) {
-  if (!props.children) return null
+  if (!props.children) return null;
 
   return (
     <FormHelperText
@@ -16,5 +16,5 @@ export default function FieldAssistiveText(props: IFieldAssistiveTextProps) {
       style={{ whiteSpace: 'pre-line', ...props.style }}
       error={false}
     />
-  )
+  );
 }

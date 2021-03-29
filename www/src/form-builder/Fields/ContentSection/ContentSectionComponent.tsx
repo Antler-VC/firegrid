@@ -1,6 +1,6 @@
-import React from 'react'
-import clsx from 'clsx'
-import { IFieldComponentProps } from '../../types'
+import React from 'react';
+import clsx from 'clsx';
+import { IFieldComponentProps } from '../../types';
 
 import {
   makeStyles,
@@ -8,7 +8,7 @@ import {
   Typography,
   TypographyProps,
   Divider,
-} from '@material-ui/core'
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) =>
 
     divider: { marginTop: theme.spacing(0.5) },
   })
-)
+);
 
 export interface IContentSectionComponentProps
   extends IFieldComponentProps,
@@ -44,7 +44,7 @@ export default function ContentSectionComponent({
   useFormMethods,
   ...props
 }: IContentSectionComponentProps) {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <div
@@ -65,5 +65,5 @@ export default function ContentSectionComponent({
 
       <Divider className={classes.divider} />
     </div>
-  )
+  );
 }

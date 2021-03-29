@@ -1,16 +1,16 @@
-import React, { lazy } from 'react'
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import React, { lazy } from 'react';
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
-import SvgIcon from '@material-ui/core/SvgIcon'
-import { mdiCheckboxMarked } from '@mdi/js'
+import SvgIcon from '@material-ui/core/SvgIcon';
+import { mdiCheckboxMarked } from '@mdi/js';
 
 const Component = lazy(
   () =>
     import('./CheckboxComponent') /* webpackChunkName: FormBuilder-Checkbox */
-)
+);
 
-export const config: IFieldConfig = {
+export const CheckboxConfig: IFieldConfig = {
   type: FieldType.checkbox,
   name: 'Checkbox',
   group: 'input',
@@ -22,5 +22,5 @@ export const config: IFieldConfig = {
   defaultValue: false,
   component: Component,
   settings: [],
-}
-export default config
+};
+export default CheckboxConfig;

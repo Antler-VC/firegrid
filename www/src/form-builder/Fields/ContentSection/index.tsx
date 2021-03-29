@@ -1,19 +1,19 @@
-import React, { lazy } from 'react'
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import React, { lazy } from 'react';
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
-import SvgIcon from '@material-ui/core/SvgIcon'
-import { mdiFormatPageBreak } from '@mdi/js'
+import SvgIcon from '@material-ui/core/SvgIcon';
+import { mdiFormatPageBreak } from '@mdi/js';
 
-import Settings from './ContentSectionSettings'
+import Settings from './ContentSectionSettings';
 const Component = lazy(
   () =>
     import(
       './ContentSectionComponent'
     ) /* webpackChunkName: FormBuilder-ContentSection */
-)
+);
 
-export const config: IFieldConfig = {
+export const ContentSectionConfig: IFieldConfig = {
   type: FieldType.contentSection,
   name: 'Section',
   group: 'content',
@@ -25,5 +25,5 @@ export const config: IFieldConfig = {
   defaultValue: undefined,
   component: Component,
   settings: Settings,
-}
-export default config
+};
+export default ContentSectionConfig;

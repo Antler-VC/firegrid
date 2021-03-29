@@ -1,5 +1,5 @@
-import { IFieldConfig } from '../../types'
-import { FieldType } from '../../constants/fields'
+import { IFieldConfig } from '../../types';
+import { FieldType } from '../../constants/fields';
 
 export const ContentParagraphSettings: IFieldConfig['settings'] = [
   {
@@ -8,6 +8,6 @@ export const ContentParagraphSettings: IFieldConfig['settings'] = [
     type: FieldType.paragraph,
     defaultValue: 'Paragraph',
   },
-]
+];
 
-export default ContentParagraphSettings
+export default ContentParagraphSettings;
