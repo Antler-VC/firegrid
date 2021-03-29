@@ -45,6 +45,8 @@ export default function SliderComponent({
   errorMessage,
   assistiveText,
 
+  required,
+
   units,
   unitsPlural,
   minLabel,
@@ -75,7 +77,11 @@ export default function SliderComponent({
             error={!!errorMessage}
             disabled={props.disabled}
           >
-            <FieldLabel error={!!errorMessage} disabled={!!props.disabled}>
+            <FieldLabel
+              error={!!errorMessage}
+              disabled={!!props.disabled}
+              required={!!required}
+            >
               {label}
             </FieldLabel>
 

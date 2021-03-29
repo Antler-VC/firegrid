@@ -46,6 +46,8 @@ export default function RadioComponent({
   errorMessage,
   assistiveText,
 
+  required,
+
   options,
   ...props
 }: IRadioComponentProps) {
@@ -66,6 +68,7 @@ export default function RadioComponent({
             {...({ component: 'legend' } as any)}
             error={!!errorMessage}
             disabled={!!props.disabled}
+            required={!!required}
           >
             {label}
           </FieldLabel>
