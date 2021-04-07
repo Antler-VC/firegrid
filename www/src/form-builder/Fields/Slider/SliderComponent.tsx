@@ -75,7 +75,8 @@ export default function SliderComponent({
           <FormControl
             className={classes.root}
             error={!!errorMessage}
-            disabled={props.disabled}
+            disabled={!!props.disabled}
+            required={!!required}
           >
             <FieldLabel
               error={!!errorMessage}

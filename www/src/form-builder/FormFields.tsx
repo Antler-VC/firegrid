@@ -10,7 +10,7 @@ import {
   CustomComponents,
 } from './types';
 
-import FieldWrapper from './FieldWrapper'; // IFieldWrapperProps
+import FieldWrapper from './FieldWrapper';
 
 export interface IFormFieldsProps {
   fields: Fields;
