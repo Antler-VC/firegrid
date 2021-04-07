@@ -9,6 +9,7 @@ import {
   createStyles,
   useTheme,
   Grid,
+  Typography,
   IconButton,
   Checkbox,
 } from '@material-ui/core';
@@ -29,11 +30,28 @@ import AddButton from './AddButton';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    row: {
+      '&:active $order': { opacity: 0 },
+    },
+
+    order: {
+      color: theme.palette.text.secondary,
+      cursor: 'default',
+
+      display: 'block',
+      width: 24,
+      marginRight: theme.spacing(1.5),
+      lineHeight: '56px',
+    },
+
     dragHandle: {
-      margin: theme.spacing(0.5, 0),
-      padding: theme.spacing(1.5),
-      paddingLeft: 0,
+      height: 56,
       boxSizing: 'content-box',
+
+      '& svg': {
+        height: '100%',
+        paddingRight: theme.spacing(2),
+      },
     },
 
     iconButton: {
@@ -51,22 +69,16 @@ const useStyles = makeStyles((theme) =>
       },
     },
 
-    dropArea: { position: 'relative' },
+    dropArea: {
+      height: 60,
+      transition: theme.transitions.create('height'),
+
+      '& button': { transition: theme.transitions.create('opacity') },
+    },
     droppable: {
+      height: 80 + 60 + 60,
+
       '& button': { opacity: 0 },
-      '&::after': {
-        content: '""',
-        display: 'block',
-        position: 'absolute',
-        top: '50%',
-        left: 0,
-
-        width: '100%',
-        height: 2,
-        marginTop: -1,
-
-        backgroundColor: theme.palette.antler.green[500],
-      },
     },
   })
 );
@@ -91,7 +103,7 @@ export default function FieldWrapper({
 
   const [conditionalState, setConditionalState] = useState(false);
 
-  const { reOrderField } = useFiregridContext();
+  const { reOrderField, deleteField, fieldModalRef } = useFiregridContext();
 
   const [{ isDragging }, drag, dragPreview] = useDrag(() => ({
     type: 'FIELD',
@@ -182,23 +194,37 @@ export default function FieldWrapper({
           isOver && canDrop && classes.droppable
         )}
       >
-        <AddButton />
+        <AddButton index={props.index} />
       </Grid>
 
-      <Grid item key={props.name!} id={`fieldWrapper-${props.name}`} xs={12}>
+      <Grid
+        item
+        key={props.name!}
+        id={`fieldWrapper-${props.name}`}
+        xs={12}
+        ref={dragPreview}
+      >
         <Grid
           container
           spacing={1}
           wrap="nowrap"
           alignItems="flex-start"
+          className={classes.row}
           style={{ opacity: isDragging ? 0.5 : 1 }}
-          ref={dragPreview}
         >
-          <Grid item ref={drag} style={{ cursor: 'grab' }}>
-            <DragHandleIcon
-              aria-label="Drag to reorder this field"
-              className={classes.dragHandle}
-            />
+          <Grid item>
+            <Typography variant="overline" className={classes.order}>
+              {props.index + 1}
+            </Typography>
+          </Grid>
+
+          <Grid
+            item
+            ref={drag}
+            style={{ cursor: 'grab' }}
+            className={classes.dragHandle}
+          >
+            <DragHandleIcon aria-label="Drag to reorder this field" />
           </Grid>
 
           <Grid item xs>
@@ -210,6 +236,7 @@ export default function FieldWrapper({
               aria-label="Edit field"
               color="secondary"
               className={classes.iconButton}
+              onClick={() => fieldModalRef.current?.openFieldModal(props.name!)}
             >
               <EditIcon />
             </IconButton>
@@ -226,6 +253,7 @@ export default function FieldWrapper({
                 color="secondary"
                 className={clsx(classes.iconButton, classes.removeButton)}
                 edge="end"
+                onClick={() => deleteField(props.name!)}
               >
                 <RemoveCircleIcon />
               </IconButton>

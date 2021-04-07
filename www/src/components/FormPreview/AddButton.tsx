@@ -1,3 +1,5 @@
+import { useFiregridContext } from 'contexts/FiregridContext';
+
 import {
   makeStyles,
   createStyles,
@@ -50,19 +52,24 @@ const useStyles = makeStyles((theme) =>
 
 export interface IAddButtonProps extends Partial<ButtonProps> {
   addType?: 'field' | 'section';
+  index: number;
 }
 
 export default function AddButton({
   addType = 'field',
+  index,
   ...props
 }: IAddButtonProps) {
   const classes = useStyles();
+
+  const { fieldModalRef } = useFiregridContext();
 
   return (
     <Button
       classes={{ root: classes.root, startIcon: classes.startIcon }}
       color="default"
       startIcon={addType === 'field' ? <AddCircleIcon /> : <AddBoxIcon />}
+      onClick={() => fieldModalRef.current?.openFieldModal(index)}
       {...props}
     >
       <span className={classes.label}>Add {addType}</span>

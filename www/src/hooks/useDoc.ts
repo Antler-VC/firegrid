@@ -76,15 +76,25 @@ const useDoc = (intialOverrides: any) => {
     []
   );
 
-  const updateDoc = (data) =>
-    db.doc(documentState.path).set(
-      {
+  const updateDoc = (data) => {
+    documentDispatch({
+      action: DocActions.update,
+      data: {
         ...data,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
         updatedBy: currentUser?.uid ?? '',
       },
-      { merge: true }
-    );
+    });
+
+    // db.doc(documentState.path).set(
+    //   {
+    //     ...data,
+    //     updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+    //     updatedBy: currentUser?.uid ?? '',
+    //   },
+    //   { merge: true }
+    // );
+  };
 
   return [documentState, documentDispatch, updateDoc];
 };
