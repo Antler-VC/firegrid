@@ -1,40 +1,27 @@
 steps:
-  - name: node:10.15.1
-    entrypoint: yarn
-    args: ["install"]
-    dir: "www"
-  - name: node:10.15.1
-    entrypoint: yarn
+  - name: "gcr.io/kaniko-project/executor:latest"
     args:
-      - env
-      - "${_PROJECT_ID}"
-      - "${_FIREBASE_WEB_API_KEY}"
-      - "${_ALGOLIA_APP_ID}"
+      - --destination=gcr.io/$PROJECT_ID/image
+      - --dockerfile=Dockerfile
+      - --cache=true
+      - --cache-ttl=8760h
+      - --build-arg
+      - "_PROJECT_ID=${_PROJECT_ID}"
+      - --build-arg
+      - "_FIREBASE_WEB_API_KEY=${_FIREBASE_WEB_API_KEY}"
+      - --build-arg
+      - "_ALGOLIA_APP_ID=${_ALGOLIA_APP_ID}"
+      - --build-arg
+      - "_FIREBASE_APP_ID=${_FIREBASE_APP_ID}"
+      - --build-arg
+      - "_FIREBASE_MEASUREMENT_ID=${_FIREBASE_MEASUREMENT_ID}"
+      - --build-arg
+      - "_HOSTING_TARGET=${_HOSTING_TARGET}"
+      - --build-arg
+      - "_FIREBASE_TOKEN=${_FIREBASE_TOKEN}"
     dir: "www"
-  - name: node:10.15.1
-    entrypoint: yarn
-    args: ["build"]
-    dir: "www"
-  - name: node:10.15.1
-    entrypoint: yarn
-    args:
-      - "target"
-      - "${_HOSTING_TARGET}"
-      - --project
-      - "${_PROJECT_ID}"
-    dir: "www"
-  - name: node:10.15.1
-    entrypoint: yarn
-    args:
-      - deploy
-      - --project
-      - "${_PROJECT_ID}"
-      - --debug
-      - --token
-      - "${_FIREBASE_TOKEN}"
-      - --only
-      - hosting
-    dir: "www"
+timeout: 800s
 substitutions:
   _PROJECT_ID: "project-id" # default value
-
+options:
+  machineType: "N1_HIGHCPU_32"
