@@ -1,6 +1,6 @@
 import { db } from '../firebase';
 import { useEffect, useReducer } from 'react';
-import equals from 'ramda/es/equals';
+import isEqual from 'lodash/isEqual';
 const CAP = 300;
 
 const collectionReducer = (prevState: any, newProps: any) => {
@@ -124,7 +124,7 @@ const useCollection = (initialOverrides: useCollectionOverrides) => {
       unsubscribe,
     } = collectionState;
     if (
-      !equals(prevFilters, filters) ||
+      !isEqual(prevFilters, filters) ||
       prevLimit !== limit ||
       prevPath !== path
     ) {
