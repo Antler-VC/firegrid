@@ -1,7 +1,6 @@
 import React, { Suspense, useState } from 'react';
 import clsx from 'clsx';
-import _findIndex from 'lodash/findIndex';
-import { useDrag, useDrop } from 'react-dnd';
+import { useDrag } from 'react-dnd';
 import { useFiregridContext } from 'contexts/FiregridContext';
 
 import {
@@ -26,7 +25,7 @@ import {
   CustomComponent,
   getFieldProp,
 } from '@antlerengineering/form-builder';
-import AddButton from './AddButton';
+import AddRow from './AddRow';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -103,26 +102,17 @@ export default function FieldWrapper({
 
   const [conditionalState, setConditionalState] = useState(false);
 
-  const { reOrderField, deleteField, fieldModalRef } = useFiregridContext();
+  const { deleteField, fieldModalRef } = useFiregridContext();
 
-  const [{ isDragging }, drag, dragPreview] = useDrag(() => ({
-    type: 'FIELD',
-    item: { name: props.name },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  }));
-
-  const [{ isOver, canDrop }, drop] = useDrop(
+  const [{ isDragging }, drag, dragPreview] = useDrag(
     () => ({
-      accept: 'FIELD',
-      drop: ({ name: dragName }: any) => reOrderField(dragName, props.name!),
+      type: 'FIELD',
+      item: { index: props.index },
       collect: (monitor) => ({
-        isOver: !!monitor.isOver(),
-        canDrop: !!monitor.canDrop(),
+        isDragging: !!monitor.isDragging(),
       }),
     }),
-    [props.name]
+    [props.index]
   );
 
   if (!type) {
@@ -161,6 +151,7 @@ export default function FieldWrapper({
     control,
     errorMessage: errors[props.name!]?.message,
     disabled: conditional ? !conditionalState : props.disabled,
+    defaultValue: undefined, // Prevent field being both controlled and uncontrolled
   });
 
   if (conditional === 'check')
@@ -185,17 +176,7 @@ export default function FieldWrapper({
 
   return (
     <>
-      <Grid
-        item
-        xs={12}
-        ref={drop}
-        className={clsx(
-          classes.dropArea,
-          isOver && canDrop && classes.droppable
-        )}
-      >
-        <AddButton index={props.index} />
-      </Grid>
+      <AddRow index={props.index} />
 
       <Grid
         item

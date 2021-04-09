@@ -8,12 +8,9 @@ import { Field } from '@antlerengineering/form-builder';
 export const _reOrderField = (
   selectedFormRef: React.MutableRefObject<Form | null>,
   updateSelectedForm: (value: Partial<Form>) => void
-) => (fromName: string, toName: string) => {
+) => (from: number, to: number) => {
   const fields = selectedFormRef.current?.fields;
   if (!Array.isArray(fields)) return;
-
-  const from = _findIndex(fields, { name: fromName });
-  const to = _findIndex(fields, { name: toName });
 
   if (from === to) return;
 

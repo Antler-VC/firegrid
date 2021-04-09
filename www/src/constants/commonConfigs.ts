@@ -62,8 +62,8 @@ export const inputGroupConfig = (mode: string) => [
     label: 'Conditional Field?',
     options: [
       { value: '', label: 'None' },
-      { value: 'checkbox', label: 'Checkbox' },
-      // { value: 'optionbox', label: 'Optionbox', disabled: true },
+      { value: 'check', label: 'Checkbox' },
+      // { value: 'option', label: 'Optionbox', disabled: true },
     ],
   },
   {

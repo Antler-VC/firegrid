@@ -24,7 +24,7 @@ export default function FormPreview({
   const methods = useForm({
     mode: 'all',
     defaultValues,
-    resolver: yupResolver(getValidationSchema(fields)),
+    resolver: yupResolver(getValidationSchema(fields, customComponents)),
   });
 
   return (

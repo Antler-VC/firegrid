@@ -76,8 +76,6 @@ export function FiregridProvider({ children }: React.PropsWithChildren<{}>) {
 
   const fieldModalRef = useRef<FieldModalRef>();
 
-  console.log(selectedForm);
-
   if (forms === 'loading') return <Loading message="Loading forms" />;
   if (forms.length === 0) return <EmptyState message="No forms to edit" />;
 
