@@ -15,7 +15,8 @@ export default function PrivateRoute({ render, ...rest }: IPrivateRouteProps) {
     return (
       <Redirect
         to={
-          '/auth?redirect=' + encodeURIComponent(rest.location?.pathname ?? '')
+          '/signIn?redirect=' +
+          encodeURIComponent(rest.location?.pathname ?? '')
         }
       />
     );
