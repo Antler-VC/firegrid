@@ -71,7 +71,9 @@ export default function FormLayout({
     <div className={classes.root}>
       <div className={classes.paperContainer}>
         {paperHeader}
-        <Paper className={classes.mainPaper}>{children}</Paper>
+        <Paper className={classes.mainPaper} elevation={2}>
+          {children}
+        </Paper>
       </div>
 
       <div className={classes.previewContainer}>

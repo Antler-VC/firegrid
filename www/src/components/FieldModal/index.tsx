@@ -118,7 +118,10 @@ export default function FieldModal() {
           type: FieldType.singleSelect,
           name: '_order',
           label: 'Order',
-          options: [...selectedForm.fields, null].map((_, i) => `${i + 1}`),
+          options: [...selectedForm.fields, null].map((_, i) => ({
+            label: `${i + 1}`,
+            value: i + 1,
+          })),
           searchable: true,
           required: true,
         },
@@ -148,6 +151,10 @@ export default function FieldModal() {
           component: () => (
             <Button variant="outlined">Display Condition</Button>
           ),
+          defaultValue: '',
+        },
+        readOnly: {
+          component: () => <></>,
           defaultValue: '',
         },
       }}

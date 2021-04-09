@@ -108,11 +108,9 @@ export const contentGroupConfig = (mode: string) => [
     disabled: mode === 'edit',
   },
   {
-    type: FieldType.shortText,
+    type: 'readOnly',
     name: 'name',
     label: 'Field Key',
-    assistiveText:
-      'TODO: REMOVE THIS. The name of the field in the database.\nVisible only to the Engineering team.',
     disabled: true,
   },
   {
