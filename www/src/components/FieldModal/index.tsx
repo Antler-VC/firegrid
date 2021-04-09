@@ -14,7 +14,7 @@ import {
   Field,
   IFieldConfig,
   getFieldProp,
-} from 'form-builder';
+} from '@antlerengineering/form-builder';
 import FieldTypeSelect from './FieldTypeSelect';
 
 import {

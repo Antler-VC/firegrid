@@ -5,7 +5,11 @@ import _startCase from 'lodash/startCase';
 import { useTheme } from '@material-ui/core';
 import MultiSelect from '@antlerengineering/multiselect';
 
-import { IFieldComponentProps, FieldConfigs, getFieldProp } from 'form-builder';
+import {
+  IFieldComponentProps,
+  FieldConfigs,
+  getFieldProp,
+} from '@antlerengineering/form-builder';
 
 export interface IFieldTypeSelectProps extends IFieldComponentProps {
   newFieldType: string;

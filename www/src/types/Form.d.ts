@@ -1,4 +1,4 @@
-import { Field } from 'form-builder';
+import { Field } from '@antlerengineering/form-builder';
 
 export interface Form {
   id: string;

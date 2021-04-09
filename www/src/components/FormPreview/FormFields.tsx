@@ -8,7 +8,7 @@ import {
   Fields,
   // Field, Values,
   CustomComponents,
-} from 'form-builder';
+} from '@antlerengineering/form-builder';
 
 import FieldWrapper from './FieldWrapper'; // IFieldWrapperProps
 

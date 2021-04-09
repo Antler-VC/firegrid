@@ -3,7 +3,7 @@ import _findIndex from 'lodash/findIndex';
 import arrayMove from 'array-move';
 
 import { Form } from 'types/Form';
-import { Field } from 'form-builder';
+import { Field } from '@antlerengineering/form-builder';
 
 export const _reOrderField = (
   selectedFormRef: React.MutableRefObject<Form | null>,

@@ -1,4 +1,4 @@
-import { FieldType } from 'form-builder';
+import { FieldType } from '@antlerengineering/form-builder';
 
 export const newConfig = () => [
   {

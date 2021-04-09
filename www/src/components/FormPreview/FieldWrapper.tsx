@@ -25,7 +25,7 @@ import {
   FieldSkeleton,
   CustomComponent,
   getFieldProp,
-} from 'form-builder';
+} from '@antlerengineering/form-builder';
 import AddButton from './AddButton';
 
 const useStyles = makeStyles((theme) =>
