@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Controller } from 'react-hook-form';
 import _startCase from 'lodash/startCase';
 
 import { useTheme } from '@material-ui/core';
@@ -16,14 +15,21 @@ export interface IFieldTypeSelectProps extends IFieldComponentProps {
   setNewFieldType: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function FieldTypeSelect({
-  control,
-  name,
-  newFieldType,
-  setNewFieldType,
-  useFormMethods,
-  ...props
-}: IFieldTypeSelectProps) {
+export const FieldTypeSelect = React.forwardRef(function FieldTypeSelect(
+  {
+    onChange,
+    onBlur,
+    value,
+
+    name,
+
+    newFieldType,
+    setNewFieldType,
+    useFormMethods,
+    ...props
+  }: IFieldTypeSelectProps,
+  ref
+) {
   const theme = useTheme();
 
   useEffect(() => {
@@ -33,56 +39,53 @@ export default function FieldTypeSelect({
   }, [newFieldType]);
 
   return (
-    <Controller
-      control={control}
-      name={name}
-      render={({ onChange, onBlur, value }) => (
-        <MultiSelect
-          {...props}
-          label="Field Type"
-          multiple={false}
-          value={value}
-          onChange={(value) => {
-            onChange(value);
-            setNewFieldType(value);
-          }}
-          options={FieldConfigs.map((config) => ({
-            value: config.type,
-            label: config.name,
-            group: config.group,
-            icon: config.icon,
-          }))}
-          AutocompleteProps={{ groupBy: (option) => option.group }}
-          itemRenderer={(option: any) => (
-            <>
-              <span
-                style={{
-                  marginRight: theme.spacing(2),
-                  display: 'flex',
-                  color: theme.palette.action.active,
-                }}
-              >
-                {option.icon}
-              </span>
-              {option.label}
-            </>
-          )}
-          TextFieldProps={{
-            onBlur,
-            InputLabelProps: { required: true },
-            SelectProps: {
-              renderValue: () =>
-                value ? (
-                  <>
-                    {_startCase(getFieldProp('group', value))}
-                    &nbsp;–&nbsp;
-                    {getFieldProp('name', value)}
-                  </>
-                ) : null,
-            },
-          }}
-        />
+    <MultiSelect
+      {...props}
+      label="Field Type"
+      multiple={false}
+      value={value}
+      onChange={(value) => {
+        onChange(value);
+        setNewFieldType(value);
+      }}
+      options={FieldConfigs.map((config) => ({
+        value: config.type,
+        label: config.name,
+        group: config.group,
+        icon: config.icon,
+      }))}
+      AutocompleteProps={{ groupBy: (option) => option.group }}
+      itemRenderer={(option: any) => (
+        <>
+          <span
+            style={{
+              marginRight: theme.spacing(2),
+              display: 'flex',
+              color: theme.palette.action.active,
+            }}
+          >
+            {option.icon}
+          </span>
+          {option.label}
+        </>
       )}
+      TextFieldProps={{
+        onBlur,
+        InputLabelProps: { required: true },
+        SelectProps: {
+          renderValue: () =>
+            value ? (
+              <>
+                {_startCase(getFieldProp('group', value))}
+                &nbsp;–&nbsp;
+                {getFieldProp('name', value)}
+              </>
+            ) : null,
+        },
+        inputRef: ref,
+      }}
     />
   );
-}
+});
+
+export default FieldTypeSelect;

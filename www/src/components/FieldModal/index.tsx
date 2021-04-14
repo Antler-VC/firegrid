@@ -5,8 +5,6 @@ import _startCase from 'lodash/startCase';
 import shortHash from 'shorthash2';
 import { useFiregridContext } from 'contexts/FiregridContext';
 
-import { Button } from '@material-ui/core';
-
 import {
   FormDialog,
   FieldType,
@@ -16,6 +14,7 @@ import {
   getFieldProp,
 } from '@antlerengineering/form-builder';
 import FieldTypeSelect from './FieldTypeSelect';
+import DisplayConditionEditor from './DisplayConditionEditor';
 
 import {
   newConfig,
@@ -138,13 +137,14 @@ export default function FieldModal() {
       DialogProps={{ maxWidth: 'xs', disableBackdropClick: true }}
       customComponents={{
         fieldTypeSelect: {
-          component: (props) => (
+          component: React.forwardRef((props, ref) => (
             <FieldTypeSelect
               {...props}
+              ref={ref}
               newFieldType={newFieldType}
               setNewFieldType={setNewFieldType}
             />
-          ),
+          )) as any,
           defaultValue: '',
         },
         displayCondition: {
@@ -154,7 +154,7 @@ export default function FieldModal() {
           defaultValue: '',
         },
         readOnly: {
-          component: () => <></>,
+          component: (() => <></>) as any,
           defaultValue: '',
         },
       }}

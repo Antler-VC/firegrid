@@ -1,5 +1,6 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useRef, useState } from 'react';
 import clsx from 'clsx';
+import { Controller } from 'react-hook-form';
 import { useDrag } from 'react-dnd';
 import { useFiregridContext } from 'contexts/FiregridContext';
 
@@ -91,6 +92,8 @@ export interface IFieldWrapperProps
 export default function FieldWrapper({
   control,
   errors,
+  name,
+  label,
   type,
   customComponents,
   conditional,
@@ -100,6 +103,7 @@ export default function FieldWrapper({
   const classes = useStyles();
   const theme = useTheme();
 
+  const ref = useRef<any>(null);
   const [conditionalState, setConditionalState] = useState(false);
 
   const { deleteField, fieldModalRef } = useFiregridContext();
@@ -142,18 +146,48 @@ export default function FieldWrapper({
     }
   }
 
-  if (!props.name) return null;
+  if (!name) return null;
 
-  renderedField = React.createElement(fieldComponent, {
-    ...props,
-    name: props.name!,
-    label: props.label!,
-    control,
-    errorMessage: errors[props.name!]?.message,
-    disabled: conditional ? !conditionalState : props.disabled,
-    defaultValue: undefined, // Prevent field being both controlled and uncontrolled
-  });
+  renderedField = (
+    <Controller
+      control={control}
+      name={name!}
+      render={(renderProps) =>
+        React.createElement(fieldComponent, {
+          ...props,
+          ...renderProps,
+          ref,
+          name: name!, // Fix TypeScript error
+          label: label!, // Fix TypeScript error
+          errorMessage: errors[name!]?.message,
+          defaultValue: undefined, // Prevent field being both controlled and uncontrolled
+        })
+      }
+      onFocus={() => {
+        if (ref.current) {
+          ref.current.scrollIntoView({ behavior: 'smooth' });
+          ref.current.focus();
+        }
+      }}
+    />
+  );
 
+  // If it’s a content field, don’t wrap with Controller
+  if (getFieldProp('group', type) === 'content')
+    renderedField = React.createElement(fieldComponent, {
+      ...props,
+      // Stub Controller render props
+      onChange: () => {},
+      value: undefined,
+      onBlur: () => {},
+      disabled: true,
+      ref: undefined as any,
+      name: name!, // Fix TypeScript error
+      label: label!, // Fix TypeScript error
+    });
+
+  // If it’s a conditional field and the user hasn’t ticked, make sure the
+  // Controller doesn’t register the field and there is no value for this field
   if (conditional === 'check')
     renderedField = (
       <Grid container wrap="nowrap" alignItems="flex-start">
@@ -162,14 +196,27 @@ export default function FieldWrapper({
             checked={conditionalState}
             onChange={(e) => {
               setConditionalState(e.target.checked);
-              props.useFormMethods.setValue(props.name!, undefined);
             }}
-            inputProps={{ 'aria-label': `Enable field ${props.label}` }}
+            inputProps={{ 'aria-label': `Enable field ${label}` }}
             style={{ margin: theme.spacing(1, 2, 1, -1.5) }}
           />
         </Grid>
-        <Grid item xs key={`${props.name}-${conditionalState}`}>
-          <Suspense fallback={<FieldSkeleton />}>{renderedField}</Suspense>
+        <Grid item xs>
+          {conditionalState
+            ? renderedField
+            : React.createElement(fieldComponent, {
+                ...props,
+                // Stub Controller render props
+                onChange: () => {},
+                value: undefined,
+                onBlur: () => {},
+                disabled: true,
+                ref: undefined as any,
+                name: name!, // Fix TypeScript error
+                label: label!, // Fix TypeScript error
+                errorMessage: errors[name!]?.message,
+                defaultValue: undefined, // Prevent field being both controlled and uncontrolled
+              })}
         </Grid>
       </Grid>
     );
@@ -180,8 +227,8 @@ export default function FieldWrapper({
 
       <Grid
         item
-        key={props.name!}
-        id={`fieldWrapper-${props.name}`}
+        key={name!}
+        id={`fieldWrapper-${name}`}
         xs={12}
         ref={dragPreview}
       >
@@ -217,7 +264,7 @@ export default function FieldWrapper({
               aria-label="Edit field"
               color="secondary"
               className={classes.iconButton}
-              onClick={() => fieldModalRef.current?.openFieldModal(props.name!)}
+              onClick={() => fieldModalRef.current?.openFieldModal(name!)}
             >
               <EditIcon />
             </IconButton>
@@ -234,7 +281,7 @@ export default function FieldWrapper({
                 color="secondary"
                 className={clsx(classes.iconButton, classes.removeButton)}
                 edge="end"
-                onClick={() => deleteField(props.name!)}
+                onClick={() => deleteField(name!)}
               >
                 <RemoveCircleIcon />
               </IconButton>
