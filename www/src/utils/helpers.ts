@@ -1,5 +1,7 @@
 import React from 'react';
 import _findIndex from 'lodash/findIndex';
+import _omitBy from 'lodash/omitBy';
+import _isUndefined from 'lodash/isUndefined';
 import arrayMove from 'array-move';
 
 import { Form } from 'types/Form';
@@ -26,7 +28,7 @@ export const _addField = (
   if (!Array.isArray(fields)) return;
 
   const newFields = [...fields];
-  newFields.splice(index, 0, config);
+  newFields.splice(index, 0, _omitBy(config, _isUndefined) as typeof config);
   updateSelectedForm({ fields: newFields });
 };
 
@@ -41,7 +43,7 @@ export const _editField = (
 
   const newFields = [...fields];
   if (currentIndex !== index) newFields.splice(currentIndex, 1);
-  newFields.splice(index, 1, config);
+  newFields.splice(index, 1, _omitBy(config, _isUndefined) as typeof config);
   updateSelectedForm({ fields: newFields });
 };
 
