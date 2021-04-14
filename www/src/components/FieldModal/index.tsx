@@ -5,6 +5,7 @@ import _startCase from 'lodash/startCase';
 import shortHash from 'shorthash2';
 import { useFiregridContext } from 'contexts/FiregridContext';
 
+import { Button } from '@material-ui/core';
 import {
   FormDialog,
   FieldType,
