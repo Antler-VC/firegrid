@@ -56,7 +56,8 @@ export const DisplayConditionEditor = React.forwardRef(
     const functionCannotBeEvaluated = getFunctionCannotBeEvaluated(value);
 
     const [errors, setErrors] = useState<any[]>([]);
-    const noReturnStatement = value.indexOf('return ') === -1;
+    const noReturnStatement =
+      typeof value === 'string' && value.indexOf('return ') === -1;
     const disableSave =
       noReturnStatement || errors.length > 0 || functionCannotBeEvaluated;
 
