@@ -1,12 +1,6 @@
 import { useFormContext, useWatch } from 'react-hook-form';
 
-import {
-  makeStyles,
-  createStyles,
-  Tooltip,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import { makeStyles, createStyles, Tooltip, Grid } from '@material-ui/core';
 import CodeIcon from '@material-ui/icons/Code';
 import ErrorIcon from '@material-ui/icons/Error';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -34,12 +28,8 @@ const useStyles = makeStyles((theme) =>
       margin: 0,
       padding: theme.spacing(1.5, 2),
 
-      backgroundColor: theme.palette.background.paper,
-      boxShadow: theme.shadows[2],
-      borderRadius: 0,
-
       ...theme.typography.body2,
-      color: theme.palette.text.secondary,
+      color: theme.palette.common.white,
     },
   })
 );
@@ -90,19 +80,12 @@ export default function DisplayConditionStatus({
           ) : (
             <Grid container spacing={2} wrap="nowrap" alignItems="flex-start">
               <Grid item>
-                <ErrorIcon color="error" />
+                <ErrorIcon />
               </Grid>
               <Grid item xs>
-                <Typography
-                  color="error"
-                  variant="body2"
-                  style={{ fontWeight: 'bold' }}
-                >
-                  The code used to conditionally display this field is invalid:
-                </Typography>
-                <Typography color="error" variant="body2">
-                  {displayConditionResult}
-                </Typography>
+                The code used to conditionally display this field is invalid:
+                <br />
+                {displayConditionResult}
               </Grid>
             </Grid>
           )}
