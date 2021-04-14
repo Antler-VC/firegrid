@@ -27,6 +27,7 @@ import {
   getFieldProp,
 } from '@antlerengineering/form-builder';
 import AddRow from './AddRow';
+import DisplayConditionStatus from './DisplayConditionStatus';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -97,6 +98,7 @@ export default function FieldWrapper({
   type,
   customComponents,
   conditional,
+  displayCondition,
   gridCols = 12,
   ...props
 }: IFieldWrapperProps) {
@@ -198,7 +200,7 @@ export default function FieldWrapper({
               setConditionalState(e.target.checked);
             }}
             inputProps={{ 'aria-label': `Enable field ${label}` }}
-            style={{ margin: theme.spacing(1, 2, 1, -1.5) }}
+            style={{ margin: theme.spacing(7 / 8, 2, 7 / 8, -1.5) }}
           />
         </Grid>
         <Grid item xs>
@@ -254,6 +256,12 @@ export default function FieldWrapper({
           >
             <DragHandleIcon aria-label="Drag to reorder this field" />
           </Grid>
+
+          {typeof displayCondition === 'string' && displayCondition.length > 0 && (
+            <Grid item className={classes.dragHandle}>
+              <DisplayConditionStatus displayCondition={displayCondition} />
+            </Grid>
+          )}
 
           <Grid item xs>
             <Suspense fallback={<FieldSkeleton />}>{renderedField}</Suspense>

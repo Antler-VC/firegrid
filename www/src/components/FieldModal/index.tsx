@@ -5,7 +5,6 @@ import _startCase from 'lodash/startCase';
 import shortHash from 'shorthash2';
 import { useFiregridContext } from 'contexts/FiregridContext';
 
-import { Button } from '@material-ui/core';
 import {
   FormDialog,
   FieldType,
@@ -149,9 +148,13 @@ export default function FieldModal() {
           defaultValue: '',
         },
         displayCondition: {
-          component: () => (
-            <Button variant="outlined">Display Condition</Button>
-          ),
+          component: React.forwardRef((props, ref) => (
+            <DisplayConditionEditor
+              {...props}
+              ref={ref}
+              fields={selectedForm!.fields}
+            />
+          )) as any,
           defaultValue: '',
         },
         readOnly: {
