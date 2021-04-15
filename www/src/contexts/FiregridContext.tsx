@@ -34,6 +34,8 @@ export interface IFiregridContextInterface {
   updateSelectedForm: (data: Record<string, any>) => void;
   newForm: ReturnType<typeof _newForm>;
   deleteForm: ReturnType<typeof _deleteForm>;
+  formPreview: boolean;
+  setFormPreview: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const FiregridContext = React.createContext<IFiregridContextInterface>({
@@ -49,6 +51,8 @@ export const FiregridContext = React.createContext<IFiregridContextInterface>({
   updateSelectedForm: () => {},
   newForm: async () => {},
   deleteForm: async () => {},
+  formPreview: false,
+  setFormPreview: () => {},
 });
 export default FiregridContext;
 
@@ -106,6 +110,9 @@ export function FiregridProvider({
   // Store ref to field modal to open
   const fieldModalRef = useRef<FieldModalRef>();
 
+  // Set form preview state
+  const [formPreview, setFormPreview] = useState(false);
+
   if (forms === 'loading') return <Loading message="Loading forms" />;
   if (forms.length === 0) return <EmptyState message="No forms to edit" />;
 
@@ -135,6 +142,8 @@ export function FiregridProvider({
         updateSelectedForm,
         newForm,
         deleteForm,
+        formPreview,
+        setFormPreview,
       }}
     >
       {children}

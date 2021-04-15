@@ -68,7 +68,7 @@ export interface IAddRowProps {
 export default function AddRow({ index, addType = 'field' }: IAddRowProps) {
   const classes = useStyles();
 
-  const { reOrderField, fieldModalRef } = useFiregridContext();
+  const { reOrderField, fieldModalRef, formPreview } = useFiregridContext();
 
   const [{ isOver, canDrop }, drop] = useDrop(
     () => ({
@@ -84,6 +84,8 @@ export default function AddRow({ index, addType = 'field' }: IAddRowProps) {
     }),
     [index]
   );
+
+  if (formPreview) return null;
 
   return (
     <Grid

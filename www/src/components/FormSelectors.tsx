@@ -18,6 +18,7 @@ import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 import MultiSelect from '@antlerengineering/multiselect';
 import { Friction } from '@antlerengineering/components';
@@ -66,6 +67,8 @@ export default function FormSelectors() {
     updateSelectedForm,
     newForm,
     deleteForm,
+    formPreview,
+    setFormPreview,
   } = useFiregridContext();
 
   const [selectedApp, setSelectedApp] = useState(selectedForm?.app ?? '');
@@ -223,7 +226,14 @@ export default function FormSelectors() {
               </Grid>
 
               <Grid item>
-                <Button startIcon={<VisibilityIcon />}>Preview Form</Button>
+                <Button
+                  startIcon={
+                    formPreview ? <VisibilityOffIcon /> : <VisibilityIcon />
+                  }
+                  onClick={() => setFormPreview((x) => !x)}
+                >
+                  {formPreview ? 'Hide Preview' : 'Preview Form'}
+                </Button>
               </Grid>
             </Grid>
           </>

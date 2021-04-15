@@ -71,24 +71,21 @@ const useStyles = makeStyles((theme) =>
       },
     },
 
-    dropArea: {
-      height: 60,
-      transition: theme.transitions.create('height'),
-
-      '& button': { transition: theme.transitions.create('opacity') },
+    customField: {
+      border: `1px dashed ${theme.palette.divider}`,
+      height: 56,
+      padding: theme.spacing(0, 2),
     },
-    droppable: {
-      height: 80 + 60 + 60,
-
-      '& button': { opacity: 0 },
-    },
-
-    customField: { height: 56 },
     customFieldType: {
       cursor: 'default',
       color: theme.palette.text.disabled,
     },
     code: { fontFamily: theme.typography.fontFamilyMono },
+
+    formPreview: {
+      '& > *:not($field)': { display: 'none' },
+    },
+    field: {},
   })
 );
 
@@ -116,7 +113,7 @@ export default function FieldWrapper({
   const ref = useRef<any>(null);
   const [conditionalState, setConditionalState] = useState(false);
 
-  const { deleteField, fieldModalRef } = useFiregridContext();
+  const { deleteField, fieldModalRef, formPreview } = useFiregridContext();
 
   const [{ isDragging }, drag, dragPreview] = useDrag(
     () => ({
@@ -267,7 +264,7 @@ export default function FieldWrapper({
           spacing={1}
           wrap="nowrap"
           alignItems="flex-start"
-          className={classes.row}
+          className={clsx(classes.row, formPreview && classes.formPreview)}
           style={{ opacity: isDragging ? 0.5 : 1 }}
         >
           <Grid item>
@@ -291,7 +288,7 @@ export default function FieldWrapper({
             </Grid>
           )}
 
-          <Grid item xs>
+          <Grid item xs className={classes.field}>
             <Suspense fallback={<FieldSkeleton />}>{renderedField}</Suspense>
           </Grid>
 
