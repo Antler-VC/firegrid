@@ -15,12 +15,29 @@ import {
 } from '@antlerengineering/form-builder';
 import FieldTypeSelect from './FieldTypeSelect';
 import DisplayConditionEditor from './DisplayConditionEditor';
+import CustomSettingsEditor from './CustomSettingsEditor';
 
 import {
   newConfig,
   inputGroupConfig,
   contentGroupConfig,
+  customGroupConfig,
 } from 'constants/commonConfigs';
+
+export const stringifyCustomSettings = (values: Record<string, any>) => {
+  const {
+    type,
+    name,
+    disabled,
+    required,
+    conditional,
+    displayCondition,
+    label,
+    assistiveText,
+    ...customSettings
+  } = values;
+  return JSON.stringify(customSettings, null, '    ');
+};
 
 export type FieldModalRef = {
   openFieldModal: React.Dispatch<
@@ -76,6 +93,8 @@ export default function FieldModal() {
     }
 
     configFields = [...configFields, ...fieldConfig.settings];
+  } else {
+    configFields = customGroupConfig(mode);
   }
 
   const values = {
@@ -88,15 +107,26 @@ export default function FieldModal() {
             ? selectedFieldIndex + 1
             : selectedForm.fields.length + 1
           ).toString(),
+    _customSettings: stringifyCustomSettings(selectedField),
   };
 
   const handleSubmit = (values: Record<string, any>) => {
-    const { _order, ...config } = values;
+    const { _order, _customSettings, ...otherValues } = values;
+    let config = { ...otherValues };
     const index = Math.max(_order - 1, 0);
 
     // Generate name for this field
     if (!config.name && getFieldProp('group', config.type) === 'content')
       config.name = `_${config.type}_${shortHash(new Date().toISOString())}`;
+
+    if (_customSettings) {
+      try {
+        const customSettings = JSON.parse(_customSettings);
+        config = { ...config, ...customSettings };
+      } catch {
+        alert('Failed to parse custom settings');
+      }
+    }
 
     if (mode === 'add') addField(index, config as Field);
     else if (mode === 'edit') editField(config.name, config as Field, index);
@@ -160,6 +190,26 @@ export default function FieldModal() {
         readOnly: {
           component: (() => <></>) as any,
           defaultValue: '',
+        },
+        customSettings: {
+          component: CustomSettingsEditor as any,
+          defaultValue: '',
+          validation: [
+            ['string'],
+            [
+              'test',
+              'json',
+              'JSON could not be parsed. Please make sure you do not have any trailing commas.',
+              (value) => {
+                try {
+                  JSON.parse(value);
+                  return true;
+                } catch (e) {
+                  return false;
+                }
+              },
+            ],
+          ],
         },
       }}
     />

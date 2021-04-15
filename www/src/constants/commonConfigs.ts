@@ -121,3 +121,12 @@ export const contentGroupConfig = (mode: string) => [
     label: 'Field Details',
   },
 ];
+
+export const customGroupConfig = (mode: string) => [
+  ...inputGroupConfig(mode),
+  {
+    type: 'customSettings',
+    name: '_customSettings',
+    label: 'Custom Settings',
+  },
+];

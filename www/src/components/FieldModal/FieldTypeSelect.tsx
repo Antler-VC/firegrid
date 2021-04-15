@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import _startCase from 'lodash/startCase';
 
 import { useTheme } from '@material-ui/core';
-import MultiSelect from '@antlerengineering/multiselect';
+import CodeIcon from '@material-ui/icons/Code';
 
+import MultiSelect from '@antlerengineering/multiselect';
 import {
   IFieldComponentProps,
   FieldConfigs,
@@ -54,7 +55,7 @@ export const FieldTypeSelect = React.forwardRef(function FieldTypeSelect(
         group: config.group,
         icon: config.icon,
       }))}
-      AutocompleteProps={{ groupBy: (option) => option.group }}
+      AutocompleteProps={{ groupBy: (option) => option.group || 'Custom' }}
       itemRenderer={(option: any) => (
         <>
           <span
@@ -64,7 +65,7 @@ export const FieldTypeSelect = React.forwardRef(function FieldTypeSelect(
               color: theme.palette.action.active,
             }}
           >
-            {option.icon}
+            {option.icon || <CodeIcon />}
           </span>
           {option.label}
         </>
@@ -73,16 +74,32 @@ export const FieldTypeSelect = React.forwardRef(function FieldTypeSelect(
         onBlur,
         InputLabelProps: { required: true },
         SelectProps: {
-          renderValue: () =>
-            value ? (
-              <>
-                {_startCase(getFieldProp('group', value))}
-                &nbsp;–&nbsp;
-                {getFieldProp('name', value)}
-              </>
-            ) : null,
+          renderValue: () => {
+            if (!value) return null;
+
+            if (getFieldProp('name', value))
+              return (
+                <>
+                  {_startCase(getFieldProp('group', value))}
+                  &nbsp;–&nbsp;
+                  {getFieldProp('name', value)}
+                </>
+              );
+
+            return <>Custom&nbsp;–&nbsp;{value}</>;
+          },
         },
         inputRef: ref,
+      }}
+      freeText
+      AddButtonProps={{
+        children: 'Use Custom Field Type',
+        startIcon: <CodeIcon />,
+      }}
+      AddDialogProps={{
+        title: 'Use Custom Field Type',
+        textFieldLabel: 'Custom Field Type Key',
+        addButtonLabel: 'Done',
       }}
     />
   );

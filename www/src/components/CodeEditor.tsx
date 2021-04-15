@@ -31,7 +31,9 @@ export default function CodeEditor({
   wrapperProps,
   disabled,
   extraLibs,
+
   options,
+  language = 'javascript',
   ...props
 }: ICodeEditorProps) {
   const theme = useTheme();
@@ -68,7 +70,6 @@ export default function CodeEditor({
           noSyntaxValidation: false,
         }
       );
-      // compiler options
       monacoInstance.languages.typescript.javascriptDefaults.setCompilerOptions(
         {
           target: monacoInstance.languages.typescript.ScriptTarget.ES5,
@@ -99,7 +100,7 @@ export default function CodeEditor({
         theme={themeTransformer(theme.palette.type)}
         height={height}
         onMount={handleEditorDidMount}
-        language="javascript"
+        language={language}
         options={{
           readOnly: disabled,
           fontFamily: theme.typography.fontFamilyMono,

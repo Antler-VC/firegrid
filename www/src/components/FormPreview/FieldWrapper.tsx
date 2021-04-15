@@ -25,6 +25,7 @@ import {
   FieldSkeleton,
   CustomComponent,
   getFieldProp,
+  FieldLabel,
 } from '@antlerengineering/form-builder';
 import AddRow from './AddRow';
 import DisplayConditionStatus from './DisplayConditionStatus';
@@ -80,6 +81,14 @@ const useStyles = makeStyles((theme) =>
       height: 80 + 60 + 60,
 
       '& button': { opacity: 0 },
+    },
+
+    customFieldType: {
+      cursor: 'default',
+      color: theme.palette.text.disabled,
+    },
+    code: {
+      fontFamily: theme.typography.fontFamilyMono,
     },
   })
 );
@@ -143,8 +152,16 @@ export default function FieldWrapper({
 
     // If not found in either, don’t display anything
     if (!fieldComponent) {
-      console.error(`No matching field component for \`${type}\``);
-      return null;
+      fieldComponent = (({ label, disabled, required }) => (
+        <>
+          <Typography variant="caption" className={classes.customFieldType}>
+            Custom Field Type: <span className={classes.code}>{type}</span>
+          </Typography>
+          <FieldLabel error={false} disabled={!!disabled} required={!!required}>
+            {label}
+          </FieldLabel>
+        </>
+      )) as any;
     }
   }
 
