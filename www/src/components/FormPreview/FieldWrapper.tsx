@@ -307,7 +307,7 @@ export default function FieldWrapper({
 
             <Friction
               message={{
-                title: 'Are you sure you want to delete this field?',
+                title: 'Delete field?',
                 body: 'You cannot undo this action.',
                 confirm: 'Delete Field',
               }}

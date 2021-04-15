@@ -14,10 +14,20 @@ const useStyles = makeStyles((theme) =>
       rowGap: 'var(--grid-gutter)',
     },
 
+    paperHeader: {
+      gridColumn: 'start / end',
+      [theme.breakpoints.up('md')]: { gridColumn: 'span 6' },
+      [theme.breakpoints.up('lg')]: { gridColumn: 'span 6' },
+
+      gridRow: 1,
+    },
+
     paperContainer: {
       gridColumn: 'start / end',
       [theme.breakpoints.up('md')]: { gridColumn: 'span 6' },
       [theme.breakpoints.up('lg')]: { gridColumn: 'span 6' },
+
+      gridRow: 2,
     },
 
     mainPaper: {
@@ -26,14 +36,21 @@ const useStyles = makeStyles((theme) =>
 
       // maxWidth: 545 + 64, // Width of contents at SM min (640px)
       margin: '0 auto',
+      marginBottom: theme.spacing('m'),
     },
 
     previewContainer: {
       gridColumn: 'start / end',
+      gridRow: 3,
+
       maxWidth: 420,
       margin: '0 auto',
 
-      [theme.breakpoints.up('md')]: { gridColumn: 'span 6', margin: 0 },
+      [theme.breakpoints.up('md')]: {
+        gridColumn: 'span 6',
+        margin: 0,
+        gridRow: 2,
+      },
       [theme.breakpoints.up('lg')]: { gridColumn: 'span 6' },
     },
     previewContent: {
@@ -69,8 +86,9 @@ export default function FormLayout({
 
   return (
     <div className={classes.root}>
+      <div className={classes.paperHeader}>{paperHeader}</div>
+
       <div className={classes.paperContainer}>
-        {paperHeader}
         <Paper className={classes.mainPaper} elevation={2}>
           {children}
         </Paper>

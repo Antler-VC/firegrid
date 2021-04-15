@@ -85,10 +85,10 @@ export default function App() {
 
                   <PrivateRoute
                     exact
-                    path={routes.fieldEditor}
-                    render={() => (
+                    path={[routes.fieldEditor, routes.fieldEditor + '/:id']}
+                    render={(props) => (
                       <Navigation>
-                        <FiregridProvider>
+                        <FiregridProvider {...props}>
                           <FieldEditorPage />
                         </FiregridProvider>
                       </Navigation>

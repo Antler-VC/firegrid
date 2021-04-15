@@ -1,4 +1,5 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router';
 import _findIndex from 'lodash/findIndex';
 import _omitBy from 'lodash/omitBy';
 import _isUndefined from 'lodash/isUndefined';
@@ -6,6 +7,11 @@ import arrayMove from 'array-move';
 
 import { Form } from 'types/Form';
 import { Field } from '@antlerengineering/form-builder';
+
+import { db } from '../firebase';
+import { DB_ROOT } from 'constants/firegrid';
+import { firetableUser } from 'utils';
+import { routes } from 'constants/routes';
 
 export const _reOrderField = (
   selectedFormRef: React.MutableRefObject<Form | null>,
@@ -61,4 +67,39 @@ export const _deleteField = (
     newFields.splice(index, 1);
     updateSelectedForm({ fields: newFields });
   }
+};
+
+export const _newForm = (
+  currentUser: firebase.default.User,
+  history: RouteComponentProps['history']
+) => async (values: Record<string, any>) => {
+  if (!values || !currentUser) return;
+
+  const data = {
+    ...values,
+    fields: [] as any[],
+    _ft_createdAt: new Date(),
+    _ft_createdBy: firetableUser(currentUser),
+  };
+
+  if (values._starterTemplateUsed && values._starterTemplate) {
+    const templateDocRef = await db
+      .doc(DB_ROOT + '/' + values._starterTemplate)
+      .get();
+    const templateDoc = templateDocRef.data() ?? {};
+
+    if (Array.isArray(templateDoc.fields)) data.fields = templateDoc.fields;
+  }
+
+  const newDocRef = await db.collection(DB_ROOT).add(data);
+  history.push(routes.fieldEditor + '/' + newDocRef.id);
+};
+
+export const _deleteForm = (history: RouteComponentProps['history']) => async (
+  id: string
+) => {
+  if (!id) return;
+
+  await db.collection(DB_ROOT).doc(id).delete();
+  window.location.href = routes.fieldEditor;
 };

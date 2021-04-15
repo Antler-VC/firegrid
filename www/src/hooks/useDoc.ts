@@ -81,8 +81,8 @@ const useDoc = (intialOverrides: any) => {
       action: DocActions.update,
       data: {
         ...data,
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-        updatedBy: currentUser?.uid ?? '',
+        _ft_updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        _ft_updatedBy: currentUser?.uid ?? '',
       },
     });
 
