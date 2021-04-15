@@ -83,13 +83,12 @@ const useStyles = makeStyles((theme) =>
       '& button': { opacity: 0 },
     },
 
+    customField: { height: 56 },
     customFieldType: {
       cursor: 'default',
       color: theme.palette.text.disabled,
     },
-    code: {
-      fontFamily: theme.typography.fontFamilyMono,
-    },
+    code: { fontFamily: theme.typography.fontFamilyMono },
   })
 );
 
@@ -153,14 +152,26 @@ export default function FieldWrapper({
     // If not found in either, don’t display anything
     if (!fieldComponent) {
       fieldComponent = (({ label, disabled, required }) => (
-        <>
-          <Typography variant="caption" className={classes.customFieldType}>
-            Custom Field Type: <span className={classes.code}>{type}</span>
-          </Typography>
-          <FieldLabel error={false} disabled={!!disabled} required={!!required}>
-            {label}
-          </FieldLabel>
-        </>
+        <Grid
+          container
+          direction="column"
+          wrap="nowrap"
+          justify="center"
+          className={classes.customField}
+        >
+          <Grid item>
+            <Typography variant="caption" className={classes.customFieldType}>
+              Custom Field Type: <span className={classes.code}>{type}</span>
+            </Typography>
+            <FieldLabel
+              error={false}
+              disabled={!!disabled}
+              required={!!required}
+            >
+              {label}
+            </FieldLabel>
+          </Grid>
+        </Grid>
       )) as any;
     }
   }
