@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { RouteComponentProps } from 'react-router';
-import _findIndex from 'lodash/findIndex';
 
 import { db } from '../firebase';
 import useDoc from '../hooks/useDoc';

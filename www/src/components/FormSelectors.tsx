@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) =>
     },
 
     formFieldsHeader: {
-      margin: theme.spacing(4, 0, 0),
+      marginTop: theme.spacing(4),
       marginBottom: 'calc(var(--grid-gutter) * -1)',
     },
   })

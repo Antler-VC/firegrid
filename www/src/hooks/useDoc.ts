@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import { db } from '../firebase';
 import { useEffect, useReducer, useContext } from 'react';
 import { AppContext } from 'contexts/AppContext';
+import { useSnackContext } from 'samosas';
 
 export enum DocActions {
   update,
@@ -30,6 +31,8 @@ const documentInitialState = {
 };
 
 const useDoc = (intialOverrides: any) => {
+  const snack = useSnackContext();
+
   const [documentState, documentDispatch] = useReducer(documentReducer, {
     ...documentInitialState,
     ...intialOverrides,
@@ -84,6 +87,11 @@ const useDoc = (intialOverrides: any) => {
         _ft_updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
         _ft_updatedBy: currentUser?.uid ?? '',
       },
+    });
+
+    snack.open({
+      message: 'Changes saved',
+      position: { horizontal: 'right', vertical: 'bottom' },
     });
 
     // db.doc(documentState.path).set(
