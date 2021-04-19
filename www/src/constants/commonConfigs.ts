@@ -45,8 +45,9 @@ export const inputGroupConfig = (mode: string) => [
     assistiveText:
       'The name of the field in the database.\nVisible only to the Engineering team.',
     required: true,
-    disabled: mode === 'edit',
+    // disabled: mode === 'edit',
     validation: [['transform', _camelCase]],
+    InputProps: { readOnly: mode === 'edit' },
   },
   {
     type: FieldType.checkbox,
@@ -67,6 +68,7 @@ export const inputGroupConfig = (mode: string) => [
       { value: 'check', label: 'Checkbox' },
       // { value: 'option', label: 'Optionbox', disabled: true },
     ],
+    displayCondition: 'return values.type !== "checkbox"',
   },
   {
     type: 'displayCondition',
@@ -113,7 +115,8 @@ export const contentGroupConfig = (mode: string) => [
     type: 'readOnly',
     name: 'name',
     label: 'Field Key',
-    disabled: true,
+    // disabled: true,
+    InputProps: { readOnly: mode === 'edit' },
   },
   {
     type: FieldType.contentSubHeader,
@@ -128,5 +131,46 @@ export const customGroupConfig = (mode: string) => [
     type: 'customSettings',
     name: '_customSettings',
     label: 'Custom Settings',
+  },
+];
+
+export const inputHiddenConfig = (mode: string) => [
+  {
+    type: FieldType.contentSubHeader,
+    name: '_section_fieldSettings',
+    label: 'Field Settings',
+  },
+  {
+    type: FieldType.contentParagraph,
+    name: '_paragraph_fieldSettings_warning',
+    label:
+      mode === 'edit'
+        ? 'You cannot edit the Field Key or Field Type to prevent data loss.'
+        : 'You will not be able to edit the Field Key or Field Type after you click “Add” to prevent data loss.',
+  },
+  {
+    type: 'fieldTypeSelect',
+    name: 'type',
+    disabled: mode === 'edit',
+  },
+  {
+    type: FieldType.shortText,
+    name: 'name',
+    label: 'Field Key',
+    assistiveText:
+      'The name of the field in the database.\nVisible only to the Engineering team.',
+    required: true,
+    // disabled: mode === 'edit',
+    InputProps: { readOnly: mode === 'edit' },
+    validation: [['transform', _camelCase]],
+  },
+  {
+    type: 'displayCondition',
+    name: 'displayCondition',
+  },
+  {
+    type: FieldType.contentSubHeader,
+    name: '_section_fieldDetails',
+    label: 'Field Details',
   },
 ];

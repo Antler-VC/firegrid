@@ -16,21 +16,18 @@ export interface IFieldTypeSelectProps extends IFieldComponentProps {
   setNewFieldType: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const FieldTypeSelect = React.forwardRef(function FieldTypeSelect(
-  {
-    onChange,
-    onBlur,
-    value,
+export default function FieldTypeSelect({
+  field: { onChange, onBlur, value, ref },
+  fieldState,
+  formState,
 
-    name,
+  name,
 
-    newFieldType,
-    setNewFieldType,
-    useFormMethods,
-    ...props
-  }: IFieldTypeSelectProps,
-  ref
-) {
+  newFieldType,
+  setNewFieldType,
+  useFormMethods,
+  ...props
+}: IFieldTypeSelectProps) {
   const theme = useTheme();
 
   useEffect(() => {
@@ -103,6 +100,4 @@ export const FieldTypeSelect = React.forwardRef(function FieldTypeSelect(
       }}
     />
   );
-});
-
-export default FieldTypeSelect;
+}

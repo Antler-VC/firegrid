@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import clsx from 'clsx';
 import { Controller } from 'react-hook-form';
 import { useDrag } from 'react-dnd';
@@ -25,10 +25,12 @@ import {
   FieldSkeleton,
   CustomComponent,
   getFieldProp,
-  FieldLabel,
+  controllerRenderPropsStub,
 } from '@antlerengineering/form-builder';
 import AddRow from './AddRow';
 import DisplayConditionStatus from './DisplayConditionStatus';
+import CustomFieldType from './CustomFieldType';
+import HiddenFieldType from './HiddenFieldType';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -71,17 +73,6 @@ const useStyles = makeStyles((theme) =>
       },
     },
 
-    customField: {
-      border: `1px dashed ${theme.palette.divider}`,
-      height: 56,
-      padding: theme.spacing(0, 2),
-    },
-    customFieldType: {
-      cursor: 'default',
-      color: theme.palette.text.disabled,
-    },
-    code: { fontFamily: theme.typography.fontFamilyMono },
-
     formPreview: {
       '& > *:not($field)': { display: 'none' },
     },
@@ -97,7 +88,6 @@ export interface IFieldWrapperProps
 
 export default function FieldWrapper({
   control,
-  errors,
   name,
   label,
   type,
@@ -105,12 +95,14 @@ export default function FieldWrapper({
   conditional,
   displayCondition,
   gridCols = 12,
+  disablePadding,
+  defaultValue: defaultValueProp,
+  setOmittedFields,
   ...props
 }: IFieldWrapperProps) {
   const classes = useStyles();
   const theme = useTheme();
 
-  const ref = useRef<any>(null);
   const [conditionalState, setConditionalState] = useState(false);
 
   const { deleteField, fieldModalRef, formPreview } = useFiregridContext();
@@ -133,6 +125,8 @@ export default function FieldWrapper({
 
   let renderedField: React.ReactNode = null;
   let fieldComponent: CustomComponent;
+  // Pass defaultValue into the Controller for conditionally displayed fields
+  let defaultValue: any = defaultValueProp;
 
   // Try to get fieldComponent from customComponents list
   if (
@@ -141,36 +135,22 @@ export default function FieldWrapper({
     type in customComponents
   ) {
     fieldComponent = customComponents[type].component;
+
+    if (defaultValue === undefined)
+      defaultValue = customComponents[type].defaultValue;
+  }
+  // If Hidden field, render our own preview
+  else if (type === 'hidden') {
+    fieldComponent = HiddenFieldType;
   }
   // If not found in customComponents, try to get it from the built-in components
   else {
     fieldComponent = getFieldProp('component', type);
 
-    // If not found in either, don’t display anything
-    if (!fieldComponent) {
-      fieldComponent = (({ label, disabled, required }) => (
-        <Grid
-          container
-          direction="column"
-          wrap="nowrap"
-          justify="center"
-          className={classes.customField}
-        >
-          <Grid item>
-            <Typography variant="caption" className={classes.customFieldType}>
-              Custom Field Type: <span className={classes.code}>{type}</span>
-            </Typography>
-            <FieldLabel
-              error={false}
-              disabled={!!disabled}
-              required={!!required}
-            >
-              {label}
-            </FieldLabel>
-          </Grid>
-        </Grid>
-      )) as any;
-    }
+    if (defaultValue === undefined)
+      defaultValue = getFieldProp('defaultValue', type);
+
+    if (!fieldComponent) fieldComponent = CustomFieldType;
   }
 
   if (!name) return null;
@@ -183,19 +163,12 @@ export default function FieldWrapper({
         React.createElement(fieldComponent, {
           ...props,
           ...renderProps,
-          ref,
+          type,
           name: name!, // Fix TypeScript error
           label: label!, // Fix TypeScript error
-          errorMessage: errors[name!]?.message,
-          defaultValue: undefined, // Prevent field being both controlled and uncontrolled
+          errorMessage: renderProps.fieldState.error?.message,
         })
       }
-      onFocus={() => {
-        if (ref.current) {
-          ref.current.scrollIntoView({ behavior: 'smooth' });
-          ref.current.focus();
-        }
-      }}
     />
   );
 
@@ -204,11 +177,8 @@ export default function FieldWrapper({
     renderedField = React.createElement(fieldComponent, {
       ...props,
       // Stub Controller render props
-      onChange: () => {},
-      value: undefined,
-      onBlur: () => {},
+      ...controllerRenderPropsStub,
       disabled: true,
-      ref: undefined as any,
       name: name!, // Fix TypeScript error
       label: label!, // Fix TypeScript error
     });
@@ -234,15 +204,10 @@ export default function FieldWrapper({
             : React.createElement(fieldComponent, {
                 ...props,
                 // Stub Controller render props
-                onChange: () => {},
-                value: undefined,
-                onBlur: () => {},
+                ...controllerRenderPropsStub,
                 disabled: true,
-                ref: undefined as any,
                 name: name!, // Fix TypeScript error
                 label: label!, // Fix TypeScript error
-                errorMessage: errors[name!]?.message,
-                defaultValue: undefined, // Prevent field being both controlled and uncontrolled
               })}
         </Grid>
       </Grid>
@@ -257,6 +222,7 @@ export default function FieldWrapper({
         key={name!}
         id={`fieldWrapper-${name}`}
         xs={12}
+        style={formPreview && disablePadding ? { padding: 0 } : {}}
         ref={dragPreview}
       >
         <Grid

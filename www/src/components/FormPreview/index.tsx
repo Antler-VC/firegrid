@@ -1,14 +1,9 @@
 import { useForm, FormProvider } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-
-import _omitBy from 'lodash/omitBy';
-import _isUndefined from 'lodash/isUndefined';
 
 import {
-  getDefaultValues,
-  getValidationSchema,
   Fields,
   CustomComponents,
+  useFormSettings,
 } from '@antlerengineering/form-builder';
 
 export interface IFormPreviewProps {
@@ -22,17 +17,12 @@ export default function FormPreview({
   customComponents,
   children,
 }: IFormPreviewProps) {
-  // TODO: Remove undefined check
-  const defaultValues = _omitBy(
-    getDefaultValues(fields, customComponents),
-    _isUndefined
-  );
-
-  const methods = useForm({
-    mode: 'all',
-    defaultValues,
-    resolver: yupResolver(getValidationSchema(fields, customComponents)),
+  const { defaultValues, resolver } = useFormSettings({
+    fields,
+    customComponents,
   });
+
+  const methods = useForm({ mode: 'all', defaultValues, resolver });
 
   return (
     <FormProvider {...methods}>

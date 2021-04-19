@@ -14,7 +14,7 @@ export interface IFormFieldsProps {
 
 export default function FormFields({ fields, ...props }: IFormFieldsProps) {
   const useFormMethods = useFormContext();
-  const { control, errors } = useFormMethods;
+  const { control } = useFormMethods;
 
   return (
     <Grid container spacing={3} style={{ marginBottom: 0 }}>
@@ -26,10 +26,10 @@ export default function FormFields({ fields, ...props }: IFormFieldsProps) {
             key={field.name ?? i}
             index={i}
             control={control}
-            errors={errors}
             useFormMethods={useFormMethods}
             {...field}
             {...props}
+            setOmittedFields={() => {}}
           />
         );
       })}

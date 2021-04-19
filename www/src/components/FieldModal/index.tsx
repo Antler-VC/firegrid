@@ -22,6 +22,7 @@ import {
   inputGroupConfig,
   contentGroupConfig,
   customGroupConfig,
+  inputHiddenConfig,
 } from 'constants/commonConfigs';
 
 export const stringifyCustomSettings = (values: Record<string, any>) => {
@@ -87,7 +88,8 @@ export default function FieldModal() {
     configFields = newConfig();
   } else if (!!fieldConfig) {
     if (fieldConfig.group === 'input') {
-      configFields = inputGroupConfig(mode);
+      if (fieldConfig.type === 'hidden') configFields = inputHiddenConfig(mode);
+      else configFields = inputGroupConfig(mode);
     } else if (fieldConfig.group === 'content') {
       configFields = contentGroupConfig(mode);
     }
@@ -164,31 +166,26 @@ export default function FieldModal() {
       SubmitButtonProps={{
         children: mode === 'edit' ? 'Update' : 'Add',
       }}
-      DialogProps={{ maxWidth: 'xs', disableBackdropClick: true }}
+      DialogProps={{ maxWidth: 'xs' }}
       customComponents={{
         fieldTypeSelect: {
-          component: React.forwardRef((props, ref) => (
+          component: (props) => (
             <FieldTypeSelect
               {...props}
-              ref={ref}
               newFieldType={newFieldType}
               setNewFieldType={setNewFieldType}
             />
-          )) as any,
+          ),
           defaultValue: '',
         },
         displayCondition: {
-          component: React.forwardRef((props, ref) => (
-            <DisplayConditionEditor
-              {...props}
-              ref={ref}
-              fields={selectedForm!.fields}
-            />
-          )) as any,
+          component: (props) => (
+            <DisplayConditionEditor {...props} fields={selectedForm!.fields} />
+          ),
           defaultValue: '',
         },
         readOnly: {
-          component: (() => <></>) as any,
+          component: () => <></>,
           defaultValue: '',
         },
         customSettings: {
