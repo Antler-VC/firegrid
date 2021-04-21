@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import _uniq from 'lodash/uniq';
 import { useFiregridContext } from 'contexts/FiregridContext';
 
@@ -69,8 +69,26 @@ export default function FormSelectors() {
     deleteForm,
     formPreview,
     setFormPreview,
+    userClaims,
   } = useFiregridContext();
 
+  const [previewOnly, setPreviewOnly] = useState(false);
+
+  useEffect(() => {
+    setPreviewOnly(
+      Boolean(
+        !userClaims?.roles ||
+          !userClaims?.roles.some((r) => {
+            const allowedRoles = selectedForm?.editorRoles ?? [];
+            return ['ADMIN', ...allowedRoles].includes(r);
+          })
+      )
+    );
+  }, [selectedForm, userClaims]);
+
+  useEffect(() => {
+    setFormPreview(previewOnly);
+  }, [previewOnly, setFormPreview]);
   const [selectedApp, setSelectedApp] = useState(selectedForm?.app ?? '');
   const [showForm, setShowForm] = useState<'add' | 'edit' | false>(false);
 
@@ -230,6 +248,7 @@ export default function FormSelectors() {
                   startIcon={
                     formPreview ? <VisibilityOffIcon /> : <VisibilityIcon />
                   }
+                  disabled={previewOnly}
                   onClick={() => setFormPreview((x) => !x)}
                 >
                   {formPreview ? 'Hide Preview' : 'Preview Form'}
