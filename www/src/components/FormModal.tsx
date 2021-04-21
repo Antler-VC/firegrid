@@ -20,7 +20,11 @@ export default function FormModal({
   onSubmit,
 }: IFormModalProps) {
   const { forms, selectedForm } = useFiregridContext();
-
+  const editorRoles =
+    _uniq(
+      Array.prototype.concat(...forms.map((doc) => doc.editorRoles ?? []))
+    ) ?? [];
+  const platforms = _uniq(forms.map((doc) => doc.app));
   return (
     <FormDialog
       key={showForm.toString()}
@@ -35,7 +39,7 @@ export default function FormModal({
             name: 'app',
             label: 'Platform',
             labelPlural: 'platforms',
-            options: _uniq(forms.map((doc) => doc.app)),
+            options: platforms,
             searchable: true,
             freeText: true,
             required: true,
@@ -46,7 +50,13 @@ export default function FormModal({
             label: 'Form Name',
             required: true,
           },
-
+          {
+            type: FieldType.multiSelect,
+            name: 'editorRoles',
+            label: 'Editors',
+            options: editorRoles,
+            freeText: true,
+          },
           showForm === 'add'
             ? {
                 type: FieldType.checkbox,

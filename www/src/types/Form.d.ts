@@ -5,4 +5,5 @@ export interface Form {
   app: string;
   name: string;
   fields: Field[];
+  editorRoles: string[];
 }

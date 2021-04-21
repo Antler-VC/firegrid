@@ -105,7 +105,13 @@ export default function FieldWrapper({
 
   const [conditionalState, setConditionalState] = useState(false);
 
-  const { deleteField, fieldModalRef, formPreview } = useFiregridContext();
+  const {
+    deleteField,
+    fieldModalRef,
+    formPreview,
+    userClaims,
+    selectedForm,
+  } = useFiregridContext();
 
   const [{ isDragging }, drag, dragPreview] = useDrag(
     () => ({
@@ -257,35 +263,40 @@ export default function FieldWrapper({
           <Grid item xs className={classes.field}>
             <Suspense fallback={<FieldSkeleton />}>{renderedField}</Suspense>
           </Grid>
+          {userClaims.roles &&
+            userClaims.roles.some((r) => {
+              const allowedRoles = selectedForm?.editorRoles ?? [];
+              return ['ADMIN', ...allowedRoles].includes(r);
+            }) && (
+              <Grid item>
+                <IconButton
+                  aria-label="Edit field"
+                  color="secondary"
+                  className={classes.iconButton}
+                  onClick={() => fieldModalRef.current?.openFieldModal(name!)}
+                >
+                  <EditIcon />
+                </IconButton>
 
-          <Grid item>
-            <IconButton
-              aria-label="Edit field"
-              color="secondary"
-              className={classes.iconButton}
-              onClick={() => fieldModalRef.current?.openFieldModal(name!)}
-            >
-              <EditIcon />
-            </IconButton>
-
-            <Friction
-              message={{
-                title: 'Delete field?',
-                body: 'You cannot undo this action.',
-                confirm: 'Delete Field',
-              }}
-            >
-              <IconButton
-                aria-label="Remove field"
-                color="secondary"
-                className={clsx(classes.iconButton, classes.removeButton)}
-                edge="end"
-                onClick={() => deleteField(name!)}
-              >
-                <RemoveCircleIcon />
-              </IconButton>
-            </Friction>
-          </Grid>
+                <Friction
+                  message={{
+                    title: 'Delete field?',
+                    body: 'You cannot undo this action.',
+                    confirm: 'Delete Field',
+                  }}
+                >
+                  <IconButton
+                    aria-label="Remove field"
+                    color="secondary"
+                    className={clsx(classes.iconButton, classes.removeButton)}
+                    edge="end"
+                    onClick={() => deleteField(name!)}
+                  >
+                    <RemoveCircleIcon />
+                  </IconButton>
+                </Friction>
+              </Grid>
+            )}
         </Grid>
       </Grid>
     </>
