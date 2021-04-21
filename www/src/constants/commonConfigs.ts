@@ -45,9 +45,8 @@ export const inputGroupConfig = (mode: string) => [
     assistiveText:
       'The name of the field in the database.\nVisible only to the Engineering team.',
     required: true,
-    // disabled: mode === 'edit',
+    disabled: mode === 'edit',
     validation: [['transform', _camelCase]],
-    InputProps: { readOnly: mode === 'edit' },
   },
   {
     type: FieldType.checkbox,
@@ -115,8 +114,7 @@ export const contentGroupConfig = (mode: string) => [
     type: 'readOnly',
     name: 'name',
     label: 'Field Key',
-    // disabled: true,
-    InputProps: { readOnly: mode === 'edit' },
+    disabled: true,
   },
   {
     type: FieldType.contentSubHeader,
@@ -160,8 +158,7 @@ export const inputHiddenConfig = (mode: string) => [
     assistiveText:
       'The name of the field in the database.\nVisible only to the Engineering team.',
     required: true,
-    // disabled: mode === 'edit',
-    InputProps: { readOnly: mode === 'edit' },
+    disabled: mode === 'edit',
     validation: [['transform', _camelCase]],
   },
   {
