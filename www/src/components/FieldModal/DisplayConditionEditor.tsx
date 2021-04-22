@@ -9,6 +9,7 @@ import {
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 import CodeIcon from '@material-ui/icons/Code';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import { Modal } from '@antlerengineering/components';
 import CodeEditor from 'components/CodeEditor';
@@ -67,6 +68,12 @@ export default function DisplayConditionEditor({
 
   const handleSave = () => {
     onChange(value);
+    setOpen(false);
+  };
+
+  const handleDelete = () => {
+    setValue('');
+    onChange('');
     setOpen(false);
   };
 
@@ -158,6 +165,15 @@ export default function DisplayConditionEditor({
                   {functionCannotBeEvaluated}
                 </Alert>
               )}
+
+              <Button
+                color="secondary"
+                startIcon={<DeleteForeverIcon />}
+                disabled={value === ''}
+                onClick={handleDelete}
+              >
+                Remove Display Condition
+              </Button>
             </>
           }
           actions={{
