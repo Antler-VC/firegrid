@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import _find from 'lodash/find';
 import _findIndex from 'lodash/findIndex';
 import _startCase from 'lodash/startCase';
+import _omit from 'lodash/omit';
 import shortHash from 'shorthash2';
 import { useFiregridContext } from 'contexts/FiregridContext';
 
@@ -25,7 +26,10 @@ import {
   inputHiddenConfig,
 } from 'constants/commonConfigs';
 
-export const stringifyCustomSettings = (values: Record<string, any>) => {
+export const stringifyCustomSettings = (
+  values: Record<string, any>,
+  configFields: Field[]
+) => {
   const {
     type,
     name,
@@ -35,8 +39,14 @@ export const stringifyCustomSettings = (values: Record<string, any>) => {
     displayCondition,
     label,
     assistiveText,
-    ...customSettings
+    ...otherValues
   } = values;
+
+  const customSettings = _omit(
+    otherValues,
+    configFields.map((field) => field.name as string)
+  );
+
   return JSON.stringify(customSettings, null, '    ');
 };
 
@@ -109,7 +119,7 @@ export default function FieldModal() {
             ? selectedFieldIndex + 1
             : selectedForm.fields.length + 1
           ).toString(),
-    _customSettings: stringifyCustomSettings(selectedField),
+    _customSettings: stringifyCustomSettings(selectedField, configFields),
   };
 
   const handleSubmit = (values: Record<string, any>) => {
