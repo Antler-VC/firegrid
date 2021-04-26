@@ -2,6 +2,7 @@ import React, { Suspense, useState } from 'react';
 import clsx from 'clsx';
 import { Controller } from 'react-hook-form';
 import { useDrag } from 'react-dnd';
+import { useAppContext } from 'contexts/AppContext';
 import { useFiregridContext } from 'contexts/FiregridContext';
 
 import {
@@ -105,11 +106,11 @@ export default function FieldWrapper({
 
   const [conditionalState, setConditionalState] = useState(false);
 
+  const { userClaims } = useAppContext();
   const {
     deleteField,
     fieldModalRef,
     formPreview,
-    userClaims,
     selectedForm,
   } = useFiregridContext();
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import _uniq from 'lodash/uniq';
+import { useAppContext } from 'contexts/AppContext';
 import { useFiregridContext } from 'contexts/FiregridContext';
 
 import {
@@ -60,6 +61,7 @@ const useStyles = makeStyles((theme) =>
 export default function FormSelectors() {
   const classes = useStyles();
 
+  const { userClaims } = useAppContext();
   const {
     forms,
     selectedForm,
@@ -69,7 +71,6 @@ export default function FormSelectors() {
     deleteForm,
     formPreview,
     setFormPreview,
-    userClaims,
   } = useFiregridContext();
 
   const [previewOnly, setPreviewOnly] = useState(false);

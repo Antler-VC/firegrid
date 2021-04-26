@@ -35,7 +35,6 @@ export interface IFiregridContextInterface {
   deleteForm: ReturnType<typeof _deleteForm>;
   formPreview: boolean;
   setFormPreview: React.Dispatch<React.SetStateAction<boolean>>;
-  userClaims: { roles?: string[] };
 }
 
 export const FiregridContext = React.createContext<IFiregridContextInterface>({
@@ -53,7 +52,6 @@ export const FiregridContext = React.createContext<IFiregridContextInterface>({
   deleteForm: async () => {},
   formPreview: false,
   setFormPreview: () => {},
-  userClaims: { roles: [] },
 });
 export default FiregridContext;
 
@@ -65,17 +63,6 @@ export function FiregridProvider({
   history,
 }: React.PropsWithChildren<RouteComponentProps<{ id?: string }>>) {
   const { currentUser } = useAppContext();
-
-  const [userClaims, setUserClaims] = useState<any | { roles?: string[] }>({});
-  const getUserClaims = async (currentUser) => {
-    const results = await currentUser.getIdTokenResult(true);
-    setUserClaims(results.claims);
-  };
-  useEffect(() => {
-    if (currentUser) {
-      getUserClaims(currentUser);
-    }
-  }, [currentUser]);
 
   // Get all forms once
   const [forms, setForms] = useState<Form[] | 'loading'>('loading');
@@ -156,7 +143,6 @@ export function FiregridProvider({
         deleteForm,
         formPreview,
         setFormPreview,
-        userClaims,
       }}
     >
       {children}
