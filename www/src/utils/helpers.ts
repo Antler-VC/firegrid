@@ -91,7 +91,13 @@ export const _newForm = (
     if (Array.isArray(templateDoc.fields)) data.fields = templateDoc.fields;
   }
 
-  const newDocRef = await db.collection(DB_ROOT).add(data);
+  // Use `id` filed in `values`
+  if (values.id) await db.collection(DB_ROOT).doc(values.id).set(data);
+
+  const newDocRef = values.id
+    ? db.collection(DB_ROOT).doc(values.id)
+    : await db.collection(DB_ROOT).add(data);
+
   history.push(routes.fieldEditor + '/' + newDocRef.id);
 };
 

@@ -1,12 +1,14 @@
 import _uniq from 'lodash/uniq';
 import _sortBy from 'lodash/sortBy';
-
+import _debounce from 'lodash/debounce';
 import { useFiregridContext } from 'contexts/FiregridContext';
+
 import {
   FormDialog,
   IFormDialogProps,
   FieldType,
 } from '@antlerengineering/form-builder';
+import FormKey from './FormKey';
 
 export interface IFormModalProps {
   showForm: 'add' | 'edit' | false;
@@ -20,11 +22,13 @@ export default function FormModal({
   onSubmit,
 }: IFormModalProps) {
   const { forms, selectedForm } = useFiregridContext();
+
+  const platforms = _uniq(forms.map((doc) => doc.app)) ?? [];
   const editorRoles =
     _uniq(
       Array.prototype.concat(...forms.map((doc) => doc.editorRoles ?? []))
     ) ?? [];
-  const platforms = _uniq(forms.map((doc) => doc.app));
+
   return (
     <FormDialog
       key={showForm.toString()}
@@ -50,6 +54,20 @@ export default function FormModal({
             label: 'Form Name',
             required: true,
           },
+          showForm === 'add'
+            ? {
+                type: 'formKey',
+                name: 'id',
+                label: 'Form Key',
+                required: true,
+              }
+            : {
+                type: FieldType.shortText,
+                name: 'id',
+                label: 'Form Key',
+                required: true,
+                disabled: true,
+              },
           {
             type: FieldType.multiSelect,
             name: 'editorRoles',
@@ -83,6 +101,16 @@ export default function FormModal({
             : null,
         ].filter((x) => x !== null) as any
       }
+      customComponents={{
+        formKey: {
+          defaultValue: '',
+          component: FormKey,
+          validation: [
+            ['string'],
+            ['required', 'This form key is used by another form'],
+          ],
+        },
+      }}
       values={showForm === 'add' ? {} : (selectedForm as Record<string, any>)}
       DialogProps={{ maxWidth: 'xs' }}
       SubmitButtonProps={{
