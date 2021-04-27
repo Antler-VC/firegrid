@@ -6,8 +6,8 @@
     "node": ">=10.16.0"
   },
   "dependencies": {
-    "@antlerengineering/components": "^2.4.1",
-    "@antlerengineering/form-builder": "^2.3.0",
+    "@antlerengineering/components": "^2.4.2",
+    "@antlerengineering/form-builder": "^2.4.2",
     "@antlerengineering/multiselect": "^0.9.6",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",

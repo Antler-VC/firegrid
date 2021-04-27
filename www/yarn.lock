@@ -106,10 +106,10 @@
     "@algolia/logger-common" "4.9.1"
     "@algolia/requester-common" "4.9.1"
 
-"@antlerengineering/components@^2.4.1":
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/@antlerengineering/components/-/components-2.4.1.tgz#be00d91a8f42d6f19db26b1a3c8e44502f38a152"
-  integrity sha512-ftW/60xNn0q1zGw1d0bUzqbXoULtQSH5x408E7KcJszutGjyA3lKq+3JTm/C5sgfIkKNjnO0vO06+hYBecJNfg==
+"@antlerengineering/components@^2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@antlerengineering/components/-/components-2.4.2.tgz#de50e727e7c9fb98a07e0012aa41884aeb6baae6"
+  integrity sha512-jgY+XJWYXBd/LkWQSuJ8s9edugr2s8IIFkSfNwfVsWVvjWJ1c2T8xJYUofMHImm6Q1RDKHVuDfWciuBQ/mJKQw==
   dependencies:
     "@mdi/js" "^5.9.55"
     "@react-hook/window-size" "^3.0.7"
@@ -120,21 +120,21 @@
     lodash-es "^4.17.15"
     react-anchorme "^2.2.0"
     react-copy-to-clipboard "^5.0.2"
+    react-element-scroll-hook "^1.1.0"
     react-image "^4.0.3"
     react-player "^2.9.0"
     react-share "^4.3.0"
     react-virtualized "^9.22.3"
     use-persisted-state "^0.3.0"
 
-"@antlerengineering/form-builder@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@antlerengineering/form-builder/-/form-builder-2.3.0.tgz#628d759dd5e331bd2731aaa2c0f37c4cf8af53e3"
-  integrity sha512-fWbdl4SUXFTzuVSmSAEt4JCCpM56ftdi2jGeXxpjNNNdE3tEX3TmvqEZhIb+XxN/M5KXnrNuvfSdI05Bkm9Sqw==
+"@antlerengineering/form-builder@^2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@antlerengineering/form-builder/-/form-builder-2.4.2.tgz#779d22ec100d4124c7b17858b33391c27231f81f"
+  integrity sha512-NxLmkgDJ/jT5YzJbDKA9NqWjceEHUP7vESySUT8YPCN89z/RX+7/SUnFZTaqnsFIZZpTcpvpZa5c7ciZMM3/Ig==
   dependencies:
-    "@antlerengineering/components" "^2.4.1"
     "@antlerengineering/multiselect" "^0.9.6"
     "@date-io/date-fns" "1.x"
-    "@hookform/resolvers" "^2.3.1"
+    "@hookform/resolvers" "^2.4.0"
     "@material-ui/pickers" "^3.2.10"
     "@mdi/js" "^5.9.55"
     array-move "^3.0.1"
@@ -145,7 +145,8 @@
     react-color "^2.19.3"
     react-dnd "^14.0.2"
     react-dnd-html5-backend "^14.0.0"
-    react-hook-form "^7.1.1"
+    react-element-scroll-hook "^1.1.0"
+    react-hook-form "^7.3.4"
     use-debounce "^3.4.3"
     yup "^0.32.9"
 
@@ -1961,10 +1962,10 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@hookform/resolvers@^2.3.1":
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-2.3.1.tgz#010a65544cfe366cfac6d42d997db2234e2f5fad"
-  integrity sha512-0S9NdY2dgP8/mp8h15PyX1VtX4GVktZjADjwB1Aa3tPAHCdhG4o3lcaUMD6a5WROuuy715F+4wOgnkNxcztgOg==
+"@hookform/resolvers@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-2.4.0.tgz#3b454463fbb5e7a0de4da029fa34e677f32d8d8d"
+  integrity sha512-KiHc7Uwd2IJMvPTMQ9vQxfss2ulq2gRYL/HYZ90qiTs+07UgGWCikiIvE2pKjjGVltEYjq5eR8x0ITmoyEjGxQ==
 
 "@icons/material@^0.2.4":
   version "0.2.4"
@@ -12926,6 +12927,11 @@ react-dom@^17:
     object-assign "^4.1.1"
     scheduler "^0.20.1"
 
+react-element-scroll-hook@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-element-scroll-hook/-/react-element-scroll-hook-1.1.0.tgz#4a472933f381667007ae249fb5790c39134bcae3"
+  integrity sha512-c9ITNZIb57HT93HbuK+7lVWNOt5ZmmPWguYrf2YbWpLT8AJMHlxXp0926jLxXnFEr0qr4yiyTA8tfkHx+H+scg==
+
 react-error-overlay@^6.0.9:
   version "6.0.9"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.9.tgz#3c743010c9359608c375ecd6bc76f35d93995b0a"
@@ -12936,10 +12942,10 @@ react-fast-compare@^3.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
   integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
 
-react-hook-form@^7.1.1:
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.1.1.tgz#b0e2990d4dfa153c4ff2f27fe72ff73d2fbe6a26"
-  integrity sha512-d+tE+8FKLXioxemPnMnBOniMgmbCmAhBkP6EdOaJbqVpeRxfCfySMmg6EU9oruwnJbYpjx+IHTgheADqE8ruGA==
+react-hook-form@^7.3.4:
+  version "7.3.4"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.3.4.tgz#6a246cea3ff8669168a56dd166b462d28aa2f076"
+  integrity sha512-xreG3NHFlbKFrN1Fs+rZUT5RN9zkx4qn0vyY+6tO1xNfhOkfgwkTYU1/PkktYsWw6GerMw16vX5CPdIZVfyB1A==
 
 react-image@^4.0.3:
   version "4.0.3"
