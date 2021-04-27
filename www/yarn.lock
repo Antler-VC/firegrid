@@ -126,10 +126,10 @@
     react-virtualized "^9.22.3"
     use-persisted-state "^0.3.0"
 
-"@antlerengineering/form-builder@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@antlerengineering/form-builder/-/form-builder-2.2.0.tgz#d3600fe747797e78ef85a8d88899ec0e2cfd7d78"
-  integrity sha512-y2ujh/NNFcEHnk1uaIiNIwYi0zwdMFEXRdWzk/RKfX9VfZvRDnwQFWl30EJ8GF3gop45klDcCIijb9qyI4JeAA==
+"@antlerengineering/form-builder@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@antlerengineering/form-builder/-/form-builder-2.3.0.tgz#628d759dd5e331bd2731aaa2c0f37c4cf8af53e3"
+  integrity sha512-fWbdl4SUXFTzuVSmSAEt4JCCpM56ftdi2jGeXxpjNNNdE3tEX3TmvqEZhIb+XxN/M5KXnrNuvfSdI05Bkm9Sqw==
   dependencies:
     "@antlerengineering/components" "^2.4.1"
     "@antlerengineering/multiselect" "^0.9.6"
@@ -139,6 +139,7 @@
     "@mdi/js" "^5.9.55"
     array-move "^3.0.1"
     date-fns "^2.16.1"
+    dompurify "^2.2.7"
     lodash "^4.17.20"
     lodash-es "^4.17.15"
     react-color "^2.19.3"
@@ -6111,6 +6112,11 @@ dompurify@^2.0.10:
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.0.10.tgz#d193f36d8148b4297a3a420b992d20eeff47a4d3"
   integrity sha512-ok1dcSztsIuVxWG6Cx0ujyDIzNclz9W9OIU0cOb0IT+VAtSLrOelZF4miUvSm1U4PoCw8D7sIOLCnCQOaVpr3w==
+
+dompurify@^2.2.7:
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.2.7.tgz#a5f055a2a471638680e779bd08fc334962d11fd8"
+  integrity sha512-jdtDffdGNY+C76jvodNTu9jt5yYj59vuTUyx+wXdzcSwAGTYZDAQkQ7Iwx9zcGrA4ixC1syU4H3RZROqRxokxg==
 
 domutils@1.5.1:
   version "1.5.1"
