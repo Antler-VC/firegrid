@@ -17,6 +17,7 @@ import {
 import FieldTypeSelect from './FieldTypeSelect';
 import DisplayConditionEditor from './DisplayConditionEditor';
 import CustomSettingsEditor from './CustomSettingsEditor';
+import OptionsListSelect from './OptionsListSelect';
 
 import {
   newConfig,
@@ -105,6 +106,21 @@ export default function FieldModal() {
     }
 
     configFields = [...configFields, ...fieldConfig.settings];
+
+    if (
+      fieldConfig.type === FieldType.singleSelect ||
+      fieldConfig.type === FieldType.multiSelect ||
+      fieldConfig.type === FieldType.radio
+    ) {
+      const index = _findIndex(configFields, ['name', 'options']);
+      configFields.splice(index + 1, 0, {
+        type: 'optionsList',
+        name: '_optionsList',
+        label: 'Options List',
+        assistiveText:
+          'Use a predefined list of options shared with other forms. This list will be appended to the options you have set above.',
+      });
+    }
   } else {
     configFields = customGroupConfig(mode);
   }
@@ -217,6 +233,11 @@ export default function FieldModal() {
               },
             ],
           ],
+        },
+        optionsList: {
+          component: OptionsListSelect,
+          defaultValue: '',
+          validation: [['string']],
         },
       }}
     />
