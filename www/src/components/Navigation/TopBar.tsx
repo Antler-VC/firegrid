@@ -106,9 +106,9 @@ export default function TopBar({
     );
 
   useEffect(() => {
-    if (!topLevelItem?.label || !topLevelItem) document.title = 'Hub Kit';
+    if (!topLevelItem?.label || !topLevelItem) document.title = 'Firegrid';
     else if (!document.title.includes(topLevelItem!.label))
-      document.title = `${topLevelItem!.label} | Hub Kit`;
+      document.title = `${topLevelItem!.label} | Firegrid`;
   }, [topLevelItem]);
 
   return (

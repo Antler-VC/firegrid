@@ -74,7 +74,7 @@ export default function NavSidebarItem({ item }: INavSidebarItemProps) {
         item.route.toLowerCase() === router.location.pathname.toLowerCase()
     );
     if (!!childItem)
-      document.title = `${childItem.label} | ${item.label} | Hub Kit`;
+      document.title = `${childItem.label} | ${item.label} | Firegrid`;
   }, [router.location.pathname, item]);
 
   if (!Array.isArray(item.children) || item.children.length === 0)
