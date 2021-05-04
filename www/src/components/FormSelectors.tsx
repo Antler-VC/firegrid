@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import _uniq from 'lodash/uniq';
+import _sortedUniq from 'lodash/sortedUniq';
+import _sortBy from 'lodash/sortBy';
 import { useAppContext } from 'contexts/AppContext';
 import { useFiregridContext } from 'contexts/FiregridContext';
 
@@ -116,7 +117,7 @@ export default function FormSelectors() {
             <MultiSelect
               label="Platform"
               labelPlural="platforms"
-              options={_uniq(forms.map((doc) => doc.app))}
+              options={_sortedUniq(forms.map((doc) => doc.app).sort())}
               multiple={false}
               value={selectedApp}
               onChange={setSelectedApp as any}
@@ -132,9 +133,12 @@ export default function FormSelectors() {
             <MultiSelect
               label="Form"
               labelPlural="forms"
-              options={forms
-                .filter((doc) => doc.app === selectedApp)
-                .map((doc) => ({ value: doc.id, label: doc.name }))}
+              options={_sortBy(
+                forms
+                  .filter((doc) => doc.app === selectedApp)
+                  .map((doc) => ({ value: doc.id, label: doc.name })),
+                'label'
+              )}
               multiple={false}
               value={selectedForm?.app === selectedApp ? selectedForm?.id : ''}
               onChange={setSelectedFormId as any}
