@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       border: `1px dashed ${theme.palette.divider}`,
-      height: 56,
+      minHeight: 56,
       padding: theme.spacing(0, 2),
     },
 
