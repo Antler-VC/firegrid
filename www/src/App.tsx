@@ -24,6 +24,9 @@ import {
 } from '@antlerengineering/components';
 import Navigation from './components/Navigation';
 
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
 import SignOutPage from './pages/AuthPages/SignOutPage';
 import ForgotPasswordPage from 'pages/AuthPages/ForgotPasswordPage';
 import AdminAuthPage from 'pages/AuthPages/AdminAuthPage';
@@ -41,70 +44,72 @@ export default function App() {
       <ErrorBoundary>
         <AppProvider>
           <SnackProvider>
-            <CustomBrowserRouter>
-              <SegmentPageTracker />
-              <Suspense fallback={<Loading fullScreen />}>
-                <Switch>
-                  <Route
-                    exact
-                    path={routes.adminAuth}
-                    render={() => <AdminAuthPage />}
-                  />
-                  <Route
-                    exact
-                    path={routes.authLink}
-                    render={() => <AuthLinkPage />}
-                  />
-                  <Route
-                    exact
-                    path={routes.googleAuth}
-                    render={() => <GoogleAuthPage />}
-                  />
-                  <Route
-                    exact
-                    path={routes.forgotPassword}
-                    render={() => <ForgotPasswordPage />}
-                  />
-                  <Route
-                    exact
-                    path={routes.signIn}
-                    render={() => <SignInPage googleAuth />}
-                  />
+            <DndProvider backend={HTML5Backend}>
+              <CustomBrowserRouter>
+                <SegmentPageTracker />
+                <Suspense fallback={<Loading fullScreen />}>
+                  <Switch>
+                    <Route
+                      exact
+                      path={routes.adminAuth}
+                      render={() => <AdminAuthPage />}
+                    />
+                    <Route
+                      exact
+                      path={routes.authLink}
+                      render={() => <AuthLinkPage />}
+                    />
+                    <Route
+                      exact
+                      path={routes.googleAuth}
+                      render={() => <GoogleAuthPage />}
+                    />
+                    <Route
+                      exact
+                      path={routes.forgotPassword}
+                      render={() => <ForgotPasswordPage />}
+                    />
+                    <Route
+                      exact
+                      path={routes.signIn}
+                      render={() => <SignInPage googleAuth />}
+                    />
 
-                  <Route
-                    exact
-                    path={routes.signOut}
-                    render={() => <SignOutPage />}
-                  />
+                    <Route
+                      exact
+                      path={routes.signOut}
+                      render={() => <SignOutPage />}
+                    />
 
-                  <PrivateRoute
-                    exact
-                    path={routes.home}
-                    render={() => <Redirect to={routes.fieldEditor} />}
-                  />
+                    <PrivateRoute
+                      exact
+                      path={routes.home}
+                      render={() => <Redirect to={routes.fieldEditor} />}
+                    />
 
-                  <PrivateRoute
-                    exact
-                    path={[routes.fieldEditor, routes.fieldEditor + '/:id']}
-                    render={(props) => (
-                      <Navigation>
-                        <FiregridProvider {...props}>
-                          <FieldEditorPage />
-                        </FiregridProvider>
-                      </Navigation>
-                    )}
-                  />
+                    <PrivateRoute
+                      exact
+                      path={[routes.fieldEditor, routes.fieldEditor + '/:id']}
+                      render={(props) => (
+                        <Navigation>
+                          <FiregridProvider {...props}>
+                            <FieldEditorPage />
+                          </FiregridProvider>
+                        </Navigation>
+                      )}
+                    />
 
-                  <PrivateRoute
-                    render={() => (
-                      <Navigation>
-                        <EmptyState message="Page Not Found" />
-                      </Navigation>
-                    )}
-                  />
-                </Switch>
-              </Suspense>
-            </CustomBrowserRouter>
+                    <PrivateRoute
+                      render={() => (
+                        <Navigation>
+                          <EmptyState message="Page Not Found" />
+                        </Navigation>
+                      )}
+                    />
+                  </Switch>
+                </Suspense>
+              </CustomBrowserRouter>
+            </DndProvider>
           </SnackProvider>
         </AppProvider>
       </ErrorBoundary>

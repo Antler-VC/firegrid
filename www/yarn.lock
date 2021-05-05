@@ -127,10 +127,10 @@
     react-virtualized "^9.22.3"
     use-persisted-state "^0.3.0"
 
-"@antlerengineering/form-builder@^2.4.7":
-  version "2.4.7"
-  resolved "https://registry.yarnpkg.com/@antlerengineering/form-builder/-/form-builder-2.4.7.tgz#e1d88521a0b4df6aea4fb40ed47788b58c9dbb37"
-  integrity sha512-nJwmM5HLrtPmC83AeS/+xAikI+oHvs64DuS0hZ27o++cI+rxqYJ2LlWGVgfScLGLmvbjVOURW5heQfmiT6mjDA==
+"@antlerengineering/form-builder@^2.4.9":
+  version "2.4.9"
+  resolved "https://registry.yarnpkg.com/@antlerengineering/form-builder/-/form-builder-2.4.9.tgz#24ddea34a3863428207471f10d38a88d98e7f1d9"
+  integrity sha512-lvf/JVmsSFYYcAPj8xFaJDH7jD4TdS03NaskYpzc/46G7y1nIe8r2kOLBG4yxcEwd+VC1Acpw2R9GnhJec1dqw==
   dependencies:
     "@antlerengineering/multiselect" "^0.9.6"
     "@date-io/date-fns" "1.x"

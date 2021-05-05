@@ -1,6 +1,4 @@
 import { useFiregridContext } from 'contexts/FiregridContext';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { EmptyState } from '@antlerengineering/components';
 import FormLayout from 'components/FormLayout';
@@ -45,12 +43,10 @@ export default function FieldEditorPage() {
         <FormLayout
           paperHeader={<FormSelectors />}
           children={
-            <DndProvider backend={HTML5Backend}>
-              <FormFields
-                fields={selectedForm.fields}
-                customComponents={customComponents}
-              />
-            </DndProvider>
+            <FormFields
+              fields={selectedForm.fields}
+              customComponents={customComponents}
+            />
           }
           previewContent={<FormValues />}
         />
