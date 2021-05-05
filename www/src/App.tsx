@@ -44,7 +44,7 @@ export default function App() {
       <ErrorBoundary>
         <AppProvider>
           <SnackProvider>
-            <DndProvider backend={HTML5Backend}>
+            <DndProvider backend={HTML5Backend} context={window}>
               <CustomBrowserRouter>
                 <SegmentPageTracker />
                 <Suspense fallback={<Loading fullScreen />}>

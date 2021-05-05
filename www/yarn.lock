@@ -127,10 +127,10 @@
     react-virtualized "^9.22.3"
     use-persisted-state "^0.3.0"
 
-"@antlerengineering/form-builder@^2.4.9":
-  version "2.4.9"
-  resolved "https://registry.yarnpkg.com/@antlerengineering/form-builder/-/form-builder-2.4.9.tgz#24ddea34a3863428207471f10d38a88d98e7f1d9"
-  integrity sha512-lvf/JVmsSFYYcAPj8xFaJDH7jD4TdS03NaskYpzc/46G7y1nIe8r2kOLBG4yxcEwd+VC1Acpw2R9GnhJec1dqw==
+"@antlerengineering/form-builder@^2.4.11":
+  version "2.4.11"
+  resolved "https://registry.yarnpkg.com/@antlerengineering/form-builder/-/form-builder-2.4.11.tgz#2eea5b10fc14930436d0f5c0eb7cb6ec8ca3c76b"
+  integrity sha512-85dG21P4FTKdpkgXWvY8uEr/8NyOd7hLVNYXIkZHd9ZVXCmV6yF+ffvfcA9dY4kpJy09Zgz7VGooYasMVTA92g==
   dependencies:
     "@antlerengineering/multiselect" "^0.9.6"
     "@date-io/date-fns" "1.x"
@@ -7316,6 +7316,11 @@ firebase@^8.4.2:
     "@firebase/remote-config" "0.1.36"
     "@firebase/storage" "0.5.1"
     "@firebase/util" "1.0.0"
+
+fireloop@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/fireloop/-/fireloop-0.6.0.tgz#4cb469db7ddd399e96189d9509a756b81ee52360"
+  integrity sha512-YkdqnbVP9OZqFwfk70hRclCgjgTWeIqDQ5q3+OrmiQ3xrdVbZEU9Y4Bv5je+MZhbdQthd9XNFLi32lFXfFYYWA==
 
 flat-arguments@^1.0.0:
   version "1.0.2"
