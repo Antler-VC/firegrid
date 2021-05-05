@@ -228,7 +228,7 @@ export default function FieldWrapper({
         item
         key={name!}
         id={`fieldWrapper-${name}`}
-        xs={12}
+        xs={formPreview ? gridCols : 12}
         style={formPreview && disablePadding ? { padding: 0 } : {}}
         ref={dragPreview}
       >
