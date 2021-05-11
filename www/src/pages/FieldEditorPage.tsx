@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useFiregridContext } from 'contexts/FiregridContext';
 
 import { EmptyState } from '@antlerengineering/components';
@@ -14,6 +15,11 @@ const customComponents = {};
 
 export default function FieldEditorPage() {
   const { selectedForm } = useFiregridContext();
+
+  useEffect(() => {
+    if (selectedForm && !document.title.includes(selectedForm.name))
+      document.title = `${selectedForm.name} | Field Editor | Firegrid`;
+  }, [selectedForm]);
 
   if (selectedForm === null)
     return (
