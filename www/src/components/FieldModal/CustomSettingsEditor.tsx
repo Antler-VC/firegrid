@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { OnValidate } from '@monaco-editor/react';
 
-import { useTheme, FormControl, Typography } from '@material-ui/core';
+import { useTheme, FormControl, Typography, Button } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
+import CodeIcon from '@material-ui/icons/Code';
 
 import { FieldLabel } from '@antlerengineering/form-builder';
 import CodeEditor from 'components/CodeEditor';
@@ -23,6 +25,8 @@ export default function CustomSettingsEditor({
 }: IFieldComponentProps) {
   const theme = useTheme();
 
+  const [showEditor, setShowEditor] = useState(value !== '{}');
+
   const handleValidate: OnValidate = (errors) => {
     const message = errors
       .map(
@@ -37,6 +41,19 @@ export default function CustomSettingsEditor({
       useFormMethods.clearErrors(name);
     }
   };
+
+  if (!showEditor)
+    return (
+      <div>
+        <Button
+          variant="outlined"
+          startIcon={<CodeIcon />}
+          onClick={() => setShowEditor(true)}
+        >
+          Add Custom Settings
+        </Button>
+      </div>
+    );
 
   return (
     <FormControl

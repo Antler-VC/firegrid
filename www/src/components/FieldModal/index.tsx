@@ -23,7 +23,6 @@ import {
   newConfig,
   inputGroupConfig,
   contentGroupConfig,
-  customGroupConfig,
   inputHiddenConfig,
 } from 'constants/commonConfigs';
 
@@ -58,12 +57,8 @@ export type FieldModalRef = {
 };
 
 export default function FieldModal() {
-  const {
-    selectedForm,
-    fieldModalRef,
-    addField,
-    editField,
-  } = useFiregridContext();
+  const { selectedForm, fieldModalRef, addField, editField } =
+    useFiregridContext();
 
   const [open, setOpen] = useState<string | number | boolean>(false);
   const mode = typeof open === 'string' ? 'edit' : 'add';
@@ -122,7 +117,7 @@ export default function FieldModal() {
       });
     }
   } else {
-    configFields = customGroupConfig(mode);
+    configFields = inputGroupConfig(mode);
   }
 
   const values = {
@@ -183,6 +178,11 @@ export default function FieldModal() {
           required: true,
         },
         ...configFields,
+        {
+          type: 'customSettings',
+          name: '_customSettings',
+          label: 'Custom Settings',
+        },
       ]}
       values={values}
       title={`${_startCase(mode)} Field${

@@ -123,15 +123,6 @@ export const contentGroupConfig = (mode: string) => [
   },
 ];
 
-export const customGroupConfig = (mode: string) => [
-  ...inputGroupConfig(mode),
-  {
-    type: 'customSettings',
-    name: '_customSettings',
-    label: 'Custom Settings',
-  },
-];
-
 export const inputHiddenConfig = (mode: string) => [
   {
     type: FieldType.contentSubHeader,
