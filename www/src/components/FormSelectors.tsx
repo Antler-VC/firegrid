@@ -75,7 +75,6 @@ export default function FormSelectors() {
   } = useFiregridContext();
 
   const [previewOnly, setPreviewOnly] = useState(false);
-
   useEffect(() => {
     setPreviewOnly(
       Boolean(
@@ -87,10 +86,10 @@ export default function FormSelectors() {
       )
     );
   }, [selectedForm, userClaims]);
-
   useEffect(() => {
-    setFormPreview(previewOnly);
+    if (previewOnly) setFormPreview(previewOnly);
   }, [previewOnly, setFormPreview]);
+
   const [selectedApp, setSelectedApp] = useState(selectedForm?.app ?? '');
   const [showForm, setShowForm] = useState<'add' | 'edit' | false>(false);
 

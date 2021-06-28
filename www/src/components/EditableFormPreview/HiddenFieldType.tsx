@@ -2,8 +2,6 @@ import { IFieldComponentProps } from '@antlerengineering/form-builder';
 
 import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
 
-import { useFiregridContext } from 'contexts/FiregridContext';
-
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
@@ -26,9 +24,6 @@ export default function HiddenFieldType({
   name,
 }: IFieldComponentProps) {
   const classes = useStyles();
-
-  const { formPreview } = useFiregridContext();
-  if (formPreview) return null;
 
   return (
     <Grid

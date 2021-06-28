@@ -5,8 +5,9 @@ import { EmptyState } from '@antlerengineering/components';
 import FormLayout from 'components/FormLayout';
 import FormSelectors from 'components/FormSelectors';
 import FormPreview from 'components/FormPreview';
-import FormFields from 'components/FormPreview/FormFields';
-import FormValues from 'components/FormPreview/FormValues';
+import EditableFormPreview from 'components/EditableFormPreview';
+import FormFields from 'components/EditableFormPreview/FormFields';
+import FormValues from 'components/EditableFormPreview/FormValues';
 import FieldDialog from 'components/FieldModal';
 
 import { FieldEditorIcon } from 'constants/routes';
@@ -14,7 +15,7 @@ import { FieldEditorIcon } from 'constants/routes';
 const customComponents = {};
 
 export default function FieldEditorPage() {
-  const { selectedForm } = useFiregridContext();
+  const { selectedForm, formPreview } = useFiregridContext();
 
   useEffect(() => {
     if (selectedForm && !document.title.includes(selectedForm.name))
@@ -43,9 +44,23 @@ export default function FieldEditorPage() {
       </FormLayout>
     );
 
+  if (formPreview) {
+    return (
+      <FormPreview fields={selectedForm.fields}>
+        {(formFields) => (
+          <FormLayout
+            paperHeader={<FormSelectors />}
+            children={formFields}
+            previewContent={<FormValues />}
+          />
+        )}
+      </FormPreview>
+    );
+  }
+
   return (
     <>
-      <FormPreview fields={selectedForm.fields}>
+      <EditableFormPreview fields={selectedForm.fields}>
         <FormLayout
           paperHeader={<FormSelectors />}
           children={
@@ -56,7 +71,7 @@ export default function FieldEditorPage() {
           }
           previewContent={<FormValues />}
         />
-      </FormPreview>
+      </EditableFormPreview>
 
       <FieldDialog />
     </>

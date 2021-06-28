@@ -6,17 +6,17 @@ import {
   useFormSettings,
 } from '@antlerengineering/form-builder';
 
-export interface IFormPreviewProps {
+export interface IEditableFormPreviewProps {
   fields: Fields;
   customComponents?: CustomComponents;
   children: React.ReactNode;
 }
 
-export default function FormPreview({
+export default function EditableFormPreview({
   fields,
   customComponents,
   children,
-}: IFormPreviewProps) {
+}: IEditableFormPreviewProps) {
   const { defaultValues, resolver } = useFormSettings({
     fields,
     customComponents,

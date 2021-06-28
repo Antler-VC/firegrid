@@ -73,11 +73,6 @@ const useStyles = makeStyles((theme) =>
         ),
       },
     },
-
-    formPreview: {
-      '& > *:not($field)': { display: 'none' },
-    },
-    field: {},
   })
 );
 
@@ -106,13 +101,7 @@ export default function FieldWrapper({
 
   const [conditionalState, setConditionalState] = useState(false);
 
-  const { userClaims } = useAppContext();
-  const {
-    deleteField,
-    fieldModalRef,
-    formPreview,
-    selectedForm,
-  } = useFiregridContext();
+  const { deleteField, fieldModalRef } = useFiregridContext();
 
   const [{ isDragging }, drag, dragPreview] = useDrag(
     () => ({
@@ -228,8 +217,7 @@ export default function FieldWrapper({
         item
         key={name!}
         id={`fieldWrapper-${name}`}
-        xs={formPreview ? gridCols : 12}
-        style={formPreview && disablePadding ? { padding: 0 } : {}}
+        xs={12}
         ref={dragPreview}
       >
         <Grid
@@ -237,7 +225,7 @@ export default function FieldWrapper({
           spacing={1}
           wrap="nowrap"
           alignItems="flex-start"
-          className={clsx(classes.row, formPreview && classes.formPreview)}
+          className={clsx(classes.row)}
           style={{ opacity: isDragging ? 0.5 : 1 }}
         >
           <Grid item>
@@ -261,7 +249,7 @@ export default function FieldWrapper({
             </Grid>
           )}
 
-          <Grid item xs className={classes.field}>
+          <Grid item xs>
             <Suspense fallback={<FieldSkeleton />}>{renderedField}</Suspense>
           </Grid>
           <Grid item>
