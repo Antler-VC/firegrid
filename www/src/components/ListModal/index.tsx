@@ -1,69 +1,58 @@
 import _uniq from 'lodash/uniq';
 import _sortBy from 'lodash/sortBy';
-import { useFiregridContext } from 'contexts/FiregridContext';
+import { useListEditorContext } from 'contexts/ListEditorContext';
 
 import {
   FormDialog,
   IFormDialogProps,
   FieldType,
 } from '@antlerengineering/form-builder';
-import FormKey from './FormKey';
+import ListKey from './ListKey';
 
-export interface IFormModalProps {
-  showForm: 'add' | 'edit' | false;
+export interface IListModalProps {
+  showListModal: 'add' | 'edit' | false;
   onClose: () => void;
   onSubmit: IFormDialogProps['onSubmit'];
 }
 
-export default function FormModal({
-  showForm,
+export default function ListModal({
+  showListModal,
   onClose,
   onSubmit,
-}: IFormModalProps) {
-  const { forms, selectedForm } = useFiregridContext();
+}: IListModalProps) {
+  const { lists, selectedList } = useListEditorContext();
 
-  const platforms = _uniq(forms.map((doc) => doc.app)) ?? [];
   const editorRoles =
     _uniq(
-      Array.prototype.concat(...forms.map((doc) => doc.editorRoles ?? []))
+      Array.prototype.concat(...lists.map((doc) => doc.editorRoles ?? []))
     ) ?? [];
 
   return (
     <FormDialog
-      key={showForm.toString()}
-      open={!!showForm}
+      key={showListModal.toString()}
+      open={!!showListModal}
       onClose={onClose}
       onSubmit={onSubmit}
-      title={`${showForm === 'add' ? 'Create New' : 'Edit'} Form`}
+      title={`${showListModal === 'add' ? 'Create New' : 'Edit'} List`}
       fields={
         [
           {
-            type: FieldType.singleSelect,
-            name: 'app',
-            label: 'Platform',
-            labelPlural: 'platforms',
-            options: platforms,
-            searchable: true,
-            freeText: true,
-            required: true,
-          },
-          {
             type: FieldType.shortText,
             name: 'name',
-            label: 'Form Name',
+            label: 'List Name',
             required: true,
           },
-          showForm === 'add'
+          showListModal === 'add'
             ? {
-                type: 'formKey',
+                type: 'listKey',
                 name: 'id',
-                label: 'Form Key',
+                label: 'List Key',
                 required: true,
               }
             : {
                 type: FieldType.shortText,
                 name: 'id',
-                label: 'Form Key',
+                label: 'List Key',
                 required: true,
                 disabled: true,
               },
@@ -74,26 +63,22 @@ export default function FormModal({
             options: editorRoles,
             freeText: true,
           },
-          showForm === 'add'
+          showListModal === 'add'
             ? {
                 type: FieldType.checkbox,
                 name: '_starterTemplateUsed',
-                label: 'Use another form as a starter template',
+                label: 'Use another list as a starter template',
               }
             : null,
-          showForm === 'add'
+          showListModal === 'add'
             ? {
                 type: FieldType.singleSelect,
                 name: '_starterTemplate',
                 label: 'Template',
-                options: _sortBy(forms, ['app', 'name']).map((doc) => ({
+                options: _sortBy(lists, ['name']).map((doc) => ({
                   label: doc.name,
-                  app: doc.app,
                   value: doc.id,
                 })),
-                AutocompleteProps: {
-                  groupBy: (option) => option.app || 'Other',
-                },
                 displayCondition: 'return !!values._starterTemplateUsed',
                 searchable: true,
               }
@@ -101,19 +86,21 @@ export default function FormModal({
         ].filter((x) => x !== null) as any
       }
       customComponents={{
-        formKey: {
+        listKey: {
           defaultValue: '',
-          component: FormKey,
+          component: ListKey,
           validation: [
             ['string'],
-            ['required', 'This form key is used by another form'],
+            ['required', 'This list key is used by another list'],
           ],
         },
       }}
-      values={showForm === 'add' ? {} : (selectedForm as Record<string, any>)}
+      values={
+        showListModal === 'add' ? {} : (selectedList as Record<string, any>)
+      }
       DialogProps={{ maxWidth: 'xs' }}
       SubmitButtonProps={{
-        children: showForm === 'add' ? 'Create Form' : 'Update',
+        children: showListModal === 'add' ? 'Create List' : 'Update',
       }}
     />
   );

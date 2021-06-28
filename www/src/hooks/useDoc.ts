@@ -3,6 +3,7 @@ import { db } from '../firebase';
 import { useEffect, useReducer, useContext } from 'react';
 import { AppContext } from 'contexts/AppContext';
 import { useSnackContext } from 'samosas';
+import { firetableUser } from 'utils';
 
 export enum DocActions {
   update,
@@ -85,7 +86,7 @@ const useDoc = (intialOverrides: any) => {
       data: {
         ...data,
         _ft_updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-        _ft_updatedBy: currentUser?.uid ?? '',
+        _ft_updatedBy: firetableUser(currentUser!),
       },
     });
 

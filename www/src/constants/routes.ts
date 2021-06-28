@@ -1,8 +1,10 @@
 import FieldEditorIcon from 'assets/icons/FieldEditor';
+import ListEditorIcon from 'assets/icons/ListEditor';
 
 import { CustomClaims } from 'contexts/AppContext';
 
 export { FieldEditorIcon };
+export { ListEditorIcon };
 
 export enum routes {
   adminAuth = '/adminAuth',
@@ -18,6 +20,7 @@ export enum routes {
   home = '/',
 
   fieldEditor = '/fieldEditor',
+  listEditor = '/listEditor',
 
   signOut = '/signOut',
 }
@@ -45,9 +48,14 @@ const fieldEditor: RouteFunction = () => ({
   route: routes.fieldEditor,
   Icon: FieldEditorIcon,
 });
+const listEditor: RouteFunction = () => ({
+  label: 'List Editor',
+  route: routes.listEditor,
+  Icon: ListEditorIcon,
+});
 
 export const getNavItems = (props: RouteFunctionProps): Route[] => {
-  const ordered = [fieldEditor];
+  const ordered = [fieldEditor, listEditor];
 
   // Call all route functions
   const result: Route[] = [];

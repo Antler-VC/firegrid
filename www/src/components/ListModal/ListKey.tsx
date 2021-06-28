@@ -9,7 +9,7 @@ import { TextField, FormHelperText } from '@material-ui/core';
 import { db } from '../../firebase';
 import { DB_ROOT_FORMS } from 'constants/firegrid';
 
-export default function FormKey({
+export default function ListKey({
   field: { onChange, value: formValue, onBlur, ref },
   name,
   label,
@@ -18,17 +18,17 @@ export default function FormKey({
   assistiveText,
   useFormMethods,
 }: IFieldComponentProps) {
-  const [app, formName] = useWatch({
+  const [listName] = useWatch({
     control: useFormMethods.control,
-    name: ['app', 'name'],
+    name: ['name'],
   }) as any;
 
   const [value, setValue] = useState(formValue);
 
   useEffect(() => {
-    if (app && formName) setValue(`${_camelCase(app)}-${_camelCase(formName)}`);
+    if (listName) setValue(_camelCase(listName));
     else if (value !== '') setValue('');
-  }, [app, formName]);
+  }, [listName]);
 
   const [loading, setLoading] = useState(false);
 
@@ -44,7 +44,7 @@ export default function FormKey({
       onChange('');
       useFormMethods.setError(name, {
         type: 'manual',
-        message: 'This form key is used by another form',
+        message: 'This list key is used by another list',
         shouldFocus: true,
       });
     } else {
@@ -73,7 +73,7 @@ export default function FormKey({
       helperText={
         (errorMessage || assistiveText) && (
           <>
-            {loading ? 'Validating form key…' : errorMessage}
+            {loading ? 'Validating list key…' : errorMessage}
 
             <FormHelperText
               style={{ margin: 0, whiteSpace: 'pre-line' }}

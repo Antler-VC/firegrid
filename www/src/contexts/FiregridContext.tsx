@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef, useMemo } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { RouteComponentProps } from 'react-router';
 
 import { db } from '../firebase';
@@ -6,7 +6,7 @@ import useDoc from '../hooks/useDoc';
 
 import { EmptyState, Loading } from '@antlerengineering/components';
 
-import { DB_ROOT } from 'constants/firegrid';
+import { DB_ROOT_FORMS } from 'constants/firegrid';
 import { Form } from 'types/Form';
 import {
   _reOrderField,
@@ -67,7 +67,7 @@ export function FiregridProvider({
   // Get all forms once
   const [forms, setForms] = useState<Form[] | 'loading'>('loading');
   useEffect(() => {
-    db.collection(DB_ROOT)
+    db.collection(DB_ROOT_FORMS)
       .where('app', '!=', 'DEV')
       .get()
       .then((snapshot) =>
@@ -82,7 +82,7 @@ export function FiregridProvider({
 
   // Set up listener for selected form
   const [selectedFormState, selectedFormDispatch, updateSelectedForm] = useDoc(
-    match.params?.id ? { path: `${DB_ROOT}/${match.params!.id}` } : {}
+    match.params?.id ? { path: `${DB_ROOT_FORMS}/${match.params!.id}` } : {}
   );
   // Add a ref so helper functions get fresh form data
   const selectedFormRef = useRef<Form | null>(null);
@@ -91,14 +91,14 @@ export function FiregridProvider({
 
   // Change selected form based on URL
   useEffect(() => {
-    const path = `${DB_ROOT}/${match.params!.id}`;
+    const path = `${DB_ROOT_FORMS}/${match.params!.id}`;
     if (selectedFormState.path !== path) selectedFormDispatch({ path });
   }, [match.params?.id]);
 
   // Set selected form & update URL
   const setSelectedFormId = (id: string) => {
     selectedFormDispatch({
-      path: `${DB_ROOT}/${id}`,
+      path: `${DB_ROOT_FORMS}/${id}`,
       loading: true,
       doc: null,
     });

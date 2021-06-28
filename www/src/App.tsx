@@ -9,6 +9,7 @@ import Theme from './Theme';
 
 import { AppProvider } from 'contexts/AppContext';
 import { FiregridProvider } from 'contexts/FiregridContext';
+import { ListEditorProvider } from 'contexts/ListEditorContext';
 import CustomBrowserRouter from './utils/CustomBrowserRouter';
 import SegmentPageTracker from 'utils/SegmentPageTracker';
 import PrivateRoute from './utils/PrivateRoute';
@@ -35,6 +36,7 @@ import GoogleAuthPage from 'pages/AuthPages/GoogleAuthPage';
 import SignInPage from 'pages/AuthPages/SignInPage';
 
 import FieldEditorPage from 'pages/FieldEditorPage';
+import ListEditorPage from 'pages/ListEditorPage';
 
 export default function App() {
   return (
@@ -95,6 +97,18 @@ export default function App() {
                           <FiregridProvider {...props}>
                             <FieldEditorPage />
                           </FiregridProvider>
+                        </Navigation>
+                      )}
+                    />
+
+                    <PrivateRoute
+                      exact
+                      path={[routes.listEditor, routes.listEditor + '/:id']}
+                      render={(props) => (
+                        <Navigation>
+                          <ListEditorProvider {...props}>
+                            <ListEditorPage />
+                          </ListEditorProvider>
                         </Navigation>
                       )}
                     />
