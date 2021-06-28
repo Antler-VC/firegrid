@@ -112,8 +112,6 @@ export default function FieldModal() {
         type: 'optionsList',
         name: '_optionsList',
         label: 'Options List',
-        assistiveText:
-          'Use a predefined list of options shared with other forms. This list will be appended to the options you have set above.',
       });
     }
   } else {
