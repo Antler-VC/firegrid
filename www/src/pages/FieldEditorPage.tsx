@@ -11,15 +11,14 @@ import FormValues from 'components/EditableFormPreview/FormValues';
 import FieldDialog from 'components/FieldModal';
 
 import { FieldEditorIcon } from 'constants/routes';
-
-const customComponents = {};
+import { customComponents } from 'components/CustomFields';
 
 export default function FieldEditorPage() {
   const { selectedForm, formPreview } = useFiregridContext();
 
   useEffect(() => {
     if (selectedForm && !document.title.includes(selectedForm.name))
-      document.title = `${selectedForm.name} | Field Editor | Firegrid`;
+      document.title = `${selectedForm.name} | ${selectedForm.app} | Field Editor | Firegrid`;
   }, [selectedForm]);
 
   if (selectedForm === null)
@@ -46,7 +45,10 @@ export default function FieldEditorPage() {
 
   if (formPreview) {
     return (
-      <FormPreview fields={selectedForm.fields}>
+      <FormPreview
+        fields={selectedForm.fields}
+        customComponents={customComponents}
+      >
         {(formFields) => (
           <FormLayout
             paperHeader={<FormSelectors />}

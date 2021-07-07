@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import _startCase from 'lodash/startCase';
+import _find from 'lodash/find';
 
 import { useTheme } from '@material-ui/core';
 import CodeIcon from '@material-ui/icons/Code';
@@ -8,8 +9,18 @@ import MultiSelect from '@antlerengineering/multiselect';
 import {
   IFieldComponentProps,
   FieldConfigs,
-  getFieldProp,
+  IFieldConfig,
 } from '@antlerengineering/form-builder';
+import { CustomFieldConfigs } from 'components/CustomFields';
+
+const mapConfigToOption =
+  (overrides?: Record<string, any>) => (config: IFieldConfig) => ({
+    value: config.type,
+    label: config.name,
+    group: config.group,
+    icon: config.icon,
+    ...overrides,
+  });
 
 export interface IFieldTypeSelectProps extends IFieldComponentProps {
   newFieldType: string;
@@ -36,6 +47,15 @@ export default function FieldTypeSelect({
     if (formValue !== newFieldType) useFormMethods.setValue(name, newFieldType);
   }, [newFieldType]);
 
+  const options = [
+    ...FieldConfigs.map(mapConfigToOption()),
+    ...CustomFieldConfigs.map(
+      mapConfigToOption({
+        group: 'Not available on all platforms',
+      })
+    ),
+  ];
+
   return (
     <MultiSelect
       {...props}
@@ -46,12 +66,7 @@ export default function FieldTypeSelect({
         onChange(value);
         setNewFieldType(value);
       }}
-      options={FieldConfigs.map((config) => ({
-        value: config.type,
-        label: config.name,
-        group: config.group,
-        icon: config.icon,
-      }))}
+      options={options}
       AutocompleteProps={{ groupBy: (option) => option.group || 'Custom' }}
       itemRenderer={(option: any) => (
         <>
@@ -74,12 +89,14 @@ export default function FieldTypeSelect({
           renderValue: () => {
             if (!value) return null;
 
-            if (getFieldProp('name', value))
+            const match = _find(options, { value });
+
+            if (match)
               return (
                 <>
-                  {_startCase(getFieldProp('group', value))}
+                  {_startCase(match.group)}
                   &nbsp;–&nbsp;
-                  {getFieldProp('name', value)}
+                  {match.label}
                 </>
               );
 

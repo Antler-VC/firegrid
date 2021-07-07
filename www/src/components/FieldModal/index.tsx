@@ -14,6 +14,7 @@ import {
   IFieldConfig,
   getFieldProp,
 } from '@antlerengineering/form-builder';
+import { CustomFieldConfigs } from 'components/CustomFields';
 import FieldTypeSelect from './FieldTypeSelect';
 import DisplayConditionEditor from './DisplayConditionEditor';
 import CustomSettingsEditor from './CustomSettingsEditor';
@@ -85,9 +86,13 @@ export default function FieldModal() {
       : -1;
 
   const fieldConfig: IFieldConfig | null =
+    _find(CustomFieldConfigs, {
+      type: (selectedField as Field)?.type || newFieldType,
+    }) ||
     _find(FieldConfigs, {
       type: (selectedField as Field)?.type || newFieldType,
-    }) || null;
+    }) ||
+    null;
 
   let configFields: Field[] = [];
   if (mode === 'add' && !newFieldType) {
