@@ -43,7 +43,7 @@ export const inputGroupConfig = (mode: string) => [
     name: 'name',
     label: 'Field Key',
     assistiveText:
-      'The name of the field in the database.\nVisible only to the Engineering team.',
+      'The name of the field in the database; never shown to end users.',
     required: true,
     disabled: mode === 'edit',
     validation: [['transform', _camelCase]],

@@ -53,12 +53,27 @@ export default function FormModal({
             label: 'Form Name',
             required: true,
           },
+          {
+            type: FieldType.contentSubHeader,
+            name: '_contentSubHeader_admin',
+            label: 'Admin',
+          },
+          {
+            type: FieldType.contentParagraph,
+            name: '_contentParagraph_formKey',
+            label:
+              showForm === 'add'
+                ? 'You will not be able to edit the Form Key after you click “Create Form” to prevent data loss.'
+                : 'You cannot edit the Form Key to prevent data loss.',
+          },
           showForm === 'add'
             ? {
                 type: 'formKey',
                 name: 'id',
                 label: 'Form Key',
                 required: true,
+                assistiveText:
+                  'The name of the form in the database; never shown to end users.',
               }
             : {
                 type: FieldType.shortText,
@@ -66,6 +81,8 @@ export default function FormModal({
                 label: 'Form Key',
                 required: true,
                 disabled: true,
+                assistiveText:
+                  'The name of the form in the database; never shown to end users.',
               },
           {
             type: FieldType.multiSelect,
@@ -74,6 +91,13 @@ export default function FormModal({
             options: editorRoles,
             freeText: true,
           },
+          showForm === 'add'
+            ? {
+                type: FieldType.contentSubHeader,
+                name: '_contentSubHeader_starterTemplate',
+                label: '',
+              }
+            : null,
           showForm === 'add'
             ? {
                 type: FieldType.checkbox,
