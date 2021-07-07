@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) =>
     formKey: { userSelect: 'all' },
 
     iconButtons: {
-      marginRight: theme.spacing(2.5),
       minWidth: 96 + theme.spacing(1),
     },
     deleteButton: {
@@ -145,122 +144,61 @@ export default function FormSelectors() {
             />
           </Grid>
 
-          <Grid item className={classes.iconButtons} />
+          <Grid item className={classes.iconButtons}>
+            <IconButton
+              color="secondary"
+              aria-label="Edit form"
+              onClick={() => setShowForm('edit')}
+              disabled={!selectedForm}
+            >
+              <EditIcon />
+            </IconButton>
+
+            <Friction
+              message={{
+                title: 'Delete form?',
+                body: 'You cannot undo this action.',
+                confirm: 'Delete Form',
+              }}
+            >
+              <IconButton
+                className={classes.deleteButton}
+                aria-label="Delete form"
+                onClick={() => deleteForm(selectedForm!.id)}
+                disabled={!selectedForm}
+              >
+                <DeleteForeverIcon />
+              </IconButton>
+            </Friction>
+          </Grid>
         </Grid>
 
-        {selectedForm && (
-          <>
-            <Typography
-              variant="overline"
-              component="h2"
-              color="textSecondary"
-              className={classes.formSettingsHeader}
-            >
-              Form Settings
+        <Grid
+          container
+          spacing={1}
+          wrap="nowrap"
+          alignItems="center"
+          justify="space-between"
+          className={classes.formFieldsHeader}
+        >
+          <Grid item>
+            <Typography variant="overline" component="h2" color="textSecondary">
+              Form Fields
             </Typography>
+          </Grid>
 
-            <Grid container spacing={1} wrap="nowrap" alignItems="center">
-              <Grid item xs>
-                <Typography variant="caption" className={classes.deEm}>
-                  Form Key
-                </Typography>
-                <Typography
-                  variant="body1"
-                  color="textSecondary"
-                  className={classes.formKey}
-                >
-                  {selectedForm?.id}
-                </Typography>
-              </Grid>
-
-              <Grid item className={classes.iconButtons}>
-                <IconButton
-                  color="secondary"
-                  aria-label="Copy Form Key to clipboard"
-                  onClick={() =>
-                    navigator.clipboard.writeText(selectedForm?.id as string)
-                  }
-                >
-                  <FileCopyOutlinedIcon />
-                </IconButton>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              spacing={1}
-              wrap="nowrap"
-              alignItems="center"
-              justify="space-between"
+          <Grid item>
+            <Button
+              startIcon={
+                formPreview ? <VisibilityOffIcon /> : <VisibilityIcon />
+              }
+              disabled={previewOnly || !selectedForm}
+              onClick={() => setFormPreview((x) => !x)}
             >
-              <Grid item xs>
-                <TextField
-                  label="Form Name"
-                  value={selectedForm?.name}
-                  fullWidth
-                  inputProps={{ readOnly: true }}
-                />
-              </Grid>
-
-              <Grid item className={classes.iconButtons}>
-                <IconButton
-                  color="secondary"
-                  aria-label="Edit form"
-                  onClick={() => setShowForm('edit')}
-                >
-                  <EditIcon />
-                </IconButton>
-
-                <Friction
-                  message={{
-                    title: 'Delete form?',
-                    body: 'You cannot undo this action.',
-                    confirm: 'Delete Form',
-                  }}
-                >
-                  <IconButton
-                    className={classes.deleteButton}
-                    aria-label="Delete form"
-                    onClick={() => deleteForm(selectedForm?.id)}
-                  >
-                    <DeleteForeverIcon />
-                  </IconButton>
-                </Friction>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              spacing={1}
-              wrap="nowrap"
-              alignItems="center"
-              justify="space-between"
-              className={classes.formFieldsHeader}
-            >
-              <Grid item>
-                <Typography
-                  variant="overline"
-                  component="h2"
-                  color="textSecondary"
-                >
-                  Form Fields
-                </Typography>
-              </Grid>
-
-              <Grid item>
-                <Button
-                  startIcon={
-                    formPreview ? <VisibilityOffIcon /> : <VisibilityIcon />
-                  }
-                  disabled={previewOnly}
-                  onClick={() => setFormPreview((x) => !x)}
-                >
-                  {formPreview ? 'Hide Preview' : 'Preview Form'}
-                </Button>
-              </Grid>
-            </Grid>
-          </>
-        )}
+              {formPreview ? 'Hide Preview' : 'Preview Form'}
+            </Button>
+          </Grid>
+        </Grid>
       </div>
 
       <Portal>
