@@ -91,6 +91,24 @@ export default function FormModal({
             options: editorRoles,
             freeText: true,
           },
+          {
+            type: FieldType.contentSubHeader,
+            name: '_contentSubHeader_variant',
+            label: '',
+          },
+          {
+            type: FieldType.singleSelect,
+            name: 'variant',
+            label: 'Displayed as',
+            defaultValue: 'inline',
+            options: [
+              { value: 'inline', label: 'Inline' },
+              { value: 'modal', label: 'Modal' },
+            ],
+            required: true,
+            assistiveText:
+              'How the form is displayed on the platform. Changing this value will not automatically change how it is displayed on the platform.',
+          },
           showForm === 'add'
             ? {
                 type: FieldType.contentSubHeader,

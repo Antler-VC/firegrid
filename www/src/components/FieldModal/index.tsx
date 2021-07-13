@@ -19,6 +19,7 @@ import FieldTypeSelect from './FieldTypeSelect';
 import DisplayConditionEditor from './DisplayConditionEditor';
 import CustomSettingsEditor from './CustomSettingsEditor';
 import OptionsListSelect from './OptionsListSelect';
+import ImageUploader from 'components/CustomFields/Image/ImageComponent';
 
 import {
   newConfig,
@@ -26,6 +27,7 @@ import {
   contentGroupConfig,
   inputHiddenConfig,
 } from 'constants/commonConfigs';
+import { DB_ROOT_FORMS } from 'constants/firegrid';
 
 export const stringifyCustomSettings = (
   values: Record<string, any>,
@@ -241,6 +243,16 @@ export default function FieldModal() {
           component: OptionsListSelect,
           defaultValue: '',
           validation: [['string']],
+        },
+        image: {
+          component: (props) => (
+            <ImageUploader
+              {...props}
+              docRef={DB_ROOT_FORMS + '/' + selectedForm.id}
+            />
+          ),
+          defaultValue: [],
+          validation: [['array']],
         },
       }}
     />

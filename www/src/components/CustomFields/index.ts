@@ -3,15 +3,13 @@ import {
   IFieldConfig,
 } from '@antlerengineering/form-builder';
 
-// import Score from './Score';
+import Image from './Image';
 
 export const customComponents: CustomComponents = {
-  // score: {
-  //   component: Score.component,
-  //   validation: [['number']],
-  // },
+  image: {
+    component: Image.component,
+    validation: [['number']],
+  },
 };
 
-export const CustomFieldConfigs: IFieldConfig[] = [
-  // Score
-];
+export const CustomFieldConfigs: IFieldConfig[] = [Image];

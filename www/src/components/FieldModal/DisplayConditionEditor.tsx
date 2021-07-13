@@ -63,8 +63,8 @@ export default function DisplayConditionEditor({
 
   // force save
   const [showForceSave, setShowForceSave] = useState(false);
-  const handleKeyChange = (key) =>
-    setShowForceSave(key.shiftKey && key.ctrlKey);
+  const handleKeyChange: React.KeyboardEventHandler<HTMLDivElement> = (key) =>
+    setShowForceSave(key.altKey);
 
   const handleSave = () => {
     onChange(value);

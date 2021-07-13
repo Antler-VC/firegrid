@@ -17,6 +17,7 @@ import {
   _deleteForm,
 } from 'utils/helpers';
 import { FieldModalRef } from 'components/FieldModal';
+import { ModalFormModalRef } from 'components/ModalFormModal';
 import { useAppContext } from './AppContext';
 import { routes } from 'constants/routes';
 
@@ -30,6 +31,7 @@ export interface IFiregridContextInterface {
   editField: ReturnType<typeof _editField>;
   deleteField: ReturnType<typeof _deleteField>;
   fieldModalRef: React.MutableRefObject<FieldModalRef | undefined>;
+  modalFormModalRef: React.MutableRefObject<ModalFormModalRef | undefined>;
   updateSelectedForm: (data: Record<string, any>) => void;
   newForm: ReturnType<typeof _newForm>;
   deleteForm: ReturnType<typeof _deleteForm>;
@@ -47,6 +49,7 @@ export const FiregridContext = React.createContext<IFiregridContextInterface>({
   editField: () => {},
   deleteField: () => {},
   fieldModalRef: { current: undefined },
+  modalFormModalRef: { current: undefined },
   updateSelectedForm: () => {},
   newForm: async () => {},
   deleteForm: async () => {},
@@ -108,6 +111,8 @@ export function FiregridProvider({
 
   // Store ref to field modal to open
   const fieldModalRef = useRef<FieldModalRef>();
+  // Store ref to Modal Form modal to open
+  const modalFormModalRef = useRef<ModalFormModalRef>();
 
   // Set form preview state
   const [formPreview, setFormPreview] = useState(false);
@@ -138,6 +143,7 @@ export function FiregridProvider({
         editField,
         deleteField,
         fieldModalRef,
+        modalFormModalRef,
         updateSelectedForm,
         newForm,
         deleteForm,

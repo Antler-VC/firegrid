@@ -2,7 +2,6 @@ import React, { Suspense, useState } from 'react';
 import clsx from 'clsx';
 import { Controller } from 'react-hook-form';
 import { useDrag } from 'react-dnd';
-import { useAppContext } from 'contexts/AppContext';
 import { useFiregridContext } from 'contexts/FiregridContext';
 
 import {
@@ -225,7 +224,7 @@ export default function FieldWrapper({
           spacing={1}
           wrap="nowrap"
           alignItems="flex-start"
-          className={clsx(classes.row)}
+          className={classes.row}
           style={{ opacity: isDragging ? 0.5 : 1 }}
         >
           <Grid item>

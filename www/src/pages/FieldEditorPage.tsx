@@ -2,19 +2,22 @@ import { useEffect } from 'react';
 import { useFiregridContext } from 'contexts/FiregridContext';
 
 import { EmptyState } from '@antlerengineering/components';
+import { FormDialog } from '@antlerengineering/form-builder';
+
 import FormLayout from 'components/FormLayout';
 import FormSelectors from 'components/FormSelectors';
 import FormPreview from 'components/FormPreview';
 import EditableFormPreview from 'components/EditableFormPreview';
 import FormFields from 'components/EditableFormPreview/FormFields';
 import FormValues from 'components/EditableFormPreview/FormValues';
-import FieldDialog from 'components/FieldModal';
+import FieldModal from 'components/FieldModal';
+import ModalFormModal from 'components/ModalFormModal';
 
 import { FieldEditorIcon } from 'constants/routes';
 import { customComponents } from 'components/CustomFields';
 
 export default function FieldEditorPage() {
-  const { selectedForm, formPreview } = useFiregridContext();
+  const { selectedForm, formPreview, setFormPreview } = useFiregridContext();
 
   useEffect(() => {
     if (selectedForm && !document.title.includes(selectedForm.name))
@@ -44,6 +47,23 @@ export default function FieldEditorPage() {
     );
 
   if (formPreview) {
+    if (selectedForm.variant === 'modal')
+      return (
+        <FormLayout
+          paperHeader={<FormSelectors />}
+          children={
+            <FormDialog
+              open
+              onSubmit={(v) => console.log(v)}
+              onClose={() => setFormPreview(false)}
+              fields={selectedForm.fields}
+              customComponents={customComponents}
+              {...(selectedForm.modal ?? {})}
+            />
+          }
+        />
+      );
+
     return (
       <FormPreview
         fields={selectedForm.fields}
@@ -75,7 +95,8 @@ export default function FieldEditorPage() {
         />
       </EditableFormPreview>
 
-      <FieldDialog />
+      <FieldModal />
+      {selectedForm.variant === 'modal' && <ModalFormModal />}
     </>
   );
 }

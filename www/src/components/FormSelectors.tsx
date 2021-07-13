@@ -11,12 +11,10 @@ import {
   Typography,
   IconButton,
   Button,
-  TextField,
   Portal,
 } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
-import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -25,6 +23,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import MultiSelect from '@antlerengineering/multiselect';
 import { Friction } from '@antlerengineering/components';
 import FormModal from './FormModal';
+import { Form } from 'types/Form';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -39,6 +38,7 @@ const useStyles = makeStyles((theme) =>
     formKey: { userSelect: 'all' },
 
     iconButtons: {
+      marginRight: theme.spacing(2.5),
       minWidth: 96 + theme.spacing(1),
     },
     deleteButton: {
@@ -92,7 +92,11 @@ export default function FormSelectors() {
   const [selectedApp, setSelectedApp] = useState(selectedForm?.app ?? '');
   const [showForm, setShowForm] = useState<'add' | 'edit' | false>(false);
 
-  const handleSubmit = (values: Record<string, any>) => {
+  const handleSubmit = (values: Partial<Form>) => {
+    // Set default modal.title to form name
+    if (values.variant === 'modal' && !values.modal?.title)
+      values.modal = { title: values.name! };
+
     if (showForm === 'add') newForm(values);
     if (showForm === 'edit') updateSelectedForm(values);
 
