@@ -10,6 +10,7 @@ import {
   IFieldComponentProps,
   FieldConfigs,
   IFieldConfig,
+  FieldAssistiveText,
 } from '@antlerengineering/form-builder';
 import { CustomFieldConfigs } from 'components/CustomFields';
 
@@ -33,6 +34,9 @@ export default function FieldTypeSelect({
   formState,
 
   name,
+
+  errorMessage,
+  assistiveText,
 
   newFieldType,
   setNewFieldType,
@@ -83,8 +87,21 @@ export default function FieldTypeSelect({
         </>
       )}
       TextFieldProps={{
-        onBlur,
-        InputLabelProps: { required: true },
+        error: !!errorMessage,
+        InputLabelProps: { required: props.required },
+        FormHelperTextProps: { component: 'div' } as any,
+        helperText: (errorMessage || assistiveText) && (
+          <>
+            {errorMessage}
+
+            <FieldAssistiveText
+              style={{ margin: 0 }}
+              disabled={!!props.disabled}
+            >
+              {assistiveText}
+            </FieldAssistiveText>
+          </>
+        ),
         SelectProps: {
           renderValue: () => {
             if (!value) return null;
@@ -94,6 +111,15 @@ export default function FieldTypeSelect({
             if (match)
               return (
                 <>
+                  {match.icon &&
+                    React.cloneElement(match.icon as React.ReactElement, {
+                      style: {
+                        verticalAlign: 'bottom',
+                        margin: theme.spacing(-0.25),
+                        marginTop: theme.spacing(-3 / 8),
+                        marginRight: theme.spacing(1),
+                      },
+                    })}
                   {_startCase(match.group)}
                   &nbsp;–&nbsp;
                   {match.label}
@@ -103,6 +129,7 @@ export default function FieldTypeSelect({
             return <>Custom&nbsp;–&nbsp;{value}</>;
           },
         },
+        onBlur,
         inputRef: ref,
       }}
       freeText
