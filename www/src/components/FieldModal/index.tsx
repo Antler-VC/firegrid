@@ -15,6 +15,7 @@ import {
   getFieldProp,
 } from '@antlerengineering/form-builder';
 import { CustomFieldConfigs } from 'components/CustomFields';
+import CopyFieldConfigSelect from './CopyFieldConfigSelect';
 import FieldTypeSelect from './FieldTypeSelect';
 import DisplayConditionEditor from './DisplayConditionEditor';
 import CustomSettingsEditor from './CustomSettingsEditor';
@@ -165,30 +166,46 @@ export default function FieldModal() {
       key={`${open}`}
       open={open !== false}
       onClose={handleClose}
-      fields={[
-        {
-          type: FieldType.contentSubHeader,
-          name: '_section_section',
-          label: 'Section',
-        },
-        {
-          type: FieldType.singleSelect,
-          name: '_order',
-          label: 'Order',
-          options: [...selectedForm.fields, null].map((_, i) => ({
-            label: `${i + 1}`,
-            value: i + 1,
-          })),
-          searchable: true,
-          required: true,
-        },
-        ...configFields,
-        {
-          type: 'customSettings',
-          name: '_customSettings',
-          label: 'Custom Settings',
-        },
-      ]}
+      fields={
+        [
+          {
+            type: FieldType.contentSubHeader,
+            name: '_contentSubHeader_section',
+            label: 'Section',
+          },
+          {
+            type: FieldType.singleSelect,
+            name: '_order',
+            label: 'Order',
+            options: [...selectedForm.fields, null].map((_, i) => ({
+              label: `${i + 1}`,
+              value: i + 1,
+            })),
+            searchable: true,
+            required: true,
+          },
+          mode === 'add'
+            ? {
+                type: FieldType.contentSubHeader,
+                name: '_contentSubHeader_copyFieldConfig',
+                label: '',
+              }
+            : null,
+          mode === 'add'
+            ? {
+                type: 'copyFieldConfigSelect',
+                name: '_copyFieldConfig',
+                label: 'Copy Field Config',
+              }
+            : null,
+          ...configFields,
+          {
+            type: 'customSettings',
+            name: '_customSettings',
+            label: 'Custom Settings',
+          },
+        ].filter((x) => x !== null) as any
+      }
       values={values}
       title={`${_startCase(mode)} Field${
         fieldConfig ? `: ${fieldConfig.name}` : ''
@@ -199,6 +216,17 @@ export default function FieldModal() {
       }}
       DialogProps={{ maxWidth: 'xs' }}
       customComponents={{
+        copyFieldConfigSelect: {
+          component: (props) => (
+            <CopyFieldConfigSelect
+              {...props}
+              newFieldType={newFieldType}
+              setNewFieldType={setNewFieldType}
+              restrictFieldType={(selectedField as any)?.type}
+            />
+          ),
+          defaultValue: '',
+        },
         fieldTypeSelect: {
           component: (props) => (
             <FieldTypeSelect
@@ -208,6 +236,7 @@ export default function FieldModal() {
             />
           ),
           defaultValue: '',
+          validation: [['string'], ['required', 'Required']],
         },
         displayCondition: {
           component: (props) => (
