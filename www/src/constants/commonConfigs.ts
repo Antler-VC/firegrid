@@ -19,7 +19,7 @@ export const newConfig = () => [
   },
 ];
 
-export const inputGroupConfig = (mode: string) => [
+export const inputGroupConfig = (mode: string, duplicateCheck: any[]) => [
   {
     type: FieldType.contentSubHeader,
     name: '_section_fieldSettings',
@@ -46,7 +46,7 @@ export const inputGroupConfig = (mode: string) => [
       'The name of the field in the database; never shown to end users.',
     required: true,
     disabled: mode === 'edit',
-    validation: [['transform', _camelCase]],
+    validation: [duplicateCheck, ['transform', _camelCase]],
   },
   {
     type: FieldType.checkbox,
@@ -123,7 +123,7 @@ export const contentGroupConfig = (mode: string) => [
   },
 ];
 
-export const inputHiddenConfig = (mode: string) => [
+export const inputHiddenConfig = (mode: string, duplicateCheck: any[]) => [
   {
     type: FieldType.contentSubHeader,
     name: '_section_fieldSettings',
@@ -150,7 +150,7 @@ export const inputHiddenConfig = (mode: string) => [
       'The name of the field in the database.\nVisible only to the Engineering team.',
     required: true,
     disabled: mode === 'edit',
-    validation: [['transform', _camelCase]],
+    validation: [duplicateCheck, ['transform', _camelCase]],
   },
   {
     type: 'displayCondition',

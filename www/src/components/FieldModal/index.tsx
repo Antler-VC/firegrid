@@ -97,13 +97,25 @@ export default function FieldModal() {
     }) ||
     null;
 
+  const duplicateCheck = [
+    'test',
+    'duplicateCheck',
+    'There is another field in this form with this key.',
+    (name) => {
+      console.log(name, selectedForm!.fields);
+
+      return !_find(selectedForm!.fields, { name });
+    },
+  ];
+
   let configFields: Field[] = [];
   if (mode === 'add' && !newFieldType) {
     configFields = newConfig();
   } else if (!!fieldConfig) {
     if (fieldConfig.group === 'input') {
-      if (fieldConfig.type === 'hidden') configFields = inputHiddenConfig(mode);
-      else configFields = inputGroupConfig(mode);
+      if (fieldConfig.type === 'hidden')
+        configFields = inputHiddenConfig(mode, duplicateCheck);
+      else configFields = inputGroupConfig(mode, duplicateCheck);
     } else if (fieldConfig.group === 'content') {
       configFields = contentGroupConfig(mode);
     }
@@ -123,7 +135,7 @@ export default function FieldModal() {
       });
     }
   } else {
-    configFields = inputGroupConfig(mode);
+    configFields = inputGroupConfig(mode, duplicateCheck);
   }
 
   const values = {
