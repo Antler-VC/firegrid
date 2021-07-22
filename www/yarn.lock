@@ -233,10 +233,10 @@
     string-strip-html "^8.3.0"
     use-persisted-state "^0.3.0"
 
-"@antlerengineering/form-builder@^2.10.2":
-  version "2.10.2"
-  resolved "https://registry.yarnpkg.com/@antlerengineering/form-builder/-/form-builder-2.10.2.tgz#dbdb2026ceb4f79a27c5dc9d27a955c2868d78b0"
-  integrity sha512-FaKltErV4nuq1okDo3ARGSRyDMduFLU2Fv+e0bIkEerASpRI7mAgKlDLpJLalNAo1cEWI9jzKr+ygMwg42IuJA==
+"@antlerengineering/form-builder@^2.10.3":
+  version "2.10.3"
+  resolved "https://registry.yarnpkg.com/@antlerengineering/form-builder/-/form-builder-2.10.3.tgz#3d0216f7885ca693ee4d2170ed4072cfa026b39d"
+  integrity sha512-YKNZUYq7faXp/JlejZR55ftRxjO9KS5160jutyaEDE731RVpA8FS3YEDytIPB5vT56W8m1No4xZTYjcOSJWFgw==
   dependencies:
     "@antlerengineering/multiselect" "^0.9.6"
     "@date-io/date-fns" "1.x"
