@@ -31,6 +31,24 @@ const useStyles = makeStyles((theme) =>
       ...theme.typography.body2,
       color: theme.palette.common.white,
     },
+
+    iconWrapper: {
+      position: 'relative',
+    },
+    statusIcon: {
+      'svg&': {
+        position: 'absolute',
+        bottom: 10,
+        right: 8,
+        display: 'block',
+        fontSize: 18,
+        width: 18,
+        height: 18,
+        padding: 2,
+        borderRadius: '50%',
+        backgroundColor: theme.palette.background.paper,
+      },
+    },
   })
 );
 
@@ -96,7 +114,15 @@ export default function DisplayConditionStatus({
       {typeof displayConditionResult === 'string' ? (
         <ErrorIcon color="error" />
       ) : (
-        <CodeIcon color="primary" />
+        <span className={classes.iconWrapper}>
+          <CodeIcon color="primary" />
+          {displayConditionResult === true && (
+            <VisibilityIcon color="primary" className={classes.statusIcon} />
+          )}
+          {displayConditionResult === false && (
+            <VisibilityOffIcon color="primary" className={classes.statusIcon} />
+          )}
+        </span>
       )}
     </Tooltip>
   );
