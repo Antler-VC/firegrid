@@ -12,11 +12,13 @@ import {
   Typography,
   IconButton,
   Checkbox,
+  Tooltip,
 } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import ErrorIcon from '@material-ui/icons/Error';
 
 import { Friction } from '@antlerengineering/components';
 import {
@@ -79,6 +81,7 @@ export interface IFieldWrapperProps
   extends Field,
     Omit<IFormFieldsProps, 'fields'> {
   index: number;
+  hasDuplicateKey: boolean;
 }
 
 export default function FieldWrapper({
@@ -93,6 +96,7 @@ export default function FieldWrapper({
   disablePadding,
   defaultValue: defaultValueProp,
   setOmittedFields,
+  hasDuplicateKey,
   ...props
 }: IFieldWrapperProps) {
   const classes = useStyles();
@@ -233,14 +237,32 @@ export default function FieldWrapper({
             </Typography>
           </Grid>
 
-          <Grid
-            item
-            ref={drag}
-            style={{ cursor: 'grab' }}
-            className={classes.dragHandle}
-          >
-            <DragHandleIcon aria-label="Drag to reorder this field" />
-          </Grid>
+          {hasDuplicateKey ? (
+            <Grid item className={classes.dragHandle}>
+              <Tooltip
+                title={
+                  <>
+                    There is another field in this form with the same key:{' '}
+                    <strong>{name}</strong>
+                    <br />
+                    <br />
+                    Please delete one of these fields.
+                  </>
+                }
+              >
+                <ErrorIcon color="error" />
+              </Tooltip>
+            </Grid>
+          ) : (
+            <Grid
+              item
+              ref={drag}
+              style={{ cursor: 'grab' }}
+              className={classes.dragHandle}
+            >
+              <DragHandleIcon aria-label="Drag to reorder this field" />
+            </Grid>
+          )}
 
           {typeof displayCondition === 'string' && displayCondition.length > 0 && (
             <Grid item className={classes.dragHandle}>

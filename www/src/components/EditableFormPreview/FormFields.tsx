@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import _includes from 'lodash/includes';
 import { useFiregridContext } from 'contexts/FiregridContext';
 
 import { Grid } from '@material-ui/core';
@@ -21,6 +22,10 @@ export default function FormFields({ fields, ...props }: IFormFieldsProps) {
   const useFormMethods = useFormContext();
   const { control } = useFormMethods;
 
+  const duplicateFieldKeys = selectedForm!.fields
+    .map((x) => x.name)
+    .filter((val, i, arr) => _includes(arr, val, i + 1));
+
   return (
     <Grid container spacing={3} style={{ marginBottom: 0 }}>
       {selectedForm!.variant === 'modal' && (
@@ -41,6 +46,7 @@ export default function FormFields({ fields, ...props }: IFormFieldsProps) {
             {...field}
             {...props}
             setOmittedFields={() => {}}
+            hasDuplicateKey={duplicateFieldKeys.includes(field.name)}
           />
         );
       })}
