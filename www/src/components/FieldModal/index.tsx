@@ -101,11 +101,9 @@ export default function FieldModal() {
     'test',
     'duplicateCheck',
     'There is another field in this form with this key.',
-    (name) => {
-      console.log(name, selectedForm!.fields);
-
-      return !_find(selectedForm!.fields, { name });
-    },
+    (name) =>
+      selectedForm!.fields.filter((field) => field.name === name).length ===
+      (mode === 'add' ? 0 : 1),
   ];
 
   let configFields: Field[] = [];
