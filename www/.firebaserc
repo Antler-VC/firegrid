@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "antler-develop"
+  },
+  "targets": {
+    "antler-develop": {
+      "hosting": {
+        "firegrid": [
+          "firegrid-antler-develop"
+        ]
+      }
+    }
+  }
+}
